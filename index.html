@@ -117,9 +117,15 @@ section{scroll-margin-top:82px}
 .header.sc{box-shadow:0 6px 24px -18px rgba(0,0,0,.6)}
 .header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{display:flex;align-items:center;flex-shrink:0}
-.li{height:28px;width:auto;display:block;transition:filter .4s}
-[data-theme="dark"] .li{filter:brightness(0) invert(1)}
-[data-theme="light"] .li{filter:none}
+/* New nav logo — single SVG, theme-aware text color */
+[data-theme="dark"] #nav-logo .nv-new-1 { fill: #edeef4; }
+[data-theme="dark"] #nav-logo .nv-new-2 { fill: #edeef4; }
+[data-theme="dark"] #nav-logo .nv-new-3 { fill: #edeef4; }
+[data-theme="dark"] #nav-logo .nv-new-4 { fill: #edeef4; }
+[data-theme="light"] #nav-logo .nv-new-2 { fill: #161a2c; }
+[data-theme="light"] #nav-logo .nv-new-3 { fill: #161a2c; }
+[data-theme="light"] #nav-logo .nv-new-4 { fill: #191919; }
+
 nav{display:flex;align-items:center;gap:22px}
 nav a{font-size:13px;font-weight:600;color:var(--muted);transition:color .2s;position:relative}
 nav a:hover{color:var(--ink)}
@@ -140,8 +146,13 @@ nav a:hover::after{right:0}
 .mbtn:focus-visible{outline:2px solid var(--ai);outline-offset:2px}
 .mbtn svg{width:19px;height:19px}
 .mmenu{position:fixed;top:var(--head);left:0;right:0;z-index:49;background:var(--hbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--hair);transform:translateY(-10px);opacity:0;pointer-events:none;transition:.3s;padding:6px 0 14px}
-/* Mobile nav left-side controls group — hidden on desktop */
+/* Mobile nav right-side controls group — hidden on desktop */
 .mob-left{display:none;align-items:center;gap:8px;flex-shrink:0}
+/* On mobile, push mob-left to the far right */
+@media(max-width:760px){
+  .header .wrap{justify-content:flex-start}
+  .mob-left{margin-left:auto}
+}
 .mmenu.open{transform:none;opacity:1;pointer-events:auto}
 .mmenu a{display:block;padding:13px 24px;font-size:15px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--hair)}
 .mmenu a:last-child{border:0;color:var(--ai)}
@@ -178,6 +189,7 @@ nav a:hover::after{right:0}
 .live-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--up);background:rgba(70,211,161,.1);border:1px solid rgba(70,211,161,.28);padding:4px 10px;border-radius:100px}
 .live-badge .ld{width:5px;height:5px;border-radius:50%;background:var(--up);animation:pulse 2s infinite}
 #tv_chart{width:100%;height:300px}
+@media(min-width:1001px){#tv_chart{height:380px}}
 
 /* TICKER */
 .ticker{overflow:hidden;position:relative;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:var(--bg2);height:40px;display:flex;align-items:center;margin-top:18px}
@@ -335,23 +347,16 @@ nav a:hover::after{right:0}
 
 /* RESPONSIVE */
 @media(max-width:1000px){
-  .hgrid{grid-template-columns:1fr;gap:34px}
   .broker{grid-template-columns:1fr;gap:24px;padding:28px}
   .g3{grid-template-columns:repeat(2,1fr)}
   .tgrid{grid-template-columns:repeat(2,1fr)}
   .rmeta{grid-template-columns:repeat(2,1fr)}
-  /* Center hero text when chart moves below */
-  .hgrid>div:first-child{text-align:center}
-  .hgrid .ey{justify-content:center}
-  .hgrid .hbtns{justify-content:center}
-  .hgrid .htr{justify-content:center}
-  .hgrid .lead{max-width:100%}
 }
 @media(max-width:760px){
   nav,.hcta.desk{display:none}
-  /* Hide desktop theme toggle on mobile - mob-left has its own */
-  .hact .htgl{display:none}
-  /* Show mobile left group with hamburger + theme toggle */
+  /* Hide the entire desktop right-side action group */
+  .hact{display:none}
+  /* Show mobile right group: theme toggle + hamburger */
   .mob-left{display:flex}
   .sband{grid-template-columns:repeat(2,1fr)}
   .sb2:nth-child(5){grid-column:1/-1}
@@ -401,6 +406,211 @@ nav a:hover::after{right:0}
 
 /* SYLLABUS BUTTON */
 .syl-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ai);border:1px solid var(--line);background:var(--ai2);padding:8px 14px;border-radius:9px;cursor:pointer;transition:all .22s;text-decoration:none}
+
+/* ── DESKTOP HERO LAYOUT ──────────────────────────────────────
+   hero-bottom (text + side panel) sits on TOP,
+   hero-chart-top (full-width chart) sits BELOW
+──────────────────────────────────────────────────────────── */
+@media(min-width:1001px){
+  .hgrid{display:flex;flex-direction:column;gap:36px}
+  /* Row 1: text full-width (side panel removed) */
+  .hero-bottom{
+    order:0;
+    display:block;
+  }
+  /* Row 2: chart stretches full width */
+  .hero-chart-top{order:1;width:100%}
+}
+
+/* ── MOBILE/TABLET: stack naturally, hide side panel ───── */
+@media(max-width:1000px){
+  .hgrid{display:flex;flex-direction:column;gap:32px}
+  /* text first, then chart — use order */
+  .hero-bottom{display:flex;flex-direction:column;gap:0;order:0}
+  .hero-chart-top{width:100%;order:1}
+  .hero-side-panel{display:none}
+  .hero-bottom>div:first-child{text-align:center}
+  .hero-bottom .ey{justify-content:center}
+  .hero-bottom .hbtns{justify-content:center}
+  .hero-bottom .htr{justify-content:center}
+  .hero-bottom .lead{max-width:100%}
+}
+
+/* ── LOGO PANEL ─────────────────────────────────────────── */
+@keyframes lp-spin-slow{to{transform:rotate(360deg)}}
+@keyframes lp-spin-rev{to{transform:rotate(-360deg)}}
+@keyframes lp-breathe{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.08)}}
+@keyframes lp-draw{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+@keyframes lp-tag-float{
+  0%,100%{transform:translate(0,0) scale(1);opacity:.75}
+  50%{transform:translate(0,-6px) scale(1.05);opacity:1}
+}
+@keyframes lp-logo-pulse{
+  0%,100%{filter:drop-shadow(0 0 10px rgba(45,107,228,.4)) drop-shadow(0 0 28px rgba(45,107,228,.15))}
+  50%{filter:drop-shadow(0 0 22px rgba(91,141,239,.7)) drop-shadow(0 0 50px rgba(45,107,228,.3))}
+}
+
+.hero-side-panel{
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--cg);
+  box-shadow:var(--shad);
+  overflow:hidden;
+  padding:0;
+  min-height:360px;
+}
+
+.lp-inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  min-height:360px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  overflow:hidden;
+}
+
+/* ghost chart behind everything */
+.lp-chart{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:.9;
+  pointer-events:none;
+}
+.lp-chartline{
+  stroke-dasharray:900;
+  stroke-dashoffset:900;
+  animation:lp-draw 3s cubic-bezier(.4,0,.2,1) forwards .4s;
+}
+
+/* outer rotating conic rings */
+.lp-ring{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+}
+.lp-ring-1{
+  width:260px;height:260px;
+  background:conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(45,107,228,.55) 18%,
+    rgba(91,141,239,.3) 35%,
+    transparent 50%,
+    rgba(26,63,163,.4) 68%,
+    rgba(45,107,228,.2) 82%,
+    transparent 100%
+  );
+  animation:lp-spin-slow 7s linear infinite;
+  mask-image:radial-gradient(circle, transparent 48%, black 52%, black 54%, transparent 56%);
+  -webkit-mask-image:radial-gradient(circle, transparent 48%, black 52%, black 54%, transparent 56%);
+}
+.lp-ring-2{
+  width:210px;height:210px;
+  background:conic-gradient(
+    from 180deg,
+    transparent 0%,
+    rgba(70,211,161,.35) 22%,
+    transparent 44%,
+    rgba(45,107,228,.25) 66%,
+    transparent 100%
+  );
+  animation:lp-spin-rev 11s linear infinite;
+  mask-image:radial-gradient(circle, transparent 44%, black 47%, black 50%, transparent 53%);
+  -webkit-mask-image:radial-gradient(circle, transparent 44%, black 47%, black 50%, transparent 53%);
+}
+
+/* orbiting tags */
+.lp-orbit{
+  position:absolute;
+  width:280px;height:280px;
+  border-radius:50%;
+  pointer-events:none;
+}
+.lp-tag{
+  position:absolute;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--ai);
+  background:var(--ai2);
+  border:1px solid var(--ail);
+  padding:3px 8px;
+  border-radius:100px;
+  white-space:nowrap;
+  /* place each tag on the orbit circle */
+  left:50%;
+  top:50%;
+  transform-origin:0 0;
+  transform:
+    rotate(calc(var(--i) * 45deg))
+    translateX(118px)
+    rotate(calc(var(--i) * -45deg))
+    translate(-50%,-50%);
+  animation:lp-tag-float 3s ease-in-out infinite;
+  animation-delay:calc(var(--i) * 0.38s);
+}
+
+/* logo */
+.lp-logo-wrap{
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.lp-glow{
+  position:absolute;
+  width:120px;height:120px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(45,107,228,.35) 0%, transparent 70%);
+  animation:lp-breathe 3.5s ease-in-out infinite;
+  pointer-events:none;
+}
+.lp-logo{
+  width:96px;
+  height:96px;
+  object-fit:contain;
+  position:relative;
+  z-index:1;
+  animation:lp-logo-pulse 3.5s ease-in-out infinite;
+}
+/* light mode: logo panel icon — make dark shape lighter */
+[data-theme="light"] #panel-icon .pl-ic-2{fill:#e8eef8}
+
+/* bottom label */
+.lp-label{
+  position:absolute;
+  bottom:22px;
+  left:0;right:0;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  pointer-events:none;
+  z-index:3;
+}
+.lp-label-name{
+  font-family:'Fraunces',serif;
+  font-weight:500;
+  font-size:17px;
+  letter-spacing:.08em;
+  color:var(--ink);
+  text-transform:uppercase;
+}
+.lp-label-sub{
+  font-size:9.5px;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--faint);
+}
 </style>
 </head>
 
@@ -414,18 +624,43 @@ nav a:hover::after{right:0}
 <!-- HEADER -->
 <header class="header" role="banner">
   <div class="wrap">
-    <!-- Mobile-left controls (hamburger + theme toggle): visible only on mobile -->
-    <div class="mob-left">
-      <button class="mbtn" aria-label="Open navigation menu" aria-expanded="false" id="menu-toggle">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-      <button class="htgl mob-theme" aria-label="Toggle dark/light theme" id="theme-toggle-mob">
-        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        <svg class="i-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
-    </div>
     <div class="brand">
-      <a href="#" class="brand" style="text-decoration:none"></a>
+      <a href="#" aria-label="FXDARWISH home" style="text-decoration:none;display:flex;align-items:center">
+        <svg id="nav-logo" aria-label="FXDARWISH" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="115 430 870 220" height="36" style="display:block;max-width:200px">
+  <defs>
+    <style>
+      .nv-new-1 { fill: url(#nv-new-lg); stroke-width:0px; }
+      .nv-new-2 { fill: #0a488a; stroke-width:0px; }
+      .nv-new-3 { fill: var(--nav-wm-color, #edeef4); stroke-width:0px; }
+      .nv-new-4 { fill: #191919; stroke-width:0px; }
+    </style>
+    <linearGradient id="nv-new-lg" x1="209.37" y1="531.99" x2="120.81" y2="443.43" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#121212"/>
+      <stop offset=".25" stop-color="#0e2c4d"/>
+      <stop offset=".5" stop-color="#094789"/>
+      <stop offset=".75" stop-color="#0561c4"/>
+      <stop offset="1" stop-color="#007bff"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <polygon class="nv-new-1" points="242.84 489.4 165.74 489.4 165.74 564.42 115.73 514.41 115.73 439.39 192.83 439.39 242.84 489.4"/>
+    <polygon class="nv-new-4" points="294.02 540.58 294.02 640.61 193.93 640.61 143.92 590.6 244.04 590.6 244.04 490.59 294.02 540.58"/>
+  </g>
+  <g>
+    <g>
+      <path class="nv-new-2" d="M393.54,472.81v14.88h-30.47s0,5.4,0,5.44c0,.14,0,10.5,0,10.64h22.8v14.45h-22.8v30.85h-18.21v-76.26h48.68Z"/>
+      <path class="nv-new-2" d="M455.02,549.08l-15.23-23.36-13.42,23.36h-20.67l23.97-38.78-24.5-37.48h21.2l15.02,23.03,13.21-23.03h20.67l-23.75,38.46,24.71,37.8h-21.2Z"/>
+      <path class="nv-new-3" d="M536.53,477.59c5.89,3.19,10.45,7.66,13.69,13.42,3.23,5.76,4.85,12.4,4.85,19.94s-1.62,14.09-4.85,19.88c-3.23,5.8-7.81,10.28-13.74,13.47-5.93,3.19-12.8,4.78-20.61,4.78h-28.02v-76.26h28.02c7.88,0,14.77,1.59,20.67,4.78ZM530.78,527.24c3.84-3.84,5.75-9.27,5.75-16.29s-1.92-12.49-5.75-16.4c-3.84-3.91-9.2-5.87-16.08-5.87h-8.63v44.32h8.63c6.89,0,12.25-1.92,16.08-5.76Z"/>
+      <path class="nv-new-3" d="M612.79,537.01h-25.01l-4.01,12.07h-17.08l24.24-68.33h18.9l24.24,68.33h-17.27l-4.01-12.07ZM608.59,524.16l-8.3-25.02-8.21,25.02h16.51Z"/>
+      <path class="nv-new-3" d="M679.87,549.08l-13.93-25.8h-3.91v25.8h-16.32v-68.33h27.39c5.28,0,9.78.94,13.51,2.82,3.72,1.88,6.51,4.46,8.35,7.74,1.84,3.28,2.77,6.93,2.77,10.95,0,4.54-1.26,8.6-3.77,12.17-2.51,3.57-6.22,6.1-11.12,7.59l15.46,27.06h-18.42ZM662.02,511.5h10.12c2.99,0,5.23-.75,6.73-2.24,1.49-1.49,2.24-3.6,2.24-6.33s-.75-4.64-2.24-6.13c-1.5-1.49-3.74-2.24-6.73-2.24h-10.12v16.94Z"/>
+      <path class="nv-new-3" d="M805.65,480.74l-17.47,68.33h-19.76l-10.69-44.97-11.07,44.97h-19.76l-16.99-68.33h17.47l9.64,49.74,11.93-49.74h17.94l11.45,49.74,9.74-49.74h17.56Z"/>
+      <path class="nv-new-3" d="M833.6,480.74v68.33h-16.32v-68.33h16.32Z"/>
+      <path class="nv-new-3" d="M857.9,546.7c-3.79-1.58-6.82-3.93-9.09-7.03-2.27-3.1-3.46-6.84-3.59-11.21h16.96c.25,2.47,1.09,4.36,2.52,5.66,1.43,1.3,3.29,1.95,5.59,1.95s4.22-.55,5.59-1.66c1.37-1.11,2.05-2.65,2.05-4.61,0-1.65-.54-3.01-1.63-4.09-1.09-1.08-2.42-1.96-4.01-2.66-1.58-.7-3.84-1.49-6.76-2.38-4.23-1.33-7.67-2.66-10.34-3.99-2.67-1.33-4.97-3.29-6.9-5.89-1.93-2.6-2.89-5.99-2.89-10.17,0-6.21,2.2-11.07,6.62-14.59,4.41-3.52,10.16-5.27,17.24-5.27s13.01,1.76,17.43,5.27c4.41,3.52,6.77,8.41,7.08,14.68h-17.24c-.13-2.15-.9-3.85-2.33-5.08-1.43-1.24-3.26-1.85-5.5-1.85-1.93,0-3.48.52-4.66,1.57-1.18,1.05-1.77,2.55-1.77,4.51,0,2.15.99,3.83,2.98,5.04,1.99,1.2,5.09,2.5,9.32,3.9,4.22,1.46,7.66,2.85,10.3,4.18,2.64,1.33,4.92,3.26,6.85,5.8,1.92,2.54,2.89,5.8,2.89,9.79s-.95,7.26-2.84,10.36c-1.9,3.1-4.65,5.58-8.25,7.41-3.6,1.84-7.86,2.76-12.77,2.76s-9.07-.79-12.86-2.38Z"/>
+      <path class="nv-new-3" d="M964.27,480.74v68.33h-16.32v-28.13h-25.39v28.13h-16.32v-68.33h16.32v26.77h25.39v-26.77h16.32Z"/>
+    </g>
+  </g>
+</svg>
+      </a>
     </div>
     <nav aria-label="Main navigation">
       <a href="#offers">Services</a>
@@ -439,6 +674,16 @@ nav a:hover::after{right:0}
         <svg class="i-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
       <button class="hcta desk" id="cta-header" aria-label="Get started with FXDARWISH">Get Started</button>
+    </div>
+    <!-- Mobile-right controls (hamburger + theme toggle): visible only on mobile/tablet -->
+    <div class="mob-left">
+      <button class="htgl mob-theme" aria-label="Toggle dark/light theme" id="theme-toggle-mob">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="mbtn" aria-label="Open navigation menu" aria-expanded="false" id="menu-toggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
   </div>
 </header>
@@ -456,85 +701,96 @@ nav a:hover::after{right:0}
 <section class="hero">
   <div class="wrap">
     <div class="hgrid reveal">
-      <div>
-        <span class="ey"><span class="tk"></span>Institutional Framework</span>
-        <h1 class="h1">Trading with <em>Precision</em></h1>
-        <p class="lead">Master institutional order flow, market structure, and liquidity dynamics. Not retail indicators. Real Smart Money Concepts.</p>
-        <div class="hbtns">
-          <button class="bs" onclick="document.getElementById('offers').scrollIntoView({behavior:'smooth'})">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            Explore Offers
-          </button>
-          <button class="bg" onclick="document.getElementById('connect').scrollIntoView({behavior:'smooth'})">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.8-.9-2.07-.99-.28-.1-.48-.15-.68.14-.2.3-.77.99-.95 1.2-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.63-.93-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.5 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.19-.57-.34z"/><path d="M12 0C5.4 0 0 5.4 0 12c0 2.1.56 4.1 1.53 5.85L.06 23.44a.75.75 0 0 0 .92.91l5.7-1.5C8.12 23.57 10 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0zm0 21.75c-1.9 0-3.67-.5-5.2-1.38l-.37-.21-3.73.98 1-3.64-.24-.37A9.71 9.71 0 0 1 2.25 12C2.25 6.62 6.62 2.25 12 2.25S21.75 6.62 21.75 12 17.38 21.75 12 21.75z"/></svg>
-            Chat on WhatsApp
-          </button>
-        </div>
-        <div class="htr">
-          <div class="ht"><b>200+</b><span class="lbl">Students</span></div>
-          <div class="ht"><b>4.9★</b><span class="lbl">Rating</span></div>
-          <div class="ht"><b>3 yrs</b><span class="lbl">Teaching</span></div>
-        </div>
-        <div style="margin-top:24px;padding:14px 16px;background:rgba(45,107,228,.08);border:1.5px solid rgba(45,107,228,.3);border-radius:12px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--ai)">
-          <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;background:#46d3a1;border-radius:50%;color:#fff;font-size:14px;font-weight:900;flex-shrink:0">✓</span>
-          <span>Trusted by <strong style="font-weight:900;font-size:14px">200+ traders</strong> across <strong style="font-weight:900">MENA</strong></span>
-        </div>
-      </div>
-      <div class="term">
-        <div class="th">
-          <div style="display:flex;align-items:center;justify-content:space-between;width:100%;flex-wrap:wrap;gap:8px">
-            <div class="tsym"><span class="lpulse"></span><span id="chartLabel">Gold Spot</span></div>
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0">
-              <select id="chartSelector" style="padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;transition:all .22s">
-                <optgroup label="FOREX">
-                  <option value="eurusd">EUR/USD</option>
-                  <option value="gbpusd">GBP/USD</option>
-                  <option value="audusd">AUD/USD</option>
-                  <option value="chfusd">CHF/USD</option>
-                  <option value="gbpjpy">GBP/JPY</option>
-                  <option value="usdjpy">USD/JPY</option>
-                </optgroup>
-                <optgroup label="COMMODITIES">
-                  <option value="xauusd">Gold (XAU/USD)</option>
-                  <option value="xagusd">Silver (XAG/USD)</option>
-                  <option value="usoil">Oil (USOIL)</option>
-                </optgroup>
-                <optgroup label="CRYPTO">
-                  <option value="btcusd">Bitcoin (BTC/USD)</option>
-                  <option value="ethusd">Ethereum (ETH/USD)</option>
-                </optgroup>
-              </select>
-              <select id="timeframeSelector" style="padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;transition:all .22s">
-                <option value="1">1m</option>
-                <option value="5">5m</option>
-                <option value="15">15m</option>
-                <option value="30">30m</option>
-                <option value="60" selected>1H</option>
-                <option value="240">4H</option>
-                <option value="D">Daily</option>
-                <option value="W">Weekly</option>
-                <option value="M">Monthly</option>
-              </select>
-              <button id="fullscreenBtn" style="padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ai);font-size:12px;font-weight:600;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:4px" title="View full chart">
-                <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
-                Full
-              </button>
-              <span class="live-badge"><span class="ld"></span>Live</span>
+
+      <!-- TOP: Chart (full-width on desktop, normal position on mobile) -->
+      <div class="hero-chart-top">
+        <div class="term">
+          <div class="th">
+            <div style="display:flex;align-items:center;justify-content:space-between;width:100%;flex-wrap:wrap;gap:8px">
+              <div class="tsym"><span class="lpulse"></span><span id="chartLabel">Gold Spot</span></div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0">
+                <select id="chartSelector" style="padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;transition:all .22s">
+                  <optgroup label="FOREX">
+                    <option value="eurusd">EUR/USD</option>
+                    <option value="gbpusd">GBP/USD</option>
+                    <option value="audusd">AUD/USD</option>
+                    <option value="chfusd">CHF/USD</option>
+                    <option value="gbpjpy">GBP/JPY</option>
+                    <option value="usdjpy">USD/JPY</option>
+                  </optgroup>
+                  <optgroup label="COMMODITIES">
+                    <option value="xauusd">Gold (XAU/USD)</option>
+                    <option value="xagusd">Silver (XAG/USD)</option>
+                    <option value="usoil">Oil (USOIL)</option>
+                  </optgroup>
+                  <optgroup label="CRYPTO">
+                    <option value="btcusd">Bitcoin (BTC/USD)</option>
+                    <option value="ethusd">Ethereum (ETH/USD)</option>
+                  </optgroup>
+                </select>
+                <select id="timeframeSelector" style="padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;transition:all .22s">
+                  <option value="1">1m</option>
+                  <option value="5">5m</option>
+                  <option value="15">15m</option>
+                  <option value="30">30m</option>
+                  <option value="60" selected>1H</option>
+                  <option value="240">4H</option>
+                  <option value="D">Daily</option>
+                  <option value="W">Weekly</option>
+                  <option value="M">Monthly</option>
+                </select>
+                <button id="fullscreenBtn" style="padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ai);font-size:12px;font-weight:600;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:4px" title="View full chart">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                  Full
+                </button>
+                <span class="live-badge"><span class="ld"></span>Live</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div style="padding:16px 18px 8px;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.03em">Real-time institutional price action</div>
-        <div style="padding:0 18px 8px">
-          <div id="tv_chart"></div>
-        </div>
-        <div style="padding:12px 18px 4px;font-size:13px;font-weight:700;color:var(--ink)" id="chartAssetName">Gold (XAU/USD)</div>
-        <div style="padding:8px 18px 16px">
-          <div class="tprow"><span style="font-size:36px;color:var(--ai)"><span id="tprice">—</span></span><span class="chg" id="tchg"></span></div>
-        </div>
-        <div class="ticker">
-          <div class="ttrack" id="ttrack"></div>
+          <div style="padding:16px 18px 8px;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.03em">Real-time institutional price action</div>
+          <div style="padding:0 18px 8px">
+            <div id="tv_chart"></div>
+          </div>
+          <div style="padding:12px 18px 4px;font-size:13px;font-weight:700;color:var(--ink)" id="chartAssetName">Gold (XAU/USD)</div>
+          <div style="padding:8px 18px 16px">
+            <div class="tprow"><span style="font-size:36px;color:var(--ai)"><span id="tprice">—</span></span><span class="chg" id="tchg"></span></div>
+          </div>
+          <div class="ticker">
+            <div class="ttrack" id="ttrack"></div>
+          </div>
         </div>
       </div>
+
+      <!-- BOTTOM: Text left + Side panel right (desktop only) -->
+      <div class="hero-bottom">
+        <!-- Text column -->
+        <div>
+          <span class="ey"><span class="tk"></span>Institutional Framework</span>
+          <h1 class="h1">Trading with <em>Precision</em></h1>
+          <p class="lead">Master institutional order flow, market structure, and liquidity dynamics. Not retail indicators. Real Smart Money Concepts.</p>
+          <div class="hbtns">
+            <button class="bs" onclick="document.getElementById('offers').scrollIntoView({behavior:'smooth'})">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              Explore Offers
+            </button>
+            <button class="bg" onclick="document.getElementById('connect').scrollIntoView({behavior:'smooth'})">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.8-.9-2.07-.99-.28-.1-.48-.15-.68.14-.2.3-.77.99-.95 1.2-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.63-.93-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.5 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.19-.57-.34z"/><path d="M12 0C5.4 0 0 5.4 0 12c0 2.1.56 4.1 1.53 5.85L.06 23.44a.75.75 0 0 0 .92.91l5.7-1.5C8.12 23.57 10 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0zm0 21.75c-1.9 0-3.67-.5-5.2-1.38l-.37-.21-3.73.98 1-3.64-.24-.37A9.71 9.71 0 0 1 2.25 12C2.25 6.62 6.62 2.25 12 2.25S21.75 6.62 21.75 12 17.38 21.75 12 21.75z"/></svg>
+              Chat on WhatsApp
+            </button>
+          </div>
+          <div class="htr">
+            <div class="ht"><b>200+</b><span class="lbl">Students</span></div>
+            <div class="ht"><b>4.9★</b><span class="lbl">Rating</span></div>
+            <div class="ht"><b>3 yrs</b><span class="lbl">Teaching</span></div>
+          </div>
+          <div style="margin-top:24px;padding:14px 16px;background:rgba(45,107,228,.08);border:1.5px solid rgba(45,107,228,.3);border-radius:12px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--ai)">
+            <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;background:#46d3a1;border-radius:50%;color:#fff;font-size:14px;font-weight:900;flex-shrink:0">✓</span>
+            <span>Trusted by <strong style="font-weight:900;font-size:14px">200+ traders</strong> across <strong style="font-weight:900">MENA</strong></span>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
 </section>
@@ -572,9 +828,17 @@ nav a:hover::after{right:0}
     <div class="broker reveal">
       <div>
         <div class="brow1">
-          <div>
-            
-          </div>
+          <svg class="blogo" xmlns="http://www.w3.org/2000/svg" viewBox="100 460 970 165" height="52" style="display:block;width:auto;max-width:280px;flex-shrink:0">
+            <path fill="#fff" d="M399.96,477.46c13.64,1.32,30.56-2.07,47.28,1.72,13.86,3.14,27.98,19.98,28.11,34.32.17,17.75.29,35.51.02,53.26-.32,20.91-18.81,38.99-39.75,39.07-25.98.1-51.97.09-77.95,0-21.23-.08-39.92-18.5-40.13-39.64-.17-17.61-.14-35.22.02-52.83.16-17.46,19.44-35.75,37.68-35.88,13.86-.1,27.72-.02,44.71-.02ZM400.54,501.85c-15.34,0-25.88-.31-36.39.1-8.38.33-14.51,5.18-16.81,12.98-4.34,14.75-1.35,30.03-1.7,45.07-.24,10.19,5.8,17.99,15.52,19.4,22.58,3.28,45.48,1.92,68.17.77,10.92-.55,17.88-8.34,18.19-19.91.36-13.26.33-26.55-.13-39.81-.26-7.62-4.04-13.83-11.44-16.66-13.1-5-26.85-.78-35.42-1.95Z"/>
+            <path fill="#fff" d="M182.65,501.92v-24.74c26.91,1.62,53.9-3.15,80.24,2.2,26.33,5.35,35.75,43.74,17.71,63.92-11.71,13.1-26.03,14.03-43.02,12.9,17.07,16.65,33.05,32.24,50.54,49.29h-39.36c-20.89-22.72-42.21-45.92-64.44-70.1,20.98,0,40.79.05,60.59-.03,7.22-.03,12.99-3.35,15.81-9.87,2.84-6.55,2.09-13.31-3.04-18.84-2.92-3.15-6.64-4.78-11.09-4.77-21.18.06-42.35.03-63.94.03Z"/>
+            <path fill="#fff" d="M595.78,605.64h-27.85c0-10.91-.97-21.78.25-32.4,1.52-13.27-3.97-22.66-12.17-32.17-17.67-20.49-34.53-41.68-52.29-63.27h33.72c14.38,18.47,29.25,37.59,44.61,57.34,15.05-19.37,29.91-38.51,44.61-57.43h33.62c-13.71,16.87-25.86,34.55-40.77,49.46-18.5,18.49-28.16,38.77-23.82,65.03.69,4.2.1,8.62.1,13.46Z"/>
+            <path fill="#fff" d="M861.13,477.72h27.55v103.12h89.1v24.71h-116.65v-127.83Z"/>
+            <path fill="#fff" d="M832.21,604.39h-31.01c-23.18-41.8-46.32-83.53-69.9-126.06h32.34c22.44,41.26,45.28,83.24,68.56,126.06Z"/>
+            <path fill="#fff" d="M692.7,605.53h-32.39c21.34-39.24,42.38-77.95,63.84-117.41,5.79,10.45,11.14,20.11,16.76,30.25-16.06,29.03-32.24,58.28-48.21,87.16Z"/>
+            <path fill="#fff" d="M119.61,547.6c8.15,0,13.07,0,17.98,0s10.07,0,15.56,0v8.9h-46.96v-9.11c9.79-5.9,20.18-12.17,32.48-19.59h-32.39v-9.57h46.82c1.08,5.2,1.2,9.19-4.43,12.13-8.97,4.68-17.46,10.28-29.06,17.24Z"/>
+            <path fill="#fff" d="M129.89,565.38c15.89.02,24.65,7.14,24.5,19.92-.16,13.65-9.43,20.19-28.57,20.14-12.01-.03-21.09-8.92-20.92-20.47.19-12.81,8.86-19.61,24.99-19.59ZM129.66,595.67c14.16,0,20.79-5.04,17.43-13.55-4.22-10.7-13.91-7.4-21.98-7.81-6.01-.31-10.73,2.05-12.8,8.07-2.9,8.45,3.49,13.3,17.34,13.29Z"/>
+            <path fill="#fff" d="M153.2,477.96v30h-46.94v-29.65c1.65-.1,3.38-.2,6.02-.37v22.04h12.96v-18.32c2.5-.17,4.25-.29,7.11-.49,0,6.23.06,13.37.06,18.81h14.56v-21.67c2.51-.14,4.14-.23,6.23-.35Z"/>
+          </svg>
           <span class="bvfy"><span class="vd"></span>Verified Partner</span>
         </div>
         <div class="bname">Trade with OneRoyal</div>
@@ -1217,6 +1481,9 @@ if (ctaHeader) {
   });
 }
 </script>
+
+
+
 
 </body>
 </html>
