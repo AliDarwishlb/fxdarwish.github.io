@@ -338,6 +338,12 @@ nav a:hover::after{right:0}
   .g3{grid-template-columns:repeat(2,1fr)}
   .tgrid{grid-template-columns:repeat(2,1fr)}
   .rmeta{grid-template-columns:repeat(2,1fr)}
+  /* Center hero text when chart moves below */
+  .hgrid>div:first-child{text-align:center}
+  .hgrid .ey{justify-content:center}
+  .hgrid .hbtns{justify-content:center}
+  .hgrid .htr{justify-content:center}
+  .hgrid .lead{max-width:100%}
 }
 @media(max-width:760px){
   nav,.hcta.desk{display:none}
@@ -346,13 +352,13 @@ nav a:hover::after{right:0}
   .sb2:nth-child(5){grid-column:1/-1}
   .duo{grid-template-columns:1fr}
   .fgrid{grid-template-columns:1fr 1fr}
-  .hgrid{text-align:center}
-  .ey{justify-content:center}
-  .hbtns{justify-content:center}
-  .htr{justify-content:center}
-  .lead{max-width:100%}
   .sh{margin-left:auto;margin-right:auto;text-align:center}
   .sh .ey{justify-content:center}
+  /* Chart header: stack controls on two rows */
+  .th>div{flex-wrap:wrap;gap:8px}
+  .th>div>div:last-child{flex-wrap:wrap;gap:6px}
+  .th select,.th button{font-size:11px;padding:5px 7px}
+  .live-badge{font-size:8px;padding:3px 8px}
 }
 @media(max-width:560px){
   .g2,.g3,.tgrid,.socials{grid-template-columns:1fr}
@@ -360,22 +366,26 @@ nav a:hover::after{right:0}
   .fgrid{grid-template-columns:1fr}
   .sec{padding:48px 0}
   .hero{padding:calc(var(--head) + 40px) 0 32px}
-  #tv_chart{height:220px}
+  #tv_chart{height:240px}
   .rmeta{grid-template-columns:repeat(2,1fr)}
-  .hgrid{text-align:center;gap:24px}
-  .ey{justify-content:center;font-size:10px}
-  .h1{font-size:clamp(28px,8vw,40px);letter-spacing:-.01em}
-  .lead{font-size:15px;max-width:100%;margin-left:auto;margin-right:auto}
-  .hbtns{justify-content:center;gap:10px}
-  .hbtns .bs,.hbtns .bg{width:100%;justify-content:center;font-size:14px}
-  .htr{justify-content:center;gap:20px}
+  /* Hero text */
+  .hgrid>div:first-child{text-align:center}
+  .hgrid .ey{justify-content:center;font-size:10px}
+  .hgrid .h1{font-size:clamp(28px,8vw,40px)}
+  .hgrid .lead{font-size:15px}
+  .hgrid .hbtns{justify-content:center}
+  .hgrid .hbtns .bs,.hgrid .hbtns .bg{width:100%;justify-content:center}
+  .hgrid .htr{justify-content:center;gap:18px}
   .ht b{font-size:20px}
-  .wrap{padding:0 18px}
-  .term{border-radius:14px}
+  .wrap{padding:0 16px}
   .sh{text-align:center;margin-left:auto;margin-right:auto}
   .sh .ey{justify-content:center}
-  .st{font-size:clamp(24px,6vw,34px)}
+  .st{font-size:clamp(22px,6vw,32px)}
   .ss{font-size:14px}
+  /* Chart header: hide fullscreen btn, make selects full row */
+  #fullscreenBtn{display:none}
+  .th>div>div:last-child{width:100%;justify-content:space-between}
+  .th select{flex:1;min-width:0}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto}.reveal{opacity:1;transform:none}}
 
@@ -455,9 +465,9 @@ nav a:hover::after{right:0}
       </div>
       <div class="term">
         <div class="th">
-          <div style="display:flex;align-items:center;justify-content:space-between;width:100%">
+          <div style="display:flex;align-items:center;justify-content:space-between;width:100%;flex-wrap:wrap;gap:8px">
             <div class="tsym"><span class="lpulse"></span><span id="chartLabel">Gold Spot</span></div>
-            <div style="display:flex;align-items:center;gap:8px">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0">
               <select id="chartSelector" style="padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;transition:all .22s">
                 <optgroup label="FOREX">
                   <option value="eurusd">EUR/USD</option>
