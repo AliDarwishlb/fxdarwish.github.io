@@ -284,6 +284,26 @@ nav a:hover::after{right:0}
 .tcrd{background:var(--cg);border:1px solid var(--hair);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;transition:transform .3s,border-color .3s,box-shadow .3s}
 .tcrd:hover{transform:translateY(-3px);border-color:var(--line);box-shadow:var(--shad)}
 .tcrd:focus-visible{outline:2px solid var(--ai);outline-offset:2px}
+
+/* Reviews show-more */
+.tgrid-more{position:relative;margin-top:14px}
+.tgrid-more .tgrid{grid-template-columns:repeat(3,1fr)}
+.tgrid-fade{position:relative;overflow:hidden;max-height:120px;transition:max-height .55s cubic-bezier(.4,0,.2,1)}
+.tgrid-fade.revealed{max-height:2000px}
+.tgrid-fade::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(var(--bg-rgb,.5,.5,.5),.0) 0%,var(--bg2,#0c0e15) 75%);pointer-events:none;transition:opacity .4s;z-index:2}
+[data-theme="dark"] .tgrid-fade::after{background:linear-gradient(to bottom,transparent 0%,#0c0e15 72%)}
+[data-theme="light"] .tgrid-fade::after{background:linear-gradient(to bottom,transparent 0%,#f5f8ff 72%)}
+.tgrid-fade.revealed::after{opacity:0}
+.tgrid-fade .tcrd{filter:blur(4px);opacity:.5;transition:filter .45s,opacity .45s,transform .3s,border-color .3s,box-shadow .3s;pointer-events:none;user-select:none}
+.tgrid-fade.revealed .tcrd{filter:none;opacity:1;pointer-events:auto;user-select:auto}
+.show-more-wrap{display:flex;justify-content:center;margin-top:18px;position:relative;z-index:3}
+.show-more-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:13px;font-weight:700;padding:13px 28px;border-radius:12px;cursor:pointer;transition:all .24s;letter-spacing:.02em}
+.show-more-btn:hover{border-color:var(--blue-2);color:var(--ai);transform:translateY(-2px)}
+.show-more-btn svg{width:15px;height:15px;transition:transform .3s;flex-shrink:0}
+.show-more-btn.open svg{transform:rotate(180deg)}
+/* Mobile: show only ~1 card peek */
+@media(max-width:760px){.tgrid-fade{max-height:180px}}
+@media(min-width:761px){.tgrid-fade{max-height:120px}}
 .stars{display:flex;gap:2px;font-size:14px;margin-bottom:14px;color:var(--blue-3)}
 .tq{font-size:13.5px;line-height:1.72;color:var(--ink);flex:1}
 .tfoot{display:flex;align-items:center;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--hair)}
@@ -350,6 +370,7 @@ nav a:hover::after{right:0}
   .broker{grid-template-columns:1fr;gap:24px;padding:28px}
   .g3{grid-template-columns:repeat(2,1fr)}
   .tgrid{grid-template-columns:repeat(2,1fr)}
+  .tgrid-more .tgrid{grid-template-columns:repeat(2,1fr)}
   .rmeta{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:760px){
@@ -918,9 +939,19 @@ nav a:hover::after{right:0}
       <div class="tcrd reveal"><div class="stars">★★★★★</div><p class="tq">&ldquo;After two years of losing money with retail indicators, this course finally made the market make sense. The liquidity framework explains everything about why my trades were failing. This changed my approach completely.&rdquo;</p><div class="tfoot"><div class="tav tav-1">OF</div><div><div class="tn">Omar F.</div><div class="tm">Cairo, Egypt &bull; Trading Course</div></div></div></div>
       <div class="tcrd reveal"><div class="stars">★★★★★</div><p class="tq">&ldquo;Three months of private coaching and I went from break-even to consistent. We reviewed real trades, identified exactly what I was doing wrong and built a rules-based plan around SMC. Best investment I&rsquo;ve made.&rdquo;</p><div class="tfoot"><div class="tav tav-2">SK</div><div><div class="tn">Sarah K.</div><div class="tm">Kuwait City &bull; 1-on-1 Coaching</div></div></div></div>
       <div class="tcrd reveal"><div class="stars">★★★★★</div><p class="tq">&ldquo;I&rsquo;ve watched hundreds of hours of free content. Nothing matches this course&rsquo;s depth on order blocks, PO3 and AMD. The way it&rsquo;s structured makes everything connect. Worth every dirham.&rdquo;</p><div class="tfoot"><div class="tav tav-3">AR</div><div><div class="tn">Ahmad R.</div><div class="tm">Dubai, UAE &bull; Trading Course</div></div></div></div>
-      <div class="tcrd reveal"><div class="stars">★★★★★</div><p class="tq">&ldquo;Exceptional coaching. The breakdown of institutional order flow and how to time entries around kill zones gave me a system I can repeat. My consistency improved significantly within weeks.&rdquo;</p><div class="tfoot"><div class="tav tav-4">JT</div><div><div class="tn">Jake T.</div><div class="tm">London, UK &bull; 1-on-1 Coaching</div></div></div></div>
-      <div class="tcrd reveal"><div class="stars">★★★★★</div><p class="tq">&ldquo;The daily analysis and Discord community are worth it alone. Clear bias every morning before London open, and when I have a question it&rsquo;s answered using actual ICT concepts &mdash; not generic advice.&rdquo;</p><div class="tfoot"><div class="tav tav-5">NH</div><div><div class="tn">Nour H.</div><div class="tm">Beirut, Lebanon &bull; Community</div></div></div></div>
-      <div class="tcrd reveal"><div class="stars">★★★★★</div><p class="tq">&ldquo;Best Arabic trading education I&rsquo;ve found anywhere. Goes deep on SMC &mdash; not surface level. The market structure module alone is better than most full courses I&rsquo;ve paid for.&rdquo;</p><div class="tfoot"><div class="tav tav-6">KR</div><div><div class="tn">Khalid R.</div><div class="tm">Riyadh, Saudi Arabia &bull; Trading Course</div></div></div></div>
+    </div>
+    <div class="tgrid-more">
+      <div class="tgrid-fade tgrid" id="reviews-more">
+        <div class="tcrd"><div class="stars">★★★★★</div><p class="tq">&ldquo;Exceptional coaching. The breakdown of institutional order flow and how to time entries around kill zones gave me a system I can repeat. My consistency improved significantly within weeks.&rdquo;</p><div class="tfoot"><div class="tav tav-4">JT</div><div><div class="tn">Jake T.</div><div class="tm">London, UK &bull; 1-on-1 Coaching</div></div></div></div>
+        <div class="tcrd"><div class="stars">★★★★★</div><p class="tq">&ldquo;The daily analysis and Discord community are worth it alone. Clear bias every morning before London open, and when I have a question it&rsquo;s answered using actual ICT concepts &mdash; not generic advice.&rdquo;</p><div class="tfoot"><div class="tav tav-5">NH</div><div><div class="tn">Nour H.</div><div class="tm">Beirut, Lebanon &bull; Community</div></div></div></div>
+        <div class="tcrd"><div class="stars">★★★★★</div><p class="tq">&ldquo;Best Arabic trading education I&rsquo;ve found anywhere. Goes deep on SMC &mdash; not surface level. The market structure module alone is better than most full courses I&rsquo;ve paid for.&rdquo;</p><div class="tfoot"><div class="tav tav-6">KR</div><div><div class="tn">Khalid R.</div><div class="tm">Riyadh, Saudi Arabia &bull; Trading Course</div></div></div></div>
+      </div>
+      <div class="show-more-wrap">
+        <button class="show-more-btn" id="show-more-reviews" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          Show More Reviews
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -1487,3 +1518,24 @@ if (ctaHeader) {
 
 </body>
 </html>
+<script>
+/* Show More Reviews */
+var showMoreBtn = document.getElementById('show-more-reviews');
+var reviewsMore = document.getElementById('reviews-more');
+if (showMoreBtn && reviewsMore) {
+  showMoreBtn.addEventListener('click', function() {
+    var isOpen = reviewsMore.classList.contains('revealed');
+    if (isOpen) {
+      reviewsMore.classList.remove('revealed');
+      showMoreBtn.classList.remove('open');
+      showMoreBtn.setAttribute('aria-expanded', 'false');
+      showMoreBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg> Show More Reviews';
+    } else {
+      reviewsMore.classList.add('revealed');
+      showMoreBtn.classList.add('open');
+      showMoreBtn.setAttribute('aria-expanded', 'true');
+      showMoreBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg> Show Less';
+    }
+  });
+}
+</script>
