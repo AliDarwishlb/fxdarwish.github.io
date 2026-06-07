@@ -136,10 +136,12 @@ nav a:hover::after{right:0}
 .hcta{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(180deg,var(--blue-3),var(--blue-2));color:#fff;font-size:12.5px;font-weight:800;letter-spacing:.04em;padding:10px 18px;border-radius:11px;box-shadow:0 10px 22px -12px rgba(45,107,228,.55);transition:transform .22s,box-shadow .22s;white-space:nowrap;border:none;cursor:pointer}
 .hcta:hover{transform:translateY(-2px);box-shadow:0 16px 30px -12px rgba(45,107,228,.7)}
 .hcta:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.mbtn{display:none;width:38px;height:38px;border-radius:10px;border:1px solid var(--hair);background:var(--panel);color:var(--ink);cursor:pointer;align-items:center;justify-content:center}
+.mbtn{display:flex;width:38px;height:38px;border-radius:10px;border:1px solid var(--hair);background:var(--panel);color:var(--ink);cursor:pointer;align-items:center;justify-content:center;flex-shrink:0}
 .mbtn:focus-visible{outline:2px solid var(--ai);outline-offset:2px}
 .mbtn svg{width:19px;height:19px}
 .mmenu{position:fixed;top:var(--head);left:0;right:0;z-index:49;background:var(--hbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--hair);transform:translateY(-10px);opacity:0;pointer-events:none;transition:.3s;padding:6px 0 14px}
+/* Mobile nav left-side controls group — hidden on desktop */
+.mob-left{display:none;align-items:center;gap:8px;flex-shrink:0}
 .mmenu.open{transform:none;opacity:1;pointer-events:auto}
 .mmenu a{display:block;padding:13px 24px;font-size:15px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--hair)}
 .mmenu a:last-child{border:0;color:var(--ai)}
@@ -237,9 +239,9 @@ nav a:hover::after{right:0}
 .bbtn:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .bbtn svg{width:14px;height:14px}
 .bside{position:relative;z-index:1;display:grid;gap:11px}
-.bsc{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.04)}
-.bsc b{font-family:'Fraunces',serif;font-weight:500;font-size:20px;color:var(--blue-3)}
-.bsc .lbl{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(237,238,244,.6)}
+.bsc{display:flex;align-items:center;gap:14px;padding:13px 16px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.04)}
+.bsc b{font-family:'Fraunces',serif;font-weight:500;font-size:20px;color:var(--blue-3);flex-shrink:0}
+.bsc .lbl{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(237,238,244,.6);text-align:left}
 
 /* DUO */
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
@@ -347,7 +349,10 @@ nav a:hover::after{right:0}
 }
 @media(max-width:760px){
   nav,.hcta.desk{display:none}
-  .mbtn{display:flex}
+  /* Hide desktop theme toggle on mobile - mob-left has its own */
+  .hact .htgl{display:none}
+  /* Show mobile left group with hamburger + theme toggle */
+  .mob-left{display:flex}
   .sband{grid-template-columns:repeat(2,1fr)}
   .sb2:nth-child(5){grid-column:1/-1}
   .duo{grid-template-columns:1fr}
@@ -359,6 +364,8 @@ nav a:hover::after{right:0}
   .th>div>div:last-child{flex-wrap:wrap;gap:6px}
   .th select,.th button{font-size:11px;padding:5px 7px}
   .live-badge{font-size:8px;padding:3px 8px}
+  /* Broker stats: 3 cols still fine at 760 but fix font size */
+  .broker-stats>div div:last-child{font-size:22px!important}
 }
 @media(max-width:560px){
   .g2,.g3,.tgrid,.socials{grid-template-columns:1fr}
@@ -380,6 +387,9 @@ nav a:hover::after{right:0}
   .wrap{padding:0 16px}
   .sh{text-align:center;margin-left:auto;margin-right:auto}
   .sh .ey{justify-content:center}
+  /* Broker stats: single column on small screens */
+  .broker-stats{grid-template-columns:1fr!important}
+  .broker-stats>div div:last-child{font-size:24px!important}
   .st{font-size:clamp(22px,6vw,32px)}
   .ss{font-size:14px}
   /* Chart header: hide fullscreen btn, make selects full row */
@@ -404,6 +414,16 @@ nav a:hover::after{right:0}
 <!-- HEADER -->
 <header class="header" role="banner">
   <div class="wrap">
+    <!-- Mobile-left controls (hamburger + theme toggle): visible only on mobile -->
+    <div class="mob-left">
+      <button class="mbtn" aria-label="Open navigation menu" aria-expanded="false" id="menu-toggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <button class="htgl mob-theme" aria-label="Toggle dark/light theme" id="theme-toggle-mob">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
     <div class="brand">
       <a href="#" class="brand" style="text-decoration:none"></a>
     </div>
@@ -420,9 +440,6 @@ nav a:hover::after{right:0}
       </button>
       <button class="hcta desk" id="cta-header" aria-label="Get started with FXDARWISH">Get Started</button>
     </div>
-    <button class="mbtn" aria-label="Open navigation menu" aria-expanded="false" id="menu-toggle">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
   </div>
 </header>
 
@@ -507,10 +524,12 @@ nav a:hover::after{right:0}
           </div>
         </div>
         <div style="padding:16px 18px 8px;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.03em">Real-time institutional price action</div>
-        <div style="padding:12px 18px;font-size:13px;font-weight:700;color:var(--ink)" id="chartAssetName">Gold (XAU/USD)</div>
-        <div style="padding:20px 18px">
-          <div class="tprow"><span style="font-size:40px;color:var(--ai)"><span id="tprice">—</span></span><span class="chg" id="tchg"></span></div>
+        <div style="padding:0 18px 8px">
           <div id="tv_chart"></div>
+        </div>
+        <div style="padding:12px 18px 4px;font-size:13px;font-weight:700;color:var(--ink)" id="chartAssetName">Gold (XAU/USD)</div>
+        <div style="padding:8px 18px 16px">
+          <div class="tprow"><span style="font-size:36px;color:var(--ai)"><span id="tprice">—</span></span><span class="chg" id="tchg"></span></div>
         </div>
         <div class="ticker">
           <div class="ttrack" id="ttrack"></div>
@@ -542,7 +561,7 @@ nav a:hover::after{right:0}
         <h3>Discord Community<span class="arr">→</span></h3>
         <p>Daily market analysis, bias before London open, economic-calendar highlights. Access to the community and direct support from experienced traders.</p>
         <div class="kbs"><span>Daily insights</span><span>Q&A support</span><span>Free to join</span></div>
-      </card>
+      </div>
     </div>
   </div>
 </section>
@@ -572,19 +591,21 @@ nav a:hover::after{right:0}
       </div>
     </div>
     <div class="broker-stats reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px">
-      <div style="padding:20px;border:1px solid rgba(45,107,228,.25);border-radius:12px;background:rgba(45,107,228,.05);display:flex;flex-direction:column;justify-content:space-between">
+      <div style="padding:20px;border:1px solid rgba(45,107,228,.25);border-radius:12px;background:rgba(45,107,228,.05);display:flex;flex-direction:column;gap:10px;min-width:0;overflow:hidden">
         <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Experience</div>
-        <div style="font-size:28px;font-weight:900;color:var(--blue-2);margin-top:12px">20+ yrs</div>
+        <div style="font-size:28px;font-weight:900;color:var(--blue-2);line-height:1;white-space:nowrap">20+ yrs</div>
       </div>
-      <div style="padding:20px;border:1px solid rgba(45,107,228,.25);border-radius:12px;background:rgba(45,107,228,.05);display:flex;flex-direction:column;justify-content:space-between">
+      <div style="padding:20px;border:1px solid rgba(45,107,228,.25);border-radius:12px;background:rgba(45,107,228,.05);display:flex;flex-direction:column;gap:10px;min-width:0;overflow:hidden">
         <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Instruments</div>
-        <div style="font-size:28px;font-weight:900;color:var(--blue-2);margin-top:12px">2,000+</div>
+        <div style="font-size:28px;font-weight:900;color:var(--blue-2);line-height:1;white-space:nowrap">2,000+</div>
       </div>
-      <div style="padding:20px;border:1px solid rgba(45,107,228,.25);border-radius:12px;background:rgba(45,107,228,.05);display:flex;flex-direction:column;justify-content:space-between">
+      <div style="padding:20px;border:1px solid rgba(45,107,228,.25);border-radius:12px;background:rgba(45,107,228,.05);display:flex;flex-direction:column;gap:10px;min-width:0;overflow:hidden">
         <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Platforms</div>
-        <div style="font-size:28px;font-weight:900;color:var(--blue-2);margin-top:12px">MT4 / 5</div>
+        <div style="font-size:28px;font-weight:900;color:var(--blue-2);line-height:1;white-space:nowrap">MT4 / 5</div>
       </div>
     </div>
+  </div>
+</section>
 
 <!-- COURSE DETAILS -->
 <section class="sec">
@@ -1154,16 +1175,17 @@ if (menuBtn && mobileMenu) {
   });
 }
 
-/* Theme Toggle */
-var themeToggle = document.getElementById('theme-toggle');
-if (themeToggle) {
-  themeToggle.addEventListener('click', function() {
-    var currentTheme = root.getAttribute('data-theme');
-    var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', newTheme);
-    try { localStorage.setItem('fxd-theme', newTheme); } catch(e) {}
-  });
+/* Theme Toggle — handles both desktop and mobile toggles */
+function applyThemeToggle() {
+  var currentTheme = root.getAttribute('data-theme');
+  var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', newTheme);
+  try { localStorage.setItem('fxd-theme', newTheme); } catch(e) {}
 }
+var themeToggle = document.getElementById('theme-toggle');
+if (themeToggle) { themeToggle.addEventListener('click', applyThemeToggle); }
+var themeToggleMob = document.getElementById('theme-toggle-mob');
+if (themeToggleMob) { themeToggleMob.addEventListener('click', applyThemeToggle); }
 
 /* Header Scroll Effect */
 var header = document.querySelector('.header');
