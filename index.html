@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=1280"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
 
 <!-- Primary SEO Tags -->
 <title>FXDARWISH — Trading with Precision</title>
@@ -346,15 +346,36 @@ nav a:hover::after{right:0}
   .sb2:nth-child(5){grid-column:1/-1}
   .duo{grid-template-columns:1fr}
   .fgrid{grid-template-columns:1fr 1fr}
+  .hgrid{text-align:center}
+  .ey{justify-content:center}
+  .hbtns{justify-content:center}
+  .htr{justify-content:center}
+  .lead{max-width:100%}
+  .sh{margin-left:auto;margin-right:auto;text-align:center}
+  .sh .ey{justify-content:center}
 }
 @media(max-width:560px){
   .g2,.g3,.tgrid,.socials{grid-template-columns:1fr}
   .socials{grid-template-columns:repeat(2,1fr)}
   .fgrid{grid-template-columns:1fr}
   .sec{padding:48px 0}
-  .hero{padding:calc(var(--head) + 52px) 0 38px}
-  #tv_chart{height:240px}
+  .hero{padding:calc(var(--head) + 40px) 0 32px}
+  #tv_chart{height:220px}
   .rmeta{grid-template-columns:repeat(2,1fr)}
+  .hgrid{text-align:center;gap:24px}
+  .ey{justify-content:center;font-size:10px}
+  .h1{font-size:clamp(28px,8vw,40px);letter-spacing:-.01em}
+  .lead{font-size:15px;max-width:100%;margin-left:auto;margin-right:auto}
+  .hbtns{justify-content:center;gap:10px}
+  .hbtns .bs,.hbtns .bg{width:100%;justify-content:center;font-size:14px}
+  .htr{justify-content:center;gap:20px}
+  .ht b{font-size:20px}
+  .wrap{padding:0 18px}
+  .term{border-radius:14px}
+  .sh{text-align:center;margin-left:auto;margin-right:auto}
+  .sh .ey{justify-content:center}
+  .st{font-size:clamp(24px,6vw,34px)}
+  .ss{font-size:14px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto}.reveal{opacity:1;transform:none}}
 
