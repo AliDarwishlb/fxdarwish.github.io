@@ -31,7 +31,7 @@
   --panel:rgba(244,246,251,.66);--card:rgba(255,255,255,.82);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden;scrollbar-gutter:stable}
 body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;width:100%;max-width:100%;-webkit-font-smoothing:antialiased;line-height:1.55}
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--blue);color:#fff}
@@ -96,10 +96,11 @@ nav.main a:hover::after{right:0}
 .h1 .ln span{display:block;transform:translateY(110%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
 .h1 em{font-style:normal;color:var(--blue-3)}
 .hero .sub{font-size:clamp(14px,1.5vw,16px);color:var(--muted);margin-top:34px;max-width:32em;line-height:1.7;opacity:0;transform:translateY(20px);transition:.9s .9s}
-.hero .scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);font-weight:700;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transition:.9s 1.3s}
+.hero .scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%) translateY(14px);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);font-weight:700;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transition:.9s 1.3s}
 .hero .scrollcue::after{content:'';width:1px;height:34px;background:linear-gradient(var(--faint),transparent);animation:cueLine 2s infinite}
 @keyframes cueLine{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-body.ready .hero .eyebrow,body.ready .hero .sub,body.ready .hero .scrollcue{opacity:1;transform:none}
+body.ready .hero .eyebrow,body.ready .hero .sub{opacity:1;transform:none}
+body.ready .hero .scrollcue{opacity:1;transform:translateX(-50%)}
 body.ready .h1 .ln span{transform:none}
 body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 /* dynamic negative: text inverts where it overlaps the moving 3D hero */
@@ -185,9 +186,8 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 .reviews-shell.collapsed .tg .tc:nth-child(n+4){display:none}
 .rev-fade{display:none}
 .reviews-shell.collapsed .rev-fade{display:block;position:absolute;left:0;right:0;bottom:60px;height:130px;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--bg-solid));-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
-.more-btn{display:none}
-.reviews-shell.collapsed .more-btn{display:inline-flex;align-items:center;gap:9px;margin:28px auto 0;font-size:12px;font-weight:700;letter-spacing:.05em;color:var(--ink);background:var(--card);border:1px solid var(--hair);padding:14px 26px;border-radius:100px;cursor:pointer;transition:all .25s}
-.reviews-shell.collapsed .more-btn:hover{border-color:var(--blue);color:var(--blue-3);transform:translateY(-2px)}
+.more-btn{display:inline-flex;align-items:center;gap:9px;margin:28px auto 0;font-size:12px;font-weight:700;letter-spacing:.05em;color:var(--ink);background:var(--card);border:1px solid var(--hair);padding:14px 26px;border-radius:100px;cursor:pointer;transition:all .25s}
+.more-btn:hover{border-color:var(--blue);color:var(--blue-3);transform:translateY(-2px)}
 .more-btn span{color:var(--blue-3);font-size:15px;line-height:1}
 .rev-foot{text-align:center}
 
@@ -210,6 +210,8 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 .socs a:hover{border-color:var(--blue);color:var(--blue-3);transform:translateY(-3px)}
 .socs svg{width:18px;height:18px;flex-shrink:0;color:var(--blue-3)}
 .socs a:hover svg{color:var(--blue)}
+.email-line{display:inline-block;margin-top:26px;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--muted);border-bottom:1px solid var(--hair);padding-bottom:3px;transition:color .25s,border-color .25s}
+.email-line:hover{color:var(--blue-3);border-color:var(--blue-3)}
 
 .footer{padding:64px 0 50px;border-top:1px solid var(--hair);position:relative;z-index:3;background:var(--panel);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .fbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
@@ -347,7 +349,7 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
         <div class="rows reveal">
           <div class="row"><div class="rn">01</div><div class="rt">1-on-1 Coaching</div><div class="rd">Personalised guidance on your trades. We review your chart work, find what's failing, and build a repeatable system around SMC and order flow.</div><a class="ra" href="https://wa.me/96181824829" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           <div class="row"><div class="rn">02</div><div class="rt">Structured Course</div><div class="rd">10 modules covering BSL/SSL, BOS/CHoCH, fair value gaps, order blocks, kill zones, PO3/AMD, and institutional order flow.</div><a class="ra" href="https://wa.me/96181824829" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-          <div class="row"><div class="rn">03</div><div class="rt">Discord Community</div><div class="rd">Daily market analysis, bias before London open, economic-calendar highlights, and direct support from experienced traders.</div><a class="ra" href="https://discord.gg/6uJQsREm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="row"><div class="rn">03</div><div class="rt">Discord Community</div><div class="rd">Daily market analysis, bias before London open, economic-calendar highlights, and direct support from experienced traders.</div><a class="ra" href="https://discord.gg/EqGmzaK3Nd" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
         </div>
       </div>
     </section>
@@ -435,8 +437,9 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
         <div class="socs reveal">
           <a href="https://wa.me/96181824829" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12c0 2.1.56 4.1 1.53 5.85L.06 23.44a.75.75 0 0 0 .92.91l5.7-1.5C8.12 23.57 10 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0zm0 21.75c-1.9 0-3.67-.5-5.2-1.38l-.37-.21-3.73.98 1-3.64-.24-.37A9.71 9.71 0 0 1 2.25 12C2.25 6.62 6.62 2.25 12 2.25S21.75 6.62 21.75 12 17.38 21.75 12 21.75zm5.5-7.35c-.3-.15-1.8-.9-2.07-.99-.28-.1-.48-.15-.68.14-.2.3-.77.99-.95 1.2-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.63-.93-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.5 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.19-.57-.34z"/></svg>WhatsApp</a>
           <a href="https://instagram.com/fxdarwish" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a>
-          <a href="https://discord.gg/6uJQsREm" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3c-.27.47-.52.95-.73 1.45a18.26 18.26 0 0 0-5.47 0C8.97 3.95 8.72 3.47 8.45 3A19.74 19.74 0 0 0 3.68 4.4C.52 9.04-.32 13.58.1 18.06A19.9 19.9 0 0 0 6.12 20.9c.48-.65.9-1.34 1.22-2.06a13.13 13.13 0 0 1-1.87-.92l.37-.29c3.93 1.8 8.18 1.8 12.06 0l.38.29a12.3 12.3 0 0 1-1.88.92c.32.72.74 1.41 1.22 2.06a19.8 19.8 0 0 0 6.01-2.84c.5-5.18-.84-9.67-3.55-13.66zM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42 2.18 1.1 2.16 2.42-.95 2.42-2.16 2.42zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42 2.18 1.1 2.16 2.42-.94 2.42-2.16 2.42z"/></svg>Discord</a>
+          <a href="https://discord.gg/EqGmzaK3Nd" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3c-.27.47-.52.95-.73 1.45a18.26 18.26 0 0 0-5.47 0C8.97 3.95 8.72 3.47 8.45 3A19.74 19.74 0 0 0 3.68 4.4C.52 9.04-.32 13.58.1 18.06A19.9 19.9 0 0 0 6.12 20.9c.48-.65.9-1.34 1.22-2.06a13.13 13.13 0 0 1-1.87-.92l.37-.29c3.93 1.8 8.18 1.8 12.06 0l.38.29a12.3 12.3 0 0 1-1.88.92c.32.72.74 1.41 1.22 2.06a19.8 19.8 0 0 0 6.01-2.84c.5-5.18-.84-9.67-3.55-13.66zM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42 2.18 1.1 2.16 2.42-.95 2.42-2.16 2.42zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42 2.18 1.1 2.16 2.42-.94 2.42-2.16 2.42z"/></svg>Discord</a>
         </div>
+        <a class="email-line reveal" href="mailto:info@fxdarwish.com">info@fxdarwish.com</a>
       </div>
     </section>
 
@@ -476,6 +479,8 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
   var root = document.documentElement;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.matchMedia('(pointer:coarse)').matches || window.innerWidth < 760;
+  var VW=function(){return document.documentElement.clientWidth||window.innerWidth;};
+  var VH=function(){return window.innerHeight;};
 
   function setVH(){ root.style.setProperty('--vh', (window.innerHeight*0.01)+'px'); }
   setVH();
@@ -483,42 +488,11 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 
   var canvas = document.getElementById('bg');
   var scene, camera, renderer, mark, clock, rendererReady=false, BASE=0.0125;
-  var uniforms = { uTime:{value:0}, uScroll:{value:0} };
-  var ok=true;
-
-  /* iridescent obsidian / navy / electric-blue material */
-  var VERT = [
-    'varying vec3 vN; varying vec3 vView; varying float vD;',
-    'void main(){',
-    ' vec4 wp = modelMatrix*vec4(position,1.0);',
-    ' vN = normalize(mat3(modelMatrix)*normal);',
-    ' vView = normalize(cameraPosition - wp.xyz);',
-    ' vD = position.z;',
-    ' gl_Position = projectionMatrix*viewMatrix*wp;',
-    '}'
-  ].join('\n');
-  var FRAG = [
-    'precision highp float;',
-    'uniform float uTime;',
-    'varying vec3 vN; varying vec3 vView; varying float vD;',
-    'vec3 pal(float t){ return 0.5+0.5*cos(6.28318*(vec3(1.0)*t+vec3(0.0,0.12,0.26))); }',
-    'void main(){',
-    ' vec3 N=normalize(vN); vec3 V=normalize(vView);',
-    ' float fres=pow(1.0-clamp(dot(N,V),0.0,1.0),2.1);',
-    ' float ndl=clamp(dot(N,normalize(vec3(0.35,0.7,0.62))),0.0,1.0);',
-    ' vec3 irid=pal(fres*0.7 + vD*0.012 + uTime*0.035);',
-    ' vec3 base=vec3(0.02,0.035,0.085);',          // obsidian/navy
-    ' vec3 col=base*(0.5+0.7*ndl);',
-    ' col+=irid*(fres*0.9+0.10);',
-    ' col+=vec3(0.18,0.36,0.85)*pow(fres,1.4)*0.95;', // electric-blue rim
-    ' col+=vec3(0.05,0.10,0.22)*ndl;',
-    ' gl_FragColor=vec4(col,1.0);',
-    '}'
-  ].join('\n');
+  var ok=true, envTex=null;
 
   try{
-    renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:!isMobile,alpha:false,powerPreference:'high-performance'});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio,isMobile?1.5:2));
+    renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
     if(THREE.ACESFilmicToneMapping){renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;}
     if('outputEncoding' in renderer && THREE.sRGBEncoding){renderer.outputEncoding=THREE.sRGBEncoding;}
   }catch(e){ok=false;}
@@ -529,15 +503,33 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
   function init(){
     scene=new THREE.Scene();
     scene.background=new THREE.Color(bgHex());
-    camera=new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,0.1,100);
+    camera=new THREE.PerspectiveCamera(42,VW()/VH(),0.1,100);
     fitCamera();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(VW(), VH());
 
-    scene.add(new THREE.AmbientLight(0x4a6090,0.7));
-    var l1=new THREE.PointLight(0x9fc0ff,1.4,60); l1.position.set(8,10,12); scene.add(l1);
-    var l2=new THREE.DirectionalLight(0x6ea0ff,0.4); l2.position.set(-1,0.5,-1); scene.add(l2);
+    /* ---- studio environment (PMREM) for crisp, stable reflections ---- */
+    try{
+      var pmrem=new THREE.PMREMGenerator(renderer);
+      var envScene=new THREE.Scene();
+      envScene.background=new THREE.Color(0x0a1226);
+      function light(col,mul,x,y,z,sx,sy){
+        var m=new THREE.Mesh(new THREE.PlaneGeometry(sx,sy), new THREE.MeshBasicMaterial({color:new THREE.Color(col).multiplyScalar(mul),side:THREE.DoubleSide}));
+        m.position.set(x,y,z); m.lookAt(0,0,0); envScene.add(m);
+      }
+      light(0xeaf1ff, 3.0, -7, 5, 7, 9, 16);
+      light(0xbcd2ff, 1.6,  8, 3, 6, 7, 12);
+      light(0xffffff, 2.4,  0, 9,-4, 12, 5);
+      light(0x2d6be4, 1.3, -2,-7,-6, 14, 6);
+      light(0x7f9dff, 0.9,  6,-4, 8, 6, 8);
+      envTex=pmrem.fromScene(envScene, 0.04).texture;
+      scene.environment=envTex;
+      pmrem.dispose();
+    }catch(e){ envTex=null; }
 
-    /* build the Darwish icon mark from its exact vector polygons, extruded to 3D */
+    scene.add(new THREE.AmbientLight(0x334766, 0.3));
+    var key=new THREE.DirectionalLight(0xe6eeff, 0.9); key.position.set(5,7,8); scene.add(key);
+    var rim=new THREE.DirectionalLight(0x3a6bd0, 0.55); rim.position.set(-6,-2,-5); scene.add(rim);
+
     var CX=204.875, CY=540;
     function shape(arr){
       var s=new THREE.Shape();
@@ -547,10 +539,14 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
     }
     var P1=[242.84,489.4, 165.74,489.4, 165.74,564.42, 115.73,514.41, 115.73,439.39, 192.83,439.39];
     var P2=[294.02,540.58, 294.02,640.61, 193.93,640.61, 143.92,590.6, 244.04,590.6, 244.04,490.59];
-    var ext={depth:36,bevelEnabled:true,bevelThickness:6,bevelSize:4,bevelSegments:2,steps:1};
-    var mat=new THREE.ShaderMaterial({uniforms:uniforms,vertexShader:VERT,fragmentShader:FRAG,side:THREE.DoubleSide});
-    var g1=new THREE.ExtrudeGeometry(shape(P1),ext); g1.translate(0,0,-18);
-    var g2=new THREE.ExtrudeGeometry(shape(P2),ext); g2.translate(0,0,-18);
+    var ext={depth:44,bevelEnabled:true,bevelThickness:7,bevelSize:5,bevelSegments:6,curveSegments:6,steps:1};
+    var mat=new THREE.MeshPhysicalMaterial({
+      color:0x16294c, metalness:1.0, roughness:0.19,
+      clearcoat:1.0, clearcoatRoughness:0.22,
+      envMap:envTex, envMapIntensity:1.3, side:THREE.FrontSide
+    });
+    var g1=new THREE.ExtrudeGeometry(shape(P1),ext); g1.translate(0,0,-22); g1.computeVertexNormals();
+    var g2=new THREE.ExtrudeGeometry(shape(P2),ext); g2.translate(0,0,-22); g2.computeVertexNormals();
     mark=new THREE.Group();
     mark.add(new THREE.Mesh(g1,mat), new THREE.Mesh(g2,mat));
     mark.scale.setScalar(BASE);
@@ -559,10 +555,10 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
   }
 
   function fitCamera(){
-    var portrait=window.innerHeight>window.innerWidth;
+    var portrait=VH()>VW();
     camera.position.set(0,0,portrait?4.6:3.6);
     camera.lookAt(0,0,0);
-    camera.aspect=window.innerWidth/window.innerHeight;
+    camera.aspect=VW()/VH();
     camera.updateProjectionMatrix();
   }
 
@@ -584,10 +580,9 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
     requestAnimationFrame(animate);
     if(!visible||!renderer||!mark) return;
     var t=clock.getElapsedTime();
-    uniforms.uTime.value=reduced?0:t;
-    esp+=(sp-esp)*0.06; uniforms.uScroll.value=esp;
+    esp+=(sp-esp)*0.06;
     mx+=(tmx-mx)*0.05; my+=(tmy-my)*0.05;
-    if(!reduced){ mark.rotation.y=t*0.22+mx*0.7; mark.position.y=Math.sin(t*0.9)*0.05 - esp*0.4; }
+    if(!reduced){ mark.rotation.y=t*0.18+mx*0.7; mark.position.y=Math.sin(t*0.9)*0.05 - esp*0.4; }
     else { mark.rotation.y=mx*0.7; mark.position.y=-esp*0.4; }
     mark.rotation.x=my*0.4 + (reduced?0:Math.sin(t*0.6)*0.05);
     var breathe=reduced?1:(1+Math.sin(t*1.1)*0.02);
@@ -597,7 +592,7 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
   }
 
   var rt=null;
-  function onResize(){ if(rt)return; rt=requestAnimationFrame(function(){ rt=null; setVH(); if(renderer){ fitCamera(); renderer.setSize(window.innerWidth,window.innerHeight); renderer.setPixelRatio(Math.min(window.devicePixelRatio,isMobile?1.5:2)); } }); }
+  function onResize(){ if(rt)return; rt=requestAnimationFrame(function(){ rt=null; setVH(); if(renderer){ fitCamera(); renderer.setSize(VW(),VH()); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2)); } }); }
   window.addEventListener('resize',onResize);
   window.addEventListener('orientationchange',onResize);
 
@@ -623,7 +618,11 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
   var ch=document.getElementById('cta-header'); if(ch)ch.addEventListener('click',function(){document.getElementById('connect').scrollIntoView({behavior:'smooth'});});
 
   var rm=document.getElementById('rev-more'),rs=document.getElementById('rev-shell');
-  if(rm&&rs) rm.addEventListener('click',function(){ rs.classList.remove('collapsed'); });
+  if(rm&&rs) rm.addEventListener('click',function(){
+    var collapsed=rs.classList.toggle('collapsed');
+    rm.innerHTML = collapsed ? 'Show more reviews <span>+</span>' : 'Show less <span>&minus;</span>';
+    if(collapsed){ var rv=document.getElementById('reviews'); if(rv) rv.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
 
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
