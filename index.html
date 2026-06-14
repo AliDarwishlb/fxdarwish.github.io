@@ -7,6 +7,7 @@
 <link rel="icon" type="image/png" href="artboard12@41x.png">
 <meta name="description" content="Institutional ICT & Smart Money trading education — 1-on-1 coaching, structured courses, and live market analysis."/>
 <meta name="theme-color" content="#08122b"/>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,12 +23,12 @@
 [data-theme="dark"]{
   --bg:#08122b;--bg-solid:#0a1430;--ink:#f3f4f8;--muted:#a3aac0;--faint:#6f7796;
   --hair:rgba(255,255,255,.12);--hbg:rgba(8,16,40,.7);
-  --panel:rgba(8,16,40,.74);--card:rgba(13,23,52,.84);
+  --panel:rgba(8,16,40,.85);--card:rgba(13,23,52,.9);
 }
 [data-theme="light"]{
   --bg:#0a0c10;--bg-solid:#eef2fa;--ink:#10141f;--muted:#4c5266;--faint:#7e8398;
   --hair:rgba(16,20,30,.14);--hbg:rgba(247,249,253,.84);
-  --panel:rgba(244,246,251,.8);--card:rgba(255,255,255,.9);
+  --panel:rgba(244,246,251,.9);--card:rgba(255,255,255,.96);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden;scrollbar-gutter:stable}
@@ -236,6 +237,8 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
   :root{--head:66px}
   .sec{padding:84px 0}
   .tg{grid-template-columns:repeat(2,1fr)}
+  .reviews-shell.collapsed .tg .tc:nth-child(4){display:block}
+  .reviews-shell.collapsed .tg .tc:nth-child(n+5){display:none}
 }
 @media(max-width:820px){
   nav.main,.hcta.desk{display:none}
@@ -249,6 +252,7 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
   .bstat:last-child{border-right:0}
   .bstat b{font-size:19px}
   .tg{grid-template-columns:1fr}
+  .reviews-shell.collapsed .tg .tc:nth-child(4){display:none}
   .rstat{grid-template-columns:repeat(2,1fr)}
   .rstat>div{padding:24px 12px}
   .rstat>div:nth-child(2){border-right:0}
@@ -512,7 +516,7 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
   try{
     renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-    if(THREE.ACESFilmicToneMapping){renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;}
+    if(THREE.ACESFilmicToneMapping){renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0;}
     if('outputEncoding' in renderer && THREE.sRGBEncoding){renderer.outputEncoding=THREE.sRGBEncoding;}
   }catch(e){ok=false;}
 
@@ -611,8 +615,8 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
     if(!rendererReady) rendererReady=true;
   }
 
-  var rt=null;
-  function onResize(){ if(rt)return; rt=requestAnimationFrame(function(){ rt=null; setVH(); if(renderer){ fitCamera(); renderer.setSize(VW(),VH()); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2)); } }); }
+  var rt=null, lastW=VW();
+  function onResize(){ if(rt)return; rt=requestAnimationFrame(function(){ rt=null; var nw=VW(); if(isMobile && nw===lastW) return; lastW=nw; setVH(); if(renderer){ fitCamera(); renderer.setSize(VW(),VH()); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2)); } }); }
   window.addEventListener('resize',onResize);
   window.addEventListener('orientationchange',onResize);
 
