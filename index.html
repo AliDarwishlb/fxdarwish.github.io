@@ -23,12 +23,12 @@
 [data-theme="dark"]{
   --bg:#08122b;--bg-solid:#0a1430;--ink:#f3f4f8;--muted:#a3aac0;--faint:#6f7796;
   --hair:rgba(255,255,255,.12);--hbg:rgba(8,16,40,.7);
-  --panel:rgba(8,16,40,.6);--card:rgba(13,23,52,.74);
+  --panel:rgba(8,16,40,.74);--card:rgba(13,23,52,.84);
 }
 [data-theme="light"]{
   --bg:#0a0c10;--bg-solid:#eef2fa;--ink:#10141f;--muted:#4c5266;--faint:#7e8398;
   --hair:rgba(16,20,30,.14);--hbg:rgba(247,249,253,.84);
-  --panel:rgba(244,246,251,.66);--card:rgba(255,255,255,.82);
+  --panel:rgba(244,246,251,.8);--card:rgba(255,255,255,.9);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden;scrollbar-gutter:stable}
@@ -40,7 +40,16 @@ a{color:inherit;text-decoration:none}
 #loader{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .9s ease,visibility .9s}
 #loader.done{opacity:0;visibility:hidden}
 .ld-inner{width:min(78vw,420px);text-align:center}
-.ld-logo{font-family:'Montserrat',sans-serif;font-size:13px;letter-spacing:.42em;text-transform:uppercase;color:var(--muted);margin-bottom:30px}
+.ld-mark{width:80px;height:auto;display:block;margin:0 auto 24px;overflow:visible;animation:ldbreath 3s ease-in-out 2.4s infinite}
+.ld-mark polygon{stroke-width:2.5;stroke-linejoin:round;stroke-dasharray:560;stroke-dashoffset:560;fill-opacity:0;animation:lddraw 1.5s ease .2s forwards, ldfill 1s ease 1.4s forwards}
+.ld-mark .ldm1{fill:url(#lkg);stroke:#5b8def}
+.ld-mark .ldm2{fill:#6f9bff;stroke:#9fc0ff}
+@keyframes lddraw{to{stroke-dashoffset:0}}
+@keyframes ldfill{from{fill-opacity:0}to{fill-opacity:1;stroke-opacity:0}}
+@keyframes ldbreath{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+@keyframes ldup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ld-logo{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.42em;text-transform:uppercase;color:var(--ink);margin-bottom:8px;opacity:0;animation:ldup .6s ease .5s forwards}
+.ld-tag{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint);margin-bottom:32px;opacity:0;animation:ldup .6s ease 1.3s forwards}
 .ld-row{display:flex;align-items:baseline;justify-content:space-between;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-bottom:14px}
 .ld-pct{font-family:'Montserrat',sans-serif;font-size:13px;color:var(--ink)}
 .ld-bar{height:1px;background:var(--hair);position:relative;overflow:hidden}
@@ -121,6 +130,7 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 
 /* SOLID CONTENT */
 .solid{position:relative;z-index:3;background:transparent}
+.solid::before{content:"";position:absolute;top:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,transparent,var(--panel));pointer-events:none;z-index:-1}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
 .sec{padding:96px 0;border-top:1px solid var(--hair);background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .lab{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);margin-bottom:36px;display:flex;align-items:center;gap:14px}
@@ -274,6 +284,9 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 @media(prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none}.h1 .ln span{transform:none}.marq-track{animation:none}
   *{scroll-behavior:auto}.hero .scrollcue::after{animation:none}
+  .ld-mark,.ld-mark polygon,.ld-logo,.ld-tag{animation:none}
+  .ld-mark polygon{stroke-dashoffset:0;fill-opacity:1;stroke-opacity:0}
+  .ld-logo,.ld-tag{opacity:1}
 }
 </style>
 </head>
@@ -288,8 +301,13 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 
 <div id="loader">
   <div class="ld-inner">
+    <svg class="ld-mark" viewBox="110 435 188 211" aria-hidden="true">
+      <polygon class="ldm1" points="242.84 489.4 165.74 489.4 165.74 564.42 115.73 514.41 115.73 439.39 192.83 439.39 242.84 489.4"/>
+      <polygon class="ldm2" points="294.02 540.58 294.02 640.61 193.93 640.61 143.92 590.6 244.04 590.6 244.04 490.59 294.02 540.58"/>
+    </svg>
     <div class="ld-logo">FXDARWISH</div>
-    <div class="ld-row"><span id="ld-status">Loading</span><span class="ld-pct" id="ld-pct">0%</span></div>
+    <div class="ld-tag">Institutional Trading Education</div>
+    <div class="ld-row"><span id="ld-status">Loading assets</span><span class="ld-pct" id="ld-pct">0%</span></div>
     <div class="ld-bar"><span id="ld-fill"></span></div>
   </div>
 </div>
@@ -504,7 +522,7 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 
   function init(){
     scene=new THREE.Scene();
-    scene.background=new THREE.Color(bgHex());
+    renderer.setClearColor(bgHex(),1);
     camera=new THREE.PerspectiveCamera(42,VW()/VH(),0.1,100);
     fitCamera();
     renderer.setSize(VW(), VH());
@@ -606,13 +624,13 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
     var iv=setInterval(function(){
       pct+=Math.random()*8+3; if(pct>=88&&!rendererReady)pct=88; if(pct>100)pct=100;
       fill.style.width=pct+'%'; pctEl.textContent=Math.floor(pct)+'%';
-      if(pct>=70) statusEl.textContent='Launching 3D';
+      statusEl.textContent = pct<35?'Loading assets':(pct<72?'Building 3D':'Almost there');
       if(pct>=100&&rendererReady&&(Date.now()-start)>=MIN){ clearInterval(iv); loader.classList.add('done'); document.body.classList.add('ready'); setVH(); onResize(); onScroll(); }
     },90);
     setTimeout(function(){ if(!document.body.classList.contains('ready')){ clearInterval(iv); fill.style.width='100%'; pctEl.textContent='100%'; loader.classList.add('done'); document.body.classList.add('ready'); onScroll(); } },6000);
   })();
 
-  function applyTheme(){ var c=root.getAttribute('data-theme'),n=c==='dark'?'light':'dark'; root.setAttribute('data-theme',n); try{localStorage.setItem('fxd-theme',n);}catch(e){} if(scene)scene.background.setHex(bgHex()); document.querySelector('meta[name=theme-color]').setAttribute('content',n==='dark'?'#08122b':'#eef2fa'); }
+  function applyTheme(){ var c=root.getAttribute('data-theme'),n=c==='dark'?'light':'dark'; root.setAttribute('data-theme',n); try{localStorage.setItem('fxd-theme',n);}catch(e){} if(renderer)renderer.setClearColor(bgHex(),1); document.querySelector('meta[name=theme-color]').setAttribute('content',n==='dark'?'#08122b':'#eef2fa'); }
   var tt=document.getElementById('theme-toggle'); if(tt)tt.addEventListener('click',applyTheme);
 
   var mb=document.getElementById('menu-toggle'),mm=document.getElementById('mobile-menu');
