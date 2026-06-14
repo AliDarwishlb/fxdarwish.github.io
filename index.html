@@ -10,7 +10,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
 
 <script>(function(){try{var t=localStorage.getItem('fxd-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -91,10 +91,10 @@ nav.main a:hover::after{right:0}
 .eyebrow::before{content:'';width:30px;height:1px;background:var(--blue-3)}
 .hero{min-height:calc(var(--vh,1vh)*100);min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:var(--head) 28px 0;position:relative}
 .hero .eyebrow{margin-bottom:30px;opacity:0;transform:translateY(20px);transition:.9s .2s}
-.h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(48px,11vw,148px);line-height:.92;letter-spacing:-.03em}
+.h1{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(48px,11vw,148px);line-height:.96;letter-spacing:-.02em}
 .h1 .ln{display:block;overflow:hidden;padding-bottom:.14em}
 .h1 .ln span{display:block;transform:translateY(110%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
-.h1 em{font-style:italic;color:var(--blue-3)}
+.h1 em{font-style:normal;color:var(--blue-3)}
 .hero .sub{font-size:clamp(14px,1.5vw,16px);color:var(--muted);margin-top:34px;max-width:32em;line-height:1.7;opacity:0;transform:translateY(20px);transition:.9s .9s}
 .hero .scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);font-weight:700;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transition:.9s 1.3s}
 .hero .scrollcue::after{content:'';width:1px;height:34px;background:linear-gradient(var(--faint),transparent);animation:cueLine 2s infinite}
@@ -122,8 +122,8 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 .sec{padding:96px 0;border-top:1px solid var(--hair);background:var(--panel);backdrop-filter:blur(16px) saturate(120%);-webkit-backdrop-filter:blur(16px) saturate(120%)}
 .lab{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);margin-bottom:36px;display:flex;align-items:center;gap:14px}
 .lab b{color:var(--blue-3);font-weight:700}
-.big{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(30px,5vw,58px);line-height:1.04;letter-spacing:-.02em;max-width:14em}
-.big em{font-style:italic;color:var(--blue-3)}
+.big{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(30px,5vw,54px);line-height:1.08;letter-spacing:-.02em;max-width:16em}
+.big em{font-style:normal;color:var(--blue-3)}
 .reveal{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
 .reveal.in{opacity:1;transform:none}
 
@@ -202,7 +202,7 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 /* connect — official socials, theme-readable */
 .connect{text-align:center}
 .connect .big{margin:0 auto}
-.cmail{display:inline-block;font-family:'Fraunces',serif;font-style:italic;font-size:clamp(26px,5vw,52px);color:var(--blue-3);margin-top:36px;border-bottom:1px solid transparent;transition:border-color .3s}
+.cmail{display:inline-block;font-family:'Montserrat',sans-serif;font-weight:600;font-style:normal;font-size:clamp(24px,4.5vw,44px);color:var(--blue-3);margin-top:36px;border-bottom:1px solid transparent;transition:border-color .3s}
 .cmail:hover{border-color:var(--blue-3)}
 .socs{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-top:48px}
 .socs a{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink);background:var(--bg);border:1px solid var(--hair);padding:14px 24px;border-radius:100px;transition:all .25s}
