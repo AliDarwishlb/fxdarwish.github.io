@@ -155,7 +155,8 @@ button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
     <div class="fs">Free. Goes straight to your inbox. No spam.</div>
 
     <!-- WIRE THE FORM: see instructions at top of file -->
-    <form id="captureForm" method="POST" action="REPLACE_WITH_YOUR_FORM_ENDPOINT">
+    <form id="captureForm" method="POST" action="https://formspree.io/f/mbdvrlbd">
+      <input type="hidden" name="_next" value="https://fxdarwish.com/playbook/thanks.html">
       <label for="name">First name</label>
       <input id="name" name="name" type="text" placeholder="Your first name" required autocomplete="given-name">
 
@@ -187,33 +188,6 @@ button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
 </div>
 
 
-<script>
-document.getElementById('captureForm').addEventListener('submit', async function(e){
-  e.preventDefault();
-  const form = e.target;
-  const btn = form.querySelector('button');
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
-  try {
-    const res = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    });
-    if (res.ok) {
-      form.style.display = 'none';
-      document.querySelector('#formCard .fh').style.display = 'none';
-      document.querySelector('#formCard .fs').style.display = 'none';
-      document.getElementById('success').classList.add('show');
-    } else {
-      btn.textContent = 'Something went wrong — try again';
-      btn.disabled = false;
-    }
-  } catch (err) {
-    btn.textContent = 'Network error — try again';
-    btn.disabled = false;
-  }
-});
-</script>
+
 </body>
 </html>
