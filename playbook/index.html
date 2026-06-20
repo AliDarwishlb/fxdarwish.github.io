@@ -155,7 +155,7 @@ button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
     <div class="fs">Free. Goes straight to your inbox. No spam.</div>
 
     <!-- WIRE THE FORM: see instructions at top of file -->
-    <form id="captureForm" method="POST" action="REPLACE_WITH_YOUR_FORM_ENDPOINT">
+    <form id="captureForm" method="POST" action="https://formspree.io/f/mbdvrlbd">
       <label for="name">First name</label>
       <input id="name" name="name" type="text" placeholder="Your first name" required autocomplete="given-name">
 
@@ -186,17 +186,6 @@ button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
   <p class="disc">Risk disclaimer: Trading FX, indices and CFDs carries a high level of risk and is not suitable for all investors. Past performance is not indicative of future results. Educational content only — not financial advice.</p>
 </div>
 
-<script>
-/* ---- DEMO ONLY: shows the success screen without a backend. ----
-   Once you wire a real endpoint (see top of file), DELETE this whole
-   <script> block so the form actually POSTs and redirects. */
-document.getElementById('captureForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  document.getElementById('captureForm').style.display = 'none';
-  document.querySelector('#formCard .fh').style.display = 'none';
-  document.querySelector('#formCard .fs').style.display = 'none';
-  document.getElementById('success').classList.add('show');
-});
-</script>
+
 </body>
 </html>
