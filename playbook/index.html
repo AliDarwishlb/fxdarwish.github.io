@@ -26,8 +26,8 @@
     Replace the <form action="..."> with the embed action URL
     from your email provider, keep the email input's name="email".
 
-  After you wire ONE of the above, delete the JS demo handler
-  marked DEMO ONLY below so the real POST goes through.
+  The form submits via AJAX (script at the bottom) so the page
+  stays put and the download-button success screen shows.
 
   >>> PLAYBOOK FILE: upload Nasdaq-Killzone-Playbook.pdf next to this
       page and the success-screen download button will serve it.
@@ -155,7 +155,7 @@ button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
     <div class="fs">Free. Goes straight to your inbox. No spam.</div>
 
     <!-- WIRE THE FORM: see instructions at top of file -->
-    <form id="captureForm" method="POST" action="https://formspree.io/f/mbdvrlbd">
+    <form id="captureForm" method="POST" action="REPLACE_WITH_YOUR_FORM_ENDPOINT">
       <label for="name">First name</label>
       <input id="name" name="name" type="text" placeholder="Your first name" required autocomplete="given-name">
 
@@ -187,5 +187,33 @@ button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
 </div>
 
 
+<script>
+document.getElementById('captureForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.style.display = 'none';
+      document.querySelector('#formCard .fh').style.display = 'none';
+      document.querySelector('#formCard .fs').style.display = 'none';
+      document.getElementById('success').classList.add('show');
+    } else {
+      btn.textContent = 'Something went wrong — try again';
+      btn.disabled = false;
+    }
+  } catch (err) {
+    btn.textContent = 'Network error — try again';
+    btn.disabled = false;
+  }
+});
+</script>
 </body>
 </html>
