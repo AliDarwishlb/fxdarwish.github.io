@@ -1,656 +1,202 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5,viewport-fit=cover"/>
-<title>FXDARWISH — Trading with Precision</title>
-<link rel="icon" type="image/png" href="artboard12@41x.png">
-<meta name="description" content="Institutional ICT & Smart Money trading education — 1-on-1 coaching, structured courses, and live market analysis."/>
-<meta name="theme-color" content="#08122b"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Nasdaq Killzone Playbook — FXDarwish</title>
+<meta name="description" content="The exact session windows, liquidity logic, and 5-step entry checklist I use to trade NDX100 in the New York killzone. Free.">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--
+====================================================================
+  FXDARWISH — KILLZONE PLAYBOOK CAPTURE PAGE
+  ONE JOB: capture email/Discord in exchange for the free playbook.
 
-<script>(function(){try{var t=localStorage.getItem('fxd-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  >>> HOW TO MAKE THE FORM ACTUALLY COLLECT EMAILS — pick ONE:
+
+  OPTION A (Netlify hosting):
+    On the <form> tag add:  data-netlify="true" name="killzone"
+    Netlify auto-collects submissions under Forms. Done.
+
+  OPTION B (Formspree — works on GitHub Pages too):
+    1. Make a free form at formspree.io, copy your form ID.
+    2. Set the <form> action to: https://formspree.io/f/YOUR_ID
+    3. method="POST" (already set).
+
+  OPTION C (Mailchimp / ConvertKit / Brevo):
+    Replace the <form action="..."> with the embed action URL
+    from your email provider, keep the email input's name="email".
+
+  After you wire ONE of the above, delete the JS demo handler
+  marked DEMO ONLY below so the real POST goes through.
+
+  >>> PLAYBOOK FILE: upload Nasdaq-Killzone-Playbook.pdf next to this
+      page and the success-screen download button will serve it.
+====================================================================
+-->
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Work+Sans:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap');
+
 :root{
-  --blue:#2d6be4;--blue-3:#5b8def;--up:#46d3a1;--down:#e5687c;
-  --maxw:1240px;--head:74px;
-}
-[data-theme="dark"]{
-  --bg:#08122b;--bg-solid:#0a1430;--ink:#f3f4f8;--muted:#a3aac0;--faint:#6f7796;
-  --hair:rgba(255,255,255,.12);--hbg:rgba(8,16,40,.7);
-  --panel:rgba(8,16,40,.85);--card:rgba(13,23,52,.9);
-}
-[data-theme="light"]{
-  --bg:#0a0c10;--bg-solid:#eef2fa;--ink:#10141f;--muted:#4c5266;--faint:#7e8398;
-  --hair:rgba(16,20,30,.14);--hbg:rgba(247,249,253,.84);
-  --panel:rgba(244,246,251,.9);--card:rgba(255,255,255,.96);
+  --navy1:#0C2647; --navy2:#081627;
+  --blue:#3D82E6; --blue2:#5AA0FA;
+  --green:#36C480; --red:#E45C50;
+  --ink:#EAF1FB; --mut:#9DB4D4;
+  --line:rgba(90,160,250,.18);
+  --card:rgba(255,255,255,.035);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden;scrollbar-gutter:stable}
-body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;width:100%;max-width:100%;-webkit-font-smoothing:antialiased;line-height:1.55}
-a{color:inherit;text-decoration:none}
-::selection{background:var(--blue);color:#fff}
-
-/* LOADER */
-#loader{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .9s ease,visibility .9s}
-#loader.done{opacity:0;visibility:hidden}
-.ld-inner{width:min(78vw,420px);text-align:center}
-.ld-mark{width:80px;height:auto;display:block;margin:0 auto 24px;overflow:visible;animation:ldbreath 3s ease-in-out 2.4s infinite}
-.ld-mark polygon{stroke-width:2.5;stroke-linejoin:round;stroke-dasharray:560;stroke-dashoffset:560;fill-opacity:0;animation:lddraw 1.5s ease .2s forwards, ldfill 1s ease 1.4s forwards}
-.ld-mark .ldm1{fill:url(#lkg);stroke:#5b8def}
-.ld-mark .ldm2{fill:#6f9bff;stroke:#9fc0ff}
-@keyframes lddraw{to{stroke-dashoffset:0}}
-@keyframes ldfill{from{fill-opacity:0}to{fill-opacity:1;stroke-opacity:0}}
-@keyframes ldbreath{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
-@keyframes ldup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.ld-logo{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.42em;text-transform:uppercase;color:var(--ink);margin-bottom:8px;opacity:0;animation:ldup .6s ease .5s forwards}
-.ld-tag{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint);margin-bottom:32px;opacity:0;animation:ldup .6s ease 1.3s forwards}
-.ld-row{display:flex;align-items:baseline;justify-content:space-between;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-bottom:14px}
-.ld-pct{font-family:'Montserrat',sans-serif;font-size:13px;color:var(--ink)}
-.ld-bar{height:1px;background:var(--hair);position:relative;overflow:hidden}
-.ld-bar span{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--blue),var(--up));transition:width .2s ease}
-
-#bg{position:fixed;inset:0;z-index:0;display:block;touch-action:pan-y}
-.content{position:relative;isolation:isolate}
-.sprog{position:fixed;top:0;left:0;height:2px;width:0;z-index:90;background:linear-gradient(90deg,var(--blue-3),var(--up))}
-
-/* ── LOGO LOCKUP (theme-aware vector) ───────── */
-.lk{height:30px;width:auto;display:block}
-.lk .lk-m1{fill:url(#lkg)}
-.lk .lk-m2{fill:#0c2a52}
-.lk .lk-fx{fill:#2d6be4}
-.lk .lk-word{fill:#10141f}
-[data-theme="dark"] .lk .lk-m1{fill:#ffffff}
-[data-theme="dark"] .lk .lk-m2{fill:#ffffff}
-[data-theme="dark"] .lk .lk-fx{fill:#ffffff}
-[data-theme="dark"] .lk .lk-word{fill:#ffffff}
-
-/* ── HEADER (high-contrast both themes) ─────── */
-.header{position:fixed;top:0;left:0;right:0;z-index:80;height:var(--head);display:flex;align-items:center;
-  background:var(--hbg);backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px);
-  border-bottom:1px solid var(--hair);transition:background .4s,border-color .4s}
-.header .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{display:flex;align-items:center;flex-shrink:0}
-nav.main{display:flex;gap:30px}
-nav.main a{font-size:12.5px;font-weight:600;letter-spacing:.03em;color:var(--muted);transition:color .25s;position:relative}
-nav.main a:hover{color:var(--ink)}
-nav.main a::after{content:'';position:absolute;left:0;right:100%;bottom:-6px;height:1.5px;background:var(--blue);transition:right .25s}
-nav.main a:hover::after{right:0}
-.hact{display:flex;align-items:center;gap:13px}
-.htgl{width:36px;height:36px;border-radius:50%;border:1px solid var(--hair);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);transition:border-color .25s,background .25s}
-.htgl:hover{border-color:var(--ink)}
-.htgl svg{width:15px;height:15px}
-[data-theme="dark"] .i-sun{display:block}[data-theme="dark"] .i-moon{display:none}
-[data-theme="light"] .i-sun{display:none}[data-theme="light"] .i-moon{display:block}
-.hcta{font-size:12px;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--blue);border:1px solid var(--blue);padding:11px 20px;border-radius:100px;cursor:pointer;transition:all .25s}
-.hcta:hover{background:var(--blue-3);border-color:var(--blue-3);transform:translateY(-1px)}
-.mbtn{display:none;width:40px;height:40px;border:1px solid var(--hair);border-radius:50%;background:transparent;color:var(--ink);cursor:pointer;align-items:center;justify-content:center}
-.mbtn svg{width:18px;height:18px}
-.mmenu{position:fixed;inset:0;z-index:79;background:var(--bg-solid);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;opacity:0;pointer-events:none;transition:opacity .4s}
-.mmenu.open{opacity:1;pointer-events:auto}
-.mmenu a{font-family:'Montserrat',sans-serif;font-size:32px;font-weight:600;color:var(--ink);padding:8px}
-
-/* HERO */
-.eyebrow{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--blue-3);display:inline-flex;align-items:center;gap:12px}
-.eyebrow::before{content:'';width:30px;height:1px;background:var(--blue-3)}
-.hero{min-height:calc(var(--vh,1vh)*100);min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:var(--head) 28px 0;position:relative}
-.hero .eyebrow{margin-bottom:30px;opacity:0;transform:translateY(20px);transition:.9s .2s}
-.h1{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(48px,11vw,148px);line-height:.96;letter-spacing:-.02em}
-.h1 .ln{display:block;overflow:hidden;padding-bottom:.14em}
-.h1 .ln span{display:block;transform:translateY(110%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
-.h1 em{font-style:normal;color:var(--blue-3)}
-.hero .sub{font-size:clamp(15px,1.6vw,17px);font-weight:500;color:#eef2fa;margin-top:30px;max-width:30em;line-height:1.62;opacity:0;transform:translateY(20px);transition:.9s .9s;text-shadow:0 1px 16px rgba(5,10,25,.6)}
-[data-theme="light"] .hero .sub{color:#16233c;text-shadow:0 1px 14px rgba(255,255,255,.75)}
-.hero .scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%) translateY(14px);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);font-weight:700;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transition:.9s 1.3s}
-.hero .scrollcue::after{content:'';width:1px;height:34px;background:linear-gradient(var(--faint),transparent);animation:cueLine 2s infinite}
-@keyframes cueLine{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-body.ready .hero .eyebrow,body.ready .hero .sub{opacity:1;transform:none}
-body.ready .hero .scrollcue{opacity:1;transform:translateX(-50%)}
-body.ready .h1 .ln span{transform:none}
-body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
-/* dynamic negative: text inverts where it overlaps the moving 3D hero */
-.hero .eyebrow,.hero .h1,.hero .scrollcue,.beat{mix-blend-mode:difference}
-.hero .eyebrow,.hero .h1,.hero .sub{position:relative}
-.hero .eyebrow,.hero .h1,.hero .h1 em,.hero .scrollcue,.beat .k,.beat h2,.beat em{color:#fff !important}
-.hero .eyebrow::before{background:#fff}
-.hero .scrollcue::after{background:linear-gradient(#fff,transparent)}
-
-/* STORY */
-.story{position:relative;height:calc(var(--vh,1vh)*260);height:260svh}
-.beat{position:fixed;top:50%;left:50%;width:88%;max-width:18em;text-align:center;opacity:0;transform:translate(-50%,-44%) scale(.98);transition:opacity .7s ease,transform .7s ease;pointer-events:none}
-.beat.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.beat .k{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--blue-3);margin-bottom:22px;display:block}
-.beat h2{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(30px,5.5vw,58px);line-height:1.08;letter-spacing:-.02em}
-.beat em{font-style:normal;color:var(--blue-3)}
-
-/* SOLID CONTENT */
-.solid{position:relative;z-index:3;background:transparent}
-.solid::before{content:"";position:absolute;top:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,transparent,var(--panel));pointer-events:none;z-index:-1}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
-.sec{padding:96px 0;border-top:1px solid var(--hair);background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.lab{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);margin-bottom:36px;display:flex;align-items:center;gap:14px}
-.lab b{color:var(--blue-3);font-weight:700}
-.big{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(30px,5vw,54px);line-height:1.08;letter-spacing:-.02em;max-width:16em}
-.big em{font-style:normal;color:var(--blue-3)}
-.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
-.reveal.in{opacity:1;transform:none}
-
-.rows{margin-top:20px}
-.row{display:grid;grid-template-columns:80px 1fr 1.1fr auto;gap:28px;align-items:center;padding:38px 0;border-top:1px solid var(--hair);transition:padding-left .4s ease}
-.row:last-child{border-bottom:1px solid var(--hair)}
-.row:hover{padding-left:14px}
-.row .rn{font-family:'Montserrat',sans-serif;font-weight:600;font-size:18px;color:var(--faint)}
-.row .rt{font-size:clamp(22px,3vw,34px);font-weight:700;letter-spacing:-.02em}
-.row .rd{font-size:14px;color:var(--muted);line-height:1.65;max-width:32em}
-.row .ra{width:46px;height:46px;border-radius:50%;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;color:var(--blue-3);transition:all .3s}
-.row:hover .ra{background:var(--blue);border-color:var(--blue);color:#fff;transform:rotate(-45deg)}
-.row .ra svg{width:18px;height:18px}
-
-.mods{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:20px}
-.mod{background:var(--card);padding:40px;transition:background .3s}
-.mod:hover{background:rgba(45,107,228,.06)}
-.mod .mn{font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;color:var(--blue-3)}
-.mod h3{font-size:21px;font-weight:700;margin-top:18px;letter-spacing:-.01em}
-.mod p{font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.65}
-
-/* broker + Royal logo */
-.broker{margin-top:20px;border:1px solid var(--hair);border-radius:6px;overflow:hidden;display:grid;grid-template-columns:1.3fr .7fr;
-  background:radial-gradient(120% 130% at 100% 0%,rgba(45,107,228,.16),transparent 58%),linear-gradient(160deg,#0c1730,#070b16)}
-.broker-l{padding:48px;color:#eef2fb}
-.royal-logo{height:30px;width:auto;display:block;margin-bottom:22px}
-.bvfy{font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-3);display:inline-flex;align-items:center;gap:7px}
-.bvfy::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--up);box-shadow:0 0 8px var(--up)}
-.broker h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:32px;margin-top:16px;color:#fff}
-.broker p{font-size:14px;color:rgba(238,242,251,.78);margin-top:14px;line-height:1.7;max-width:34em}
-.bbtn{display:inline-flex;align-items:center;gap:9px;margin-top:26px;background:#fff;color:#0c1730;font-size:12px;font-weight:800;letter-spacing:.05em;padding:14px 26px;border-radius:100px;border:none;cursor:pointer;transition:transform .25s}
-.bbtn:hover{transform:translateY(-2px)}
-.bbtn svg{width:14px;height:14px}
-.broker-r{border-left:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column}
-.bstat{padding:28px 36px;border-bottom:1px solid rgba(255,255,255,.12);flex:1;display:flex;flex-direction:column;justify-content:center}
-.bstat:last-child{border-bottom:0}
-.bstat b{font-family:'Montserrat',sans-serif;font-weight:700;font-size:24px;color:var(--blue-3)}
-.bstat span{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(238,242,251,.6);margin-top:6px}
-
-.marq{overflow:hidden;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:30px 0;background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.marq-track{display:flex;gap:48px;width:max-content;white-space:nowrap;animation:marq 24s linear infinite}
-.marq-track span{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(38px,7vw,84px);letter-spacing:-.02em;color:var(--faint);opacity:.55}
-.marq-track span.fill{color:var(--blue-3);opacity:1}
-@keyframes marq{to{transform:translateX(-50%)}}
-
-.rstat{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hair);margin-top:20px}
-.rstat>div{padding:30px;border-right:1px solid var(--hair);text-align:center}
-.rstat>div:last-child{border-right:0}
-.rstat b{font-family:'Montserrat',sans-serif;font-weight:700;font-size:32px;color:var(--blue-3);display:block}
-.rstat span{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:8px;display:block}
-.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);border-top:0}
-.tc{background:var(--card);padding:34px}
-.tc .stars{color:var(--blue-3);font-size:13px;letter-spacing:2px}
-.tc p{font-size:14px;line-height:1.7;margin-top:16px}
-.tc .who{display:flex;align-items:center;gap:13px;margin-top:24px;padding-top:18px;border-top:1px solid var(--hair)}
-.tc .av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-3));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
-.tc .nm{font-weight:700;font-size:13px}.tc .mt{font-size:11px;color:var(--muted);margin-top:2px}
-.reviews-shell{position:relative}
-.reviews-shell.collapsed .tg .tc:nth-child(n+4){display:none}
-.rev-fade{display:none}
-.reviews-shell.collapsed .rev-fade{display:block;position:absolute;left:0;right:0;bottom:60px;height:130px;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--bg-solid));-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
-.more-btn{display:inline-flex;align-items:center;gap:9px;margin:28px auto 0;font-size:12px;font-weight:700;letter-spacing:.05em;color:var(--ink);background:var(--card);border:1px solid var(--hair);padding:14px 26px;border-radius:100px;cursor:pointer;transition:all .25s}
-.more-btn:hover{border-color:var(--blue);color:var(--blue-3);transform:translateY(-2px)}
-.more-btn span{color:var(--blue-3);font-size:15px;line-height:1}
-.rev-foot{text-align:center}
-
-.faq{max-width:880px;margin-top:20px}
-.q{border-bottom:1px solid var(--hair)}
-.q summary{list-style:none;cursor:pointer;padding:30px 0;font-size:clamp(17px,2.2vw,22px);font-weight:600;display:flex;justify-content:space-between;gap:20px;letter-spacing:-.01em}
-.q summary::-webkit-details-marker{display:none}
-.q .qi{color:var(--blue-3);font-size:26px;transition:transform .3s;flex-shrink:0}
-.q[open] .qi{transform:rotate(45deg)}
-.q .qa{font-size:14.5px;color:var(--muted);line-height:1.75;padding:0 0 30px;max-width:52em}
-
-/* connect — official socials, theme-readable */
-.connect{text-align:center}
-.connect .big{margin:0 auto}
-.cmail{display:inline-block;font-family:'Montserrat',sans-serif;font-weight:600;font-style:normal;font-size:clamp(24px,4.5vw,44px);color:var(--blue-3);margin-top:36px;border-bottom:1px solid transparent;transition:border-color .3s}
-.cmail:hover{border-color:var(--blue-3)}
-.socs{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-top:48px}
-.socs a{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink);background:var(--bg);border:1px solid var(--hair);padding:14px 24px;border-radius:100px;transition:all .25s}
-[data-theme="light"] .socs a{background:#fff}
-.socs a:hover{border-color:var(--blue);color:var(--blue-3);transform:translateY(-3px)}
-.socs svg{width:18px;height:18px;flex-shrink:0;color:var(--blue-3)}
-.socs a:hover svg{color:var(--blue)}
-.email-line{display:inline-block;margin-top:26px;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--muted);border-bottom:1px solid var(--hair);padding-bottom:3px;transition:color .25s,border-color .25s}
-.email-line:hover{color:var(--blue-3);border-color:var(--blue-3)}
-
-.footer{padding:64px 0 50px;border-top:1px solid var(--hair);position:relative;z-index:3;background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.fbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
-.fnav{display:flex;gap:24px}
-.fnav a{font-size:12px;color:var(--muted);transition:color .2s}
-.fnav a:hover{color:var(--ink)}
-.frisk{font-size:11px;color:var(--faint);margin-top:30px;line-height:1.6;max-width:64em}
-.fcc{font-size:11px;color:var(--faint);margin-top:14px}
-
-@media(max-width:1024px){
-  :root{--head:66px}
-  .sec{padding:84px 0}
-  .tg{grid-template-columns:repeat(2,1fr)}
-  .reviews-shell.collapsed .tg .tc:nth-child(4){display:block}
-  .reviews-shell.collapsed .tg .tc:nth-child(n+5){display:none}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Instrument Sans',system-ui,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(160deg,#0C2647 0%,#081627 60%,#050f1c 100%);
+  min-height:100vh;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
-@media(max-width:820px){
-  nav.main,.hcta.desk{display:none}
-  .mbtn{display:flex}
-  .row{grid-template-columns:44px 1fr auto;gap:16px}
-  .row .rd{display:none}
-  .mods{grid-template-columns:1fr}
-  .broker{grid-template-columns:1fr}
-  .broker-r{flex-direction:row;border-left:0;border-top:1px solid rgba(255,255,255,.12)}
-  .bstat{border-bottom:0;border-right:1px solid rgba(255,255,255,.12);padding:20px 12px;text-align:center;align-items:center}
-  .bstat:last-child{border-right:0}
-  .bstat b{font-size:19px}
-  .tg{grid-template-columns:1fr}
-  .reviews-shell.collapsed .tg .tc:nth-child(4){display:none}
-  .rstat{grid-template-columns:repeat(2,1fr)}
-  .rstat>div{padding:24px 12px}
-  .rstat>div:nth-child(2){border-right:0}
-}
-@media(max-width:560px){
-  :root{--head:58px}
-  .wrap,.header .wrap{padding:0 18px}
-  .hero{padding:var(--head) 18px 0}
-  .sec{padding:60px 0}
-  .h1{font-size:clamp(40px,13vw,66px)}
-  .hero .eyebrow{margin-bottom:22px}
-  .hero .sub{font-size:15px;margin-top:24px}
-  .lab{margin-bottom:26px}
-  .big{font-size:clamp(26px,7.5vw,36px)}
-  .beat h2{font-size:clamp(26px,8.5vw,40px)}
-  .broker-l{padding:26px}
-  .broker h3{font-size:24px}
-  .bstat{padding:18px 8px}
-  .bstat b{font-size:17px}
-  .bstat span{font-size:9px}
-  .mod{padding:26px}
-  .tc{padding:24px}
-  .marq{padding:22px 0}
-  .marq-track span{font-size:clamp(32px,12vw,52px)}
-  .q summary{font-size:16px;padding:24px 0}
-  .cmail{font-size:clamp(22px,7vw,34px)}
-  .socs{gap:10px}
-  .socs a{padding:12px 18px;font-size:12px}
-  .fbar{flex-direction:column;align-items:flex-start;gap:18px}
-  .fnav{flex-wrap:wrap;gap:18px}
-}
-@media(prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none}.h1 .ln span{transform:none}.marq-track{animation:none}
-  *{scroll-behavior:auto}.hero .scrollcue::after{animation:none}
-  .ld-mark,.ld-mark polygon,.ld-logo,.ld-tag{animation:none}
-  .ld-mark polygon{stroke-dashoffset:0;fill-opacity:1;stroke-opacity:0}
-  .ld-logo,.ld-tag{opacity:1}
-}
+.glow{position:fixed;border-radius:50%;filter:blur(10px);z-index:0;pointer-events:none}
+.g1{width:420px;height:420px;top:-160px;right:-120px;background:radial-gradient(circle,rgba(61,130,230,.22),transparent 70%)}
+.g2{width:480px;height:480px;bottom:-200px;left:-160px;background:radial-gradient(circle,rgba(90,160,250,.14),transparent 70%)}
+
+.wrap{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:30px 22px 60px}
+
+/* header */
+.brand{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:14px}
+.logo{font-family:'Work Sans';font-weight:800;letter-spacing:.5px;font-size:16px}
+.logo .fx{color:var(--blue2)}
+.logo-img{height:30px;display:block}
+.author .av img{width:34px;height:34px;display:block}
+.brand .tag{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--mut)}
+
+/* hero */
+.eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--blue2);margin-top:42px}
+h1{font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(34px,8.5vw,46px);line-height:1.02;letter-spacing:-.5px;margin-top:14px}
+h1 .accent{color:var(--blue2)}
+.sub{font-size:16px;color:var(--mut);margin-top:18px;line-height:1.55}
+
+/* trust strip */
+.strip{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.pill{font-size:12px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 13px;display:flex;align-items:center;gap:7px}
+.pill .d{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+/* whats inside */
+.inside{margin-top:34px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.inside h2{font-family:'Work Sans';font-weight:700;font-size:13px;letter-spacing:.5px;color:var(--blue2);text-transform:uppercase;letter-spacing:2px}
+.row{display:flex;gap:12px;align-items:flex-start;margin-top:15px;font-size:14.5px;color:#D4E0F2}
+.row:first-of-type{margin-top:16px}
+.row .ic{color:var(--blue);font-family:'Work Sans';font-weight:800;flex-shrink:0;line-height:1.4}
+.row b{color:var(--ink);font-weight:600}
+
+/* form */
+.form-card{margin-top:30px;background:linear-gradient(135deg,rgba(61,130,230,.12),rgba(90,160,250,.04));border:1px solid rgba(90,160,250,.3);border-radius:16px;padding:24px}
+.form-card .fh{font-family:'Bricolage Grotesque';font-weight:800;font-size:22px;letter-spacing:-.3px}
+.form-card .fs{font-size:13.5px;color:var(--mut);margin-top:6px}
+label{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin:18px 0 7px}
+input{width:100%;background:rgba(4,16,31,.6);border:1px solid var(--line);border-radius:10px;padding:14px 15px;color:var(--ink);font-family:inherit;font-size:15px;transition:border-color .2s,box-shadow .2s}
+input::placeholder{color:rgba(157,180,212,.55)}
+input:focus{outline:none;border-color:var(--blue2);box-shadow:0 0 0 3px rgba(90,160,250,.18)}
+button{width:100%;margin-top:20px;background:linear-gradient(135deg,#3D82E6,#5AA0FA);color:#04101f;font-family:'Work Sans';font-weight:800;font-size:16px;border:none;border-radius:10px;padding:16px;cursor:pointer;transition:transform .15s,filter .2s}
+button:hover{filter:brightness(1.06)}
+button:active{transform:scale(.985)}
+button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
+.fineprint{font-size:11px;color:var(--mut);margin-top:13px;text-align:center;line-height:1.5}
+
+/* success state */
+.success{display:none;text-align:center;padding:8px 0}
+.success.show{display:block;animation:fade .5s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.success .badge{width:60px;height:60px;border-radius:50%;background:rgba(54,196,128,.15);border:1.5px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:28px;color:var(--green)}
+.success h3{font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;margin-top:18px}
+.success p{font-size:14px;color:var(--mut);margin-top:10px}
+.dl{display:inline-block;margin-top:22px;background:linear-gradient(135deg,#3D82E6,#5AA0FA);color:#04101f;font-family:'Work Sans';font-weight:800;font-size:15px;text-decoration:none;border-radius:10px;padding:14px 26px}
+.discord{display:inline-block;margin-top:14px;font-size:14px;color:var(--blue2);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+
+/* author */
+.author{display:flex;gap:14px;align-items:center;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
+.author .av{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#0C2647,#081627);border:1px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.author .t .n{font-family:'Work Sans';font-weight:700;font-size:15px}
+.author .t .r{font-size:12.5px;color:var(--mut);margin-top:2px}
+
+.disc{font-size:10px;color:rgba(157,180,212,.55);margin-top:30px;line-height:1.5;text-align:center}
 </style>
 </head>
 <body>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
 
-<!-- shared gradient def for the vector lockup -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <linearGradient id="lkg" x1="0" y1="1" x2="1" y2="0">
-    <stop offset="0" stop-color="#0a2c4d"/><stop offset=".55" stop-color="#2d6be4"/><stop offset="1" stop-color="#5b8def"/>
-  </linearGradient>
-</defs></svg>
+<div class="wrap">
+  <header class="brand">
+    <img class="logo-img" src="data:image/png;base64,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" alt="FXDARWISH Trading with Precision">
+    <span class="tag">Institutional Trading Education</span>
+  </header>
 
-<div id="loader">
-  <div class="ld-inner">
-    <svg class="ld-mark" viewBox="110 435 188 211" aria-hidden="true">
-      <polygon class="ldm1" points="242.84 489.4 165.74 489.4 165.74 564.42 115.73 514.41 115.73 439.39 192.83 439.39 242.84 489.4"/>
-      <polygon class="ldm2" points="294.02 540.58 294.02 640.61 193.93 640.61 143.92 590.6 244.04 590.6 244.04 490.59 294.02 540.58"/>
-    </svg>
-    <div class="ld-logo">FXDARWISH</div>
-    <div class="ld-tag">Institutional Trading Education</div>
-    <div class="ld-row"><span id="ld-status">Loading assets</span><span class="ld-pct" id="ld-pct">0%</span></div>
-    <div class="ld-bar"><span id="ld-fill"></span></div>
+  <p class="eyebrow">Free Playbook · ICT / SMC</p>
+  <h1>The Nasdaq<br><span class="accent">Killzone</span> Playbook</h1>
+  <p class="sub">The exact session windows, liquidity logic, and 5-step entry checklist I use to trade NDX100 in the New York killzone. Stop guessing the hours. Start trading the plan.</p>
+
+  <div class="strip">
+    <span class="pill"><span class="d"></span>6+ years trading</span>
+    <span class="pill"><span class="d"></span>200+ students</span>
+    <span class="pill"><span class="d"></span>Nasdaq specialist</span>
   </div>
-</div>
 
-<div class="sprog" id="sprog"></div>
-
-<header class="header">
-  <div class="wrap">
-    <a href="#top" class="brand" aria-label="FXDARWISH home">
-      <svg class="lk" viewBox="115 433 875 214" role="img" aria-label="FXDARWISH — Trading with Precision">
-        <polygon class="lk-m1" points="242.84 489.4 165.74 489.4 165.74 564.42 115.73 514.41 115.73 439.39 192.83 439.39 242.84 489.4"/>
-        <polygon class="lk-m2" points="294.02 540.58 294.02 640.61 193.93 640.61 143.92 590.6 244.04 590.6 244.04 490.59 294.02 540.58"/>
-        <path class="lk-fx" d="M393.54,472.81v14.88h-30.47s0,5.4,0,5.44c0,.14,0,10.5,0,10.64h22.8v14.45h-22.8v30.85h-18.21v-76.26h48.68Z"/>
-        <path class="lk-fx" d="M455.02,549.08l-15.23-23.36-13.42,23.36h-20.67l23.97-38.78-24.5-37.48h21.2l15.02,23.03,13.21-23.03h20.67l-23.75,38.46,24.71,37.8h-21.2Z"/>
-        <path class="lk-word" d="M536.53,477.59c5.89,3.19,10.45,7.66,13.69,13.42,3.23,5.76,4.85,12.4,4.85,19.94s-1.62,14.09-4.85,19.88c-3.23,5.8-7.81,10.28-13.74,13.47-5.93,3.19-12.8,4.78-20.61,4.78h-28.02v-76.26h28.02c7.88,0,14.77,1.59,20.67,4.78ZM530.78,527.24c3.84-3.84,5.75-9.27,5.75-16.29s-1.92-12.49-5.75-16.4c-3.84-3.91-9.2-5.87-16.08-5.87h-8.63v44.32h8.63c6.89,0,12.25-1.92,16.08-5.76Z"/>
-        <path class="lk-word" d="M612.79,537.01h-25.01l-4.01,12.07h-17.08l24.24-68.33h18.9l24.24,68.33h-17.27l-4.01-12.07ZM608.59,524.16l-8.3-25.02-8.21,25.02h16.51Z"/>
-        <path class="lk-word" d="M679.87,549.08l-13.93-25.8h-3.91v25.8h-16.32v-68.33h27.39c5.28,0,9.78.94,13.51,2.82,3.72,1.88,6.51,4.46,8.35,7.74,1.84,3.28,2.77,6.93,2.77,10.95,0,4.54-1.26,8.6-3.77,12.17-2.51,3.57-6.22,6.1-11.12,7.59l15.46,27.06h-18.42ZM662.02,511.5h10.12c2.99,0,5.23-.75,6.73-2.24,1.49-1.49,2.24-3.6,2.24-6.33s-.75-4.64-2.24-6.13c-1.5-1.49-3.74-2.24-6.73-2.24h-10.12v16.94Z"/>
-        <path class="lk-word" d="M805.65,480.74l-17.47,68.33h-19.76l-10.69-44.97-11.07,44.97h-19.76l-16.99-68.33h17.47l9.64,49.74,11.93-49.74h17.94l11.45,49.74,9.74-49.74h17.56Z"/>
-        <path class="lk-word" d="M833.6,480.74v68.33h-16.32v-68.33h16.32Z"/>
-        <path class="lk-word" d="M857.9,546.7c-3.79-1.58-6.82-3.93-9.09-7.03-2.27-3.1-3.46-6.84-3.59-11.21h16.96c.25,2.47,1.09,4.36,2.52,5.66,1.43,1.3,3.29,1.95,5.59,1.95s4.22-.55,5.59-1.66c1.37-1.11,2.05-2.65,2.05-4.61,0-1.65-.54-3.01-1.63-4.09-1.09-1.08-2.42-1.96-4.01-2.66-1.58-.7-3.84-1.49-6.76-2.38-4.23-1.33-7.67-2.66-10.34-3.99-2.67-1.33-4.97-3.29-6.9-5.89-1.93-2.6-2.89-5.99-2.89-10.17,0-6.21,2.2-11.07,6.62-14.59,4.41-3.52,10.16-5.27,17.24-5.27s13.01,1.76,17.43,5.27c4.41,3.52,6.77,8.41,7.08,14.68h-17.24c-.13-2.15-.9-3.85-2.33-5.08-1.43-1.24-3.26-1.85-5.5-1.85-1.93,0-3.48.52-4.66,1.57-1.18,1.05-1.77,2.55-1.77,4.51,0,2.15.99,3.83,2.98,5.04,1.99,1.2,5.09,2.5,9.32,3.9,4.22,1.46,7.66,2.85,10.3,4.18,2.64,1.33,4.92,3.26,6.85,5.8,1.92,2.54,2.89,5.8,2.89,9.79s-.95,7.26-2.84,10.36c-1.9,3.1-4.65,5.58-8.25,7.41-3.6,1.84-7.86,2.76-12.77,2.76s-9.07-.79-12.86-2.38Z"/>
-        <path class="lk-word" d="M964.27,480.74v68.33h-16.32v-28.13h-25.39v28.13h-16.32v-68.33h16.32v26.77h25.39v-26.77h16.32Z"/>
-      </svg>
-    </a>
-    <nav class="main"><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a href="#connect">Contact</a></nav>
-    <div class="hact">
-      <button class="htgl" id="theme-toggle" aria-label="Toggle theme">
-        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        <svg class="i-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
-      <button class="hcta desk" id="cta-header">Get Started</button>
-      <button class="mbtn" id="menu-toggle" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
-    </div>
-  </div>
-</header>
-<div class="mmenu" id="mobile-menu"><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a href="#connect">Contact</a></div>
-
-<div class="content" id="top">
-  <canvas id="bg"></canvas>
-
-  <section class="hero">
-    <span class="eyebrow">Institutional Trading Education</span>
-    <h1 class="h1"><span class="ln"><span>Trading with</span></span><span class="ln"><span><em>Precision</em></span></span></h1>
-    <p class="sub">Smart Money Concepts, order flow & liquidity — taught the way the market actually moves.</p>
-    <div class="scrollcue">Scroll</div>
+  <section class="inside">
+    <h2>What's inside</h2>
+    <div class="row"><span class="ic">→</span><div><b>The 3 killzones</b> — the exact NY-time windows that actually matter, and the one to focus on for Nasdaq.</div></div>
+    <div class="row"><span class="ic">→</span><div><b>The liquidity model</b> — how the sweep, structure shift, and imbalance fit together (AMD / Power of 3).</div></div>
+    <div class="row"><span class="ic">→</span><div><b>The 5-step entry</b> — the same sequence behind every breakdown on the page, step by step.</div></div>
+    <div class="row"><span class="ic">→</span><div><b>A printable pre-trade checklist</b> — 8 boxes. If they're not all checked, you don't enter.</div></div>
   </section>
 
-  <section class="story" id="story">
-    <div class="beat" data-beat="0"><span class="k">01 — The Problem</span><h2>We don't teach retail <em>indicators</em>.</h2></div>
-    <div class="beat" data-beat="1"><span class="k">02 — The Method</span><h2>We teach how institutions <em>move price</em>.</h2></div>
-    <div class="beat" data-beat="2"><span class="k">03 — The Edge</span><h2>Liquidity. Structure. <em>Order flow</em>.</h2></div>
+  <section class="form-card" id="formCard">
+    <div class="fh">Send me the playbook</div>
+    <div class="fs">Free. Goes straight to your inbox. No spam.</div>
+
+    <!-- WIRE THE FORM: see instructions at top of file -->
+    <form id="captureForm" method="POST" action="REPLACE_WITH_YOUR_FORM_ENDPOINT">
+      <label for="name">First name</label>
+      <input id="name" name="name" type="text" placeholder="Your first name" required autocomplete="given-name">
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="you@email.com" required autocomplete="email">
+
+      <button type="submit">Get the free playbook →</button>
+      <p class="fineprint">You'll also get my weekly Nasdaq outlook. Unsubscribe anytime.</p>
+    </form>
+
+    <div class="success" id="success">
+      <div class="badge">✓</div>
+      <h3>Check your inbox.</h3>
+      <p>Your Killzone Playbook is on its way. Grab it now and join the community below.</p>
+      <a class="dl" href="Nasdaq-Killzone-Playbook.pdf" download>Download the playbook</a><br>
+      <a class="discord" href="https://discord.gg/QpxPYuhN" target="_blank" rel="noopener">Join the free Discord →</a>
+    </div>
   </section>
 
-  <div class="solid">
-
-    <section class="sec" id="services">
-      <div class="wrap">
-        <div class="lab reveal"><b>01</b> What you get</div>
-        <h2 class="big reveal">Three ways to learn <em>institutional trading</em>.</h2>
-        <div class="rows reveal">
-          <div class="row"><div class="rn">01</div><div class="rt">1-on-1 Coaching</div><div class="rd">Personalised guidance on your trades. We review your chart work, find what's failing, and build a repeatable system around SMC and order flow.</div><a class="ra" href="https://wa.me/96181824829" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-          <div class="row"><div class="rn">02</div><div class="rt">Structured Course</div><div class="rd">10 modules covering BSL/SSL, BOS/CHoCH, fair value gaps, order blocks, kill zones, PO3/AMD, and institutional order flow.</div><a class="ra" href="https://wa.me/96181824829" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-          <div class="row"><div class="rn">03</div><div class="rt">Discord Community</div><div class="rd">Daily market analysis, bias before London open, economic-calendar highlights, and direct support from experienced traders.</div><a class="ra" href="https://discord.gg/EqGmzaK3Nd" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec">
-      <div class="wrap">
-        <div class="lab reveal"><b>02</b> Curriculum</div>
-        <h2 class="big reveal">The course structure.</h2>
-        <div class="mods reveal">
-          <div class="mod"><div class="mn">01</div><h3>Market Structure</h3><p>How institutions read price. BOS, ChoCh, support/resistance, and the flow model.</p></div>
-          <div class="mod"><div class="mn">02</div><h3>Liquidity Zones</h3><p>BSL, SSL, order blocks. Where institutions cluster stops and feast on retail liquidity.</p></div>
-          <div class="mod"><div class="mn">03</div><h3>Fair Value Gaps</h3><p>Imbalances in price. How to spot them, trade them, and anticipate refills.</p></div>
-          <div class="mod"><div class="mn">04</div><h3>Order Blocks</h3><p>Where price was consumed. These become magnets for re-entry and reversal zones.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec">
-      <div class="wrap">
-        <div class="lab reveal"><b>03</b> Partner Broker</div>
-        <div class="broker reveal">
-          <div class="broker-l">
-            <svg class="royal-logo" viewBox="0 0 2072 352" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OneRoyal" fill-rule="evenodd"><path d="M0 0 C1.92 -0 3.84 -0.01 5.77 -0.01 C10.94 -0.02 16.11 -0.02 21.29 -0.01 C26.73 -0 32.18 -0.01 37.63 -0.01 C46.78 -0.02 55.92 -0.01 65.07 -0 C75.6 0.01 86.12 0.01 96.65 -0.01 C105.74 -0.01 114.82 -0.02 123.9 -0.01 C129.31 -0.01 134.72 -0.01 140.12 -0.01 C145.21 -0.02 150.3 -0.02 155.39 -0 C157.24 -0 159.09 -0 160.94 -0.01 C170.26 -0.03 179.47 0.21 188.75 1.13 C189.14 1.16 189.14 1.16 191.13 1.35 C196.26 1.92 200.08 3.07 204.33 5.97 C206.65 7.48 208.97 8.36 211.56 9.32 C215.42 10.81 218.19 12.49 221.31 15.26 C223.3 16.6 225.3 17.93 227.31 19.26 C234.92 24.44 240.86 29.12 245.31 37.26 C245.67 37.89 246.04 38.52 246.41 39.17 C247.39 40.86 248.35 42.56 249.31 44.26 C252.83 49.7 252.83 49.7 254.81 52 C256.76 54.93 257.43 57.74 258.31 61.13 C259.26 64.78 260.13 67.92 261.93 71.24 C263.63 74.97 263.57 77.61 263.43 81.7 C263.28 86.7 263.39 91.53 263.79 96.53 C264.59 107.56 264.51 118.62 264.55 129.67 C264.55 130.82 264.56 131.97 264.56 133.16 C264.58 139.24 264.6 145.31 264.6 151.39 C264.62 157.63 264.65 163.87 264.69 170.12 C264.72 174.95 264.72 179.79 264.73 184.63 C264.73 186.93 264.74 189.23 264.76 191.53 C264.85 203.56 264.79 213.96 260.31 225.26 C259.93 226.74 259.57 228.22 259.25 229.71 C257.53 237.69 255.39 243.77 250.31 250.26 C249.3 251.75 248.3 253.25 247.31 254.76 C246.81 255.5 246.31 256.25 245.79 257.01 C244.82 258.48 243.89 259.97 242.99 261.47 C235.71 273.33 223.44 283.07 210.58 288.29 C208.12 289.34 205.84 290.6 203.5 291.88 C197.94 294.69 192.45 295.58 186.31 296.26 C185.7 296.34 185.08 296.42 184.45 296.51 C175.61 297.57 166.73 297.41 157.83 297.4 C155.97 297.41 154.11 297.41 152.24 297.41 C147.2 297.42 142.16 297.43 137.12 297.43 C133.96 297.43 130.8 297.43 127.64 297.43 C116.6 297.44 105.56 297.44 94.51 297.44 C84.26 297.44 74.01 297.45 63.75 297.47 C54.92 297.48 46.08 297.49 37.25 297.49 C31.99 297.49 26.73 297.49 21.46 297.5 C16.51 297.51 11.55 297.51 6.59 297.5 C4.79 297.5 2.98 297.5 1.18 297.51 C-7.74 297.54 -16.56 297.34 -25.43 296.43 C-26.15 296.36 -26.87 296.29 -27.61 296.22 C-34.96 295.36 -41.06 292.46 -47.69 289.26 C-49.18 288.72 -50.68 288.19 -52.19 287.7 C-56.1 286.09 -58.52 284.03 -61.69 281.26 C-63.03 280.4 -64.39 279.57 -65.75 278.76 C-69.24 276.64 -71.91 274.27 -74.69 271.26 C-75.6 270.39 -76.51 269.53 -77.44 268.63 C-79.69 266.26 -79.69 266.26 -80.69 263.26 C-81.68 262.93 -82.67 262.6 -83.69 262.26 C-85.16 260.15 -85.16 260.15 -86.63 257.51 C-88.19 254.72 -89.67 252.28 -91.75 249.84 C-93.99 246.86 -94.79 244.34 -95.75 240.76 C-97.42 234.64 -97.42 234.64 -99.15 232.22 C-101.42 227.86 -101.79 223.5 -102.36 218.65 C-102.48 217.6 -102.61 216.54 -102.74 215.45 C-104.11 202.95 -104.09 190.49 -104.02 177.93 C-104.02 175.4 -104.01 172.87 -104.01 170.34 C-104.01 165.09 -103.99 159.84 -103.97 154.59 C-103.94 147.86 -103.93 141.14 -103.93 134.41 C-103.92 127.96 -103.91 121.51 -103.89 115.06 C-103.89 113.84 -103.89 112.61 -103.89 111.35 C-103.88 107.9 -103.87 104.45 -103.85 101 C-103.85 99.98 -103.85 98.96 -103.85 97.91 C-103.84 96.97 -103.84 96.03 -103.83 95.06 C-103.83 94.25 -103.83 93.44 -103.82 92.6 C-103.68 90.08 -103.2 87.73 -102.69 85.26 C-102.64 83.28 -102.58 81.31 -102.55 79.33 C-102.38 71.64 -101.41 66.26 -97.18 59.63 C-95.76 57.37 -94.9 55.34 -94.07 52.82 C-92.69 49.26 -92.69 49.26 -90.75 47.38 C-88.51 45.07 -88.03 43.64 -87 40.63 C-83.84 32.18 -77.37 25.79 -69.69 21.26 C-68.91 20.6 -68.12 19.94 -67.32 19.26 C-64.53 17.13 -61.74 15.76 -58.59 14.26 C-56.69 13.26 -56.69 13.26 -54.32 11.26 C-51.16 8.85 -47.99 7.65 -44.29 6.29 C-41.69 5.26 -41.69 5.26 -38.97 3.77 C-27.55 -1.48 -12.34 -0.03 0 0 Z M-26.3 74.38 C-28.64 77.2 -30.52 79.7 -31.81 83.13 C-32.69 85.26 -32.69 85.26 -33.91 87.35 C-38.99 96.56 -38.44 105.9 -38.43 116.12 C-38.45 118.04 -38.47 119.95 -38.49 121.87 C-38.52 125.87 -38.54 129.87 -38.55 133.87 C-38.56 138.99 -38.6 144.11 -38.64 149.22 C-38.68 154.13 -38.72 159.03 -38.75 163.93 C-38.75 164.86 -38.76 165.79 -38.76 166.74 C-38.78 169.38 -38.79 172.02 -38.79 174.65 C-38.8 175.42 -38.8 176.19 -38.81 176.99 C-38.81 181.51 -38.38 185.78 -37.69 190.26 C-37.92 192.92 -37.92 192.92 -38.32 195.32 C-38.96 200.76 -37.57 203.81 -34.25 208.13 C-32.69 210.26 -32.69 210.26 -31.25 213.76 C-29.17 218.07 -26.16 221.21 -22.82 224.57 C-22.31 225.09 -21.8 225.6 -21.28 226.13 C-16.44 230.87 -11.07 233.23 -4.72 235.42 C-2.69 236.26 -2.69 236.26 -0.47 237.79 C2.86 239.55 5.01 239.64 8.77 239.65 C10.07 239.66 11.38 239.68 12.72 239.69 C14.16 239.68 15.6 239.68 17.04 239.68 C18.56 239.69 20.08 239.69 21.6 239.7 C25.73 239.73 29.86 239.73 33.99 239.73 C37.44 239.73 40.89 239.74 44.34 239.74 C52.49 239.76 60.64 239.77 68.79 239.76 C77.18 239.75 85.57 239.78 93.96 239.81 C101.17 239.84 108.39 239.86 115.6 239.85 C119.91 239.85 124.21 239.85 128.51 239.88 C132.57 239.9 136.62 239.9 140.67 239.88 C142.15 239.88 143.63 239.88 145.11 239.9 C154.26 239.98 160.47 238.96 168.31 234.26 C168.88 234.06 168.88 234.06 171.75 233.07 C179.27 229.24 185.13 222.82 190.31 216.26 C191.02 215.61 191.73 214.95 192.46 214.28 C194.67 211.87 195.16 210.11 195.87 206.95 C196.61 203.74 197.39 201.1 198.84 198.13 C200.68 193.86 200.73 189.96 200.68 185.36 C200.69 184.5 200.69 183.63 200.69 182.74 C200.7 179.91 200.69 177.08 200.67 174.25 C200.67 172.27 200.67 170.3 200.67 168.32 C200.67 164.19 200.66 160.06 200.65 155.93 C200.62 150.63 200.62 145.33 200.63 140.04 C200.63 135.96 200.63 131.89 200.62 127.81 C200.61 125.86 200.61 123.9 200.61 121.95 C200.61 119.22 200.6 116.5 200.58 113.77 C200.59 112.96 200.59 112.16 200.59 111.33 C200.55 107.45 200.38 104.58 198.31 101.26 C197.97 99.56 197.68 97.85 197.43 96.13 C195.01 82.81 188.71 73.9 178.31 65.26 C165.84 56.64 153.13 54.95 138.22 55 C136.83 55 135.44 54.99 134.04 54.99 C130.29 54.98 126.54 54.98 122.78 54.99 C118.84 55 114.89 54.99 110.94 54.99 C104.32 54.98 97.69 54.99 91.06 55 C83.43 55.01 75.79 55.01 68.15 54.99 C61.57 54.99 54.99 54.98 48.41 54.99 C44.49 54.99 40.57 54.99 36.65 54.99 C32.96 54.98 29.27 54.98 25.59 55 C23.6 55 21.62 54.99 19.64 54.99 C0.81 55.08 -13.52 60.35 -26.3 74.38 Z " fill="#ffffff" transform="translate(622.690673828125,23.7412109375)"/><path d="M0 0 C0.68 -0 1.36 -0.01 2.06 -0.01 C4.33 -0.02 6.61 -0.01 8.88 0 C10.51 -0 12.14 -0 13.77 -0.01 C18.21 -0.02 22.64 -0.01 27.08 0 C31.73 0.02 36.38 0.01 41.03 0.01 C48.85 0.01 56.67 0.02 64.5 0.04 C73.51 0.06 82.52 0.06 91.53 0.06 C100.23 0.05 108.92 0.06 117.61 0.07 C121.29 0.07 124.98 0.07 128.67 0.07 C133.02 0.07 137.38 0.08 141.74 0.09 C143.33 0.1 144.92 0.1 146.51 0.1 C159.66 0.08 172.85 0.06 184.81 6.15 C187.06 7.28 189.23 8.1 191.62 8.87 C195.54 10.5 197.35 12.33 200.24 15.37 C201.19 15.83 202.14 16.28 203.12 16.75 C209.64 20.14 213.02 24.93 216.24 31.37 C216.63 31.59 216.63 31.59 218.62 32.69 C222.07 34.91 223.21 37.51 225.03 41.12 C226.24 43.37 226.24 43.37 227.77 45.26 C229.66 47.97 230.32 50.57 231.18 53.75 C232.63 58.75 234.22 62.21 237.24 66.37 C238.47 70.76 238.44 75.2 238.48 79.72 C238.49 80.52 238.5 81.33 238.5 82.16 C238.52 83.86 238.53 85.57 238.54 87.27 C238.55 88.99 238.57 90.71 238.6 92.43 C238.83 106.12 237.07 116.81 231.17 129.33 C230.26 131.34 229.52 133.35 228.8 135.44 C225.26 144.96 217.84 155.9 209.24 161.37 C208.58 161.37 207.92 161.37 207.24 161.37 C207.13 161.76 207.13 161.76 206.55 163.69 C204.93 167.02 203.5 167.67 200.24 169.37 C199.27 170.03 198.3 170.69 197.3 171.37 C193.58 173.8 189.85 175.78 185.68 177.31 C183.24 178.37 183.24 178.37 180.99 180.5 C177.65 182.78 175.84 182.66 171.91 182.32 C169.42 182.37 167.53 182.76 165.12 183.37 C160.51 184.41 156.2 184.64 151.49 184.57 C150.7 184.57 149.92 184.56 149.11 184.56 C146.63 184.55 144.15 184.52 141.68 184.5 C139.99 184.49 138.29 184.48 136.6 184.47 C132.48 184.45 128.36 184.42 124.24 184.37 C124.03 190.14 124.03 190.14 125.96 192.25 C126.35 192.5 126.35 192.5 128.3 193.81 C132.76 196.98 136.46 200.44 140.24 204.37 C140.99 205.11 141.74 205.85 142.51 206.61 C146.47 210.62 150.27 214.78 154.07 218.93 C157.28 222.4 160.48 225.49 164.24 228.37 C167.24 231.89 167.24 231.89 167.24 234.37 C167.83 234.64 168.42 234.9 169.02 235.17 C171.36 236.44 172.88 237.78 174.74 239.68 C175.38 240.32 176.02 240.97 176.68 241.64 C177.01 241.98 177.01 241.98 178.68 243.69 C179.33 244.35 179.99 245.02 180.67 245.7 C181.95 247 183.22 248.3 184.5 249.6 C186.73 251.87 188.99 254.12 191.24 256.37 C191.84 256.98 192.44 257.59 193.05 258.22 C195.74 260.96 198.43 263.59 201.43 266 C204.14 268.28 206.08 270.59 208.24 273.37 C211.84 277.08 215.61 280.59 219.43 284.06 C225.02 289.15 225.02 289.15 227.24 291.37 C226.37 296.25 226.37 296.25 225.24 297.37 C222.78 297.49 220.34 297.53 217.88 297.54 C217.11 297.54 216.34 297.55 215.54 297.55 C212.98 297.57 210.42 297.57 207.86 297.58 C206.08 297.58 204.3 297.59 202.52 297.59 C198.79 297.61 195.05 297.61 191.32 297.61 C186.54 297.62 181.76 297.64 176.98 297.67 C173.3 297.69 169.62 297.7 165.95 297.7 C164.19 297.7 162.42 297.71 160.66 297.72 C158.19 297.74 155.72 297.74 153.25 297.73 C152.53 297.74 151.8 297.75 151.05 297.76 C145.75 297.72 141.64 296.55 137.66 292.94 C137.25 292.42 136.85 291.91 136.43 291.37 C135.94 290.76 135.44 290.15 134.93 289.53 C134.65 289.17 134.65 289.17 133.24 287.37 C128.32 281.23 123.43 275.33 117.68 269.93 C116.24 268.37 116.24 268.37 116.24 266.37 C115.95 266.27 115.95 266.27 114.49 265.75 C112.24 264.37 112.24 264.37 110.37 261.5 C108.24 258.37 108.24 258.37 105.43 256.5 C101.98 254.2 99.81 251.74 97.17 248.59 C94.41 245.42 91.39 242.55 88.36 239.65 C86.24 237.37 86.24 237.37 84.33 234.43 C82.05 231.1 79.6 228.82 76.55 226.19 C71.75 221.93 67.7 217.46 63.73 212.4 C60.13 208.02 56.22 203.94 52.29 199.85 C48.77 196.15 45.63 192.33 42.61 188.22 C38.34 182.48 33.43 177.25 27.93 172.69 C25.35 170.53 23.63 168.66 22.05 165.69 C20.14 162.19 18.35 160.76 15.24 158.37 C14.77 157.55 14.29 156.72 13.8 155.87 C11.79 152.65 9.44 151.41 6.24 149.37 C-0.34 144.65 -0.34 144.65 -1.82 140.12 C-1.76 137.37 -1.76 137.37 0.24 135.37 C3.07 135.25 5.8 135.23 8.62 135.31 C10.15 135.35 11.67 135.38 13.2 135.4 C13.88 135.42 14.56 135.44 15.26 135.46 C17.24 135.37 17.24 135.37 19.06 134.88 C21.47 134.32 23.6 134.26 26.07 134.27 C27.04 134.27 28.01 134.27 29.01 134.27 C30.07 134.28 31.13 134.29 32.22 134.29 C33.34 134.3 34.46 134.3 35.61 134.3 C38.04 134.31 40.47 134.32 42.9 134.33 C46.75 134.35 50.6 134.36 54.45 134.37 C65.4 134.39 76.35 134.43 87.3 134.47 C93.99 134.5 100.69 134.51 107.39 134.53 C109.94 134.53 112.49 134.54 115.04 134.56 C118.61 134.57 122.18 134.58 125.75 134.59 C126.8 134.59 127.85 134.6 128.93 134.61 C138.96 134.6 151.16 132.69 158.98 125.85 C160.15 124.42 161.2 122.9 162.24 121.37 C162.94 120.69 163.64 120.01 164.37 119.31 C166.44 117.17 167.76 114.96 169.24 112.37 C169.51 112.08 169.51 112.08 170.87 110.56 C172.91 107.3 173.03 104.12 173.24 100.37 C173.33 99.29 173.42 98.21 173.51 97.09 C173.93 88.22 172.27 83.52 167.24 76.37 C166.51 74.91 165.79 73.43 165.12 71.94 C162.51 66.65 158.61 64.95 153.44 62.53 C151.24 61.37 151.24 61.37 148.51 59.33 C144.84 57.13 142.97 56.89 138.74 56.93 C138.09 56.93 138.09 56.93 134.83 56.93 C133.41 56.95 132 56.98 130.58 57 C129.08 57.01 127.58 57.02 126.07 57.02 C122.85 57.04 119.62 57.07 116.39 57.1 C111.29 57.16 106.19 57.19 101.09 57.21 C88.42 57.27 75.76 57.37 63.09 57.48 C53.24 57.57 43.39 57.64 33.54 57.68 C28.46 57.7 23.39 57.75 18.32 57.81 C15.17 57.85 12.02 57.86 8.86 57.87 C7.4 57.87 5.94 57.89 4.48 57.92 C2.48 57.95 0.49 57.95 -1.51 57.95 C-2.63 57.96 -3.74 57.97 -4.89 57.98 C-7.76 57.37 -7.76 57.37 -10.12 54.99 C-11.92 52.11 -12.24 50.71 -12.18 47.36 C-12.18 46.39 -12.17 45.41 -12.16 44.41 C-12.13 43.38 -12.1 42.34 -12.07 41.27 C-12.05 40.2 -12.03 39.13 -12.01 38.02 C-11.97 35.76 -11.92 33.49 -11.85 31.23 C-11.76 27.75 -11.71 24.28 -11.66 20.81 C-11.61 18.61 -11.56 16.41 -11.51 14.21 C-11.49 13.17 -11.48 12.13 -11.47 11.06 C-11.43 10.09 -11.4 9.13 -11.37 8.13 C-11.35 7.28 -11.33 6.44 -11.3 5.56 C-10.76 3.37 -10.76 3.37 -9.15 1.76 C-5.96 -0.09 -3.68 -0 0 0 Z " fill="#ffffff" transform="translate(217.7580108642578,23.625778198242188)"/><path d="M0 0 C0.69 -0 1.39 -0.01 2.1 -0.02 C4.41 -0.03 6.72 -0.04 9.03 -0.04 C10.63 -0.05 12.23 -0.05 13.83 -0.06 C17.19 -0.07 20.56 -0.08 23.92 -0.08 C28.22 -0.08 32.53 -0.11 36.83 -0.14 C40.14 -0.16 43.45 -0.16 46.76 -0.16 C48.35 -0.17 49.94 -0.17 51.52 -0.19 C53.75 -0.2 55.97 -0.2 58.2 -0.2 C59.46 -0.2 60.73 -0.2 62.03 -0.21 C68.1 0.46 71.28 3.87 75.36 8.16 C76.04 8.76 76.72 9.36 77.42 9.97 C79.68 12.53 80.9 15.14 82.35 18.21 C83.69 20.8 85.52 22.9 87.36 25.16 C87.52 25.6 87.52 25.6 88.36 27.85 C89.36 30.16 89.36 30.16 91.22 31.06 C93.8 32.39 94.85 33.81 96.54 36.16 C99.18 39.7 101.96 42.94 104.98 46.16 C108.47 49.96 110.97 53.69 113.31 58.27 C114.64 60.67 116.36 62.3 118.36 64.16 C119 65.13 119.64 66.1 120.29 67.1 C122.36 70.16 122.36 70.16 124.98 72.79 C127.36 75.16 127.36 75.16 128.36 77.22 C129.36 79.16 129.36 79.16 131.73 80.91 C134.25 83.07 134.96 84.09 136.29 86.97 C137.98 90.62 139.99 93.29 142.66 96.26 C147.66 101.87 152.18 107.87 156.54 113.97 C158.61 116.86 160.6 119.58 163.17 122.04 C165.43 124.23 166.86 126.4 168.36 129.16 C170.67 129.4 170.67 129.4 173.36 129.16 C175.02 127.55 175.02 127.55 176.42 125.41 C178.5 122.3 180.69 119.79 183.36 117.16 C186.1 113.89 188.72 110.52 191.36 107.16 C192.01 106.36 192.66 105.55 193.33 104.72 C195.85 101.56 198.11 98.66 199.92 95.04 C201.53 91.81 203.52 89.51 205.95 86.87 C207.36 85.16 207.36 85.16 208.4 83.03 C209.36 81.16 209.36 81.16 211.67 79.91 C214.87 77.82 216.01 75.8 217.9 72.55 C221.32 66.93 225.36 61.64 229.48 56.52 C231.36 54.16 231.36 54.16 233.36 51.1 C235.76 47.56 238.53 44.92 241.67 42.04 C245.38 38.06 248.3 33.65 251.36 29.16 C254.9 24.04 258.45 19.01 262.36 14.16 C263 13.17 263.64 12.18 264.29 11.16 C266.4 8.1 268.67 5.71 271.36 3.16 C271.76 2.63 272.15 2.09 272.56 1.54 C275.39 -0.63 277.95 -0.21 281.46 -0.21 C282.18 -0.21 282.9 -0.22 283.64 -0.22 C286.01 -0.23 288.39 -0.22 290.77 -0.2 C292.42 -0.2 294.07 -0.2 295.72 -0.2 C299.17 -0.2 302.63 -0.19 306.09 -0.18 C310.53 -0.15 314.96 -0.15 319.4 -0.16 C322.81 -0.16 326.22 -0.16 329.62 -0.15 C331.26 -0.14 332.9 -0.14 334.53 -0.14 C336.82 -0.14 339.1 -0.13 341.38 -0.11 C342.03 -0.11 342.03 -0.11 345.33 -0.1 C348.36 0.16 348.36 0.16 350.36 2.16 C350.36 4.97 350.36 4.97 349.36 8.16 C347.97 9.38 346.58 10.59 345.1 11.69 C339.86 16.1 336.05 22.33 332.69 28.24 C330.87 30.86 328.62 32.92 326.36 35.16 C324.21 37.68 322.11 40.22 320.02 42.79 C317.59 45.74 315.05 48.46 312.36 51.16 C311.72 52.13 311.08 53.1 310.42 54.1 C308.36 57.16 308.36 57.16 306.06 59.44 C303.13 62.39 300.63 65.5 298.11 68.79 C297.14 70.03 296.17 71.28 295.2 72.52 C294.72 73.14 294.24 73.75 293.75 74.39 C291.03 77.85 288.22 81.23 285.42 84.62 C282.87 87.76 280.4 90.96 277.96 94.19 C276.22 96.33 274.31 98.22 272.36 100.16 C271.47 101.23 270.59 102.31 269.73 103.41 C268.95 104.32 268.16 105.23 267.36 106.16 C266.7 106.16 266.04 106.16 265.36 106.16 C265.23 106.51 265.23 106.51 264.61 108.29 C262.15 113.93 258.66 117.86 254.36 122.16 C252.29 124.78 250.33 127.47 248.36 130.16 C244.91 134.65 241.08 138.53 236.98 142.41 C233.99 145.54 231.47 148.89 228.91 152.37 C228.4 152.96 227.88 153.55 227.36 154.16 C226.7 154.16 226.04 154.16 225.36 154.16 C225.23 154.6 225.23 154.6 224.61 156.85 C223.31 160.29 221.87 162.49 219.36 165.16 C218.7 165.16 218.04 165.16 217.36 165.16 C217.13 165.86 216.9 166.56 216.67 167.29 C214.85 171.28 212.22 174.58 208.87 177.43 C203.63 183.44 201.98 192.96 202.42 200.7 C202.6 202.74 202.83 204.77 203.06 206.8 C203.39 210.11 203.21 213.14 202.86 216.44 C202.25 223.27 202.36 230.03 202.56 236.87 C202.62 239.09 202.67 241.3 202.72 243.52 C202.86 249.81 203 256.1 203.18 262.39 C203.28 266.26 203.37 270.13 203.44 274.01 C203.48 275.47 203.52 276.94 203.56 278.41 C203.63 280.45 203.67 282.5 203.7 284.54 C203.73 285.7 203.76 286.86 203.79 288.06 C203.26 291.87 202.06 293.48 199.36 296.16 C196.34 297.17 194.29 297.3 191.14 297.32 C190.07 297.33 189.01 297.34 187.91 297.35 C186.76 297.36 185.61 297.36 184.43 297.36 C183.84 297.37 183.84 297.37 180.84 297.38 C178.34 297.39 175.84 297.4 173.33 297.4 C169.5 297.41 165.67 297.44 161.84 297.47 C159.41 297.48 156.98 297.49 154.55 297.49 C153.41 297.5 152.26 297.51 151.08 297.53 C150.54 297.53 150.54 297.53 147.83 297.52 C146.89 297.52 145.96 297.52 144.99 297.53 C141.66 297.06 139.91 296.36 137.36 294.16 C135.89 288.61 136.24 282.74 136.29 277.02 C136.29 276.53 136.29 276.53 136.3 274.01 C136.32 271.86 136.33 269.71 136.34 267.56 C136.36 264.15 136.38 260.75 136.39 257.34 C136.42 247.67 136.47 237.99 136.53 228.31 C136.57 222.38 136.59 216.46 136.6 210.53 C136.61 208.27 136.62 206.02 136.64 203.76 C136.67 200.61 136.68 197.45 136.68 194.3 C136.69 193.37 136.71 192.45 136.72 191.49 C136.7 185.95 136.03 182.06 133.36 177.16 C131.7 175.81 130.03 174.48 128.36 173.16 C127.61 172.04 126.9 170.89 126.23 169.72 C123.46 165.02 119.99 161.06 116.44 156.95 C113.92 154.03 111.49 151.1 109.23 147.97 C106.25 143.87 102.82 140.22 99.4 136.49 C97.78 134.65 96.41 132.9 95.11 130.85 C92.56 126.94 89.27 124 85.86 120.85 C83.82 118.66 82.49 116.87 80.98 114.35 C78.75 110.62 76.16 107.52 73.25 104.31 C71.15 101.93 69.19 99.47 67.23 96.97 C65.17 94.36 63.18 91.99 60.79 89.66 C58.56 87.37 56.95 85.18 55.17 82.54 C51.79 77.58 47.93 73.29 43.85 68.9 C39.24 63.84 34.94 58.56 31.17 52.85 C29.17 49.89 26.94 47.62 24.36 45.16 C19.85 40.77 16.07 36.29 12.62 31.03 C8.8 25.37 4.82 19.77 0.36 14.6 C-1.64 12.16 -1.64 12.16 -1.64 10.16 C-2.04 10.02 -2.04 10.02 -4.02 9.29 C-6.64 8.16 -6.64 8.16 -8.64 6.16 C-7.48 -0.34 -6.59 0.04 0 0 Z " fill="#ffffff" transform="translate(960.6435546875,23.8388671875)"/><path d="M0 0 C2.06 -0.01 4.12 -0.03 6.18 -0.06 C9.18 -0.1 12.19 -0.12 15.2 -0.13 C16.12 -0.15 17.03 -0.17 17.98 -0.18 C18.84 -0.18 19.69 -0.18 20.57 -0.17 C21.32 -0.18 22.07 -0.19 22.84 -0.19 C26 0.54 26.99 1.69 28.94 4.3 C29.54 7.35 29.47 10.37 29.43 13.48 C29.43 14.42 29.44 15.36 29.44 16.33 C29.45 19.49 29.44 22.64 29.42 25.8 C29.42 28.06 29.43 30.32 29.43 32.58 C29.44 37.45 29.44 42.32 29.42 47.19 C29.4 54.89 29.41 62.58 29.43 70.28 C29.45 81.07 29.45 91.86 29.45 102.64 C29.45 103.33 29.45 104.01 29.45 104.72 C29.44 110.27 29.44 115.83 29.44 121.38 C29.43 126.24 29.43 131.09 29.43 135.95 C29.43 136.63 29.43 137.31 29.43 138.02 C29.42 149.41 29.43 160.81 29.45 172.2 C29.47 179.86 29.46 187.52 29.44 195.17 C29.43 199.93 29.44 204.69 29.45 209.44 C29.45 211.65 29.45 213.87 29.44 216.08 C29.42 219.09 29.43 222.1 29.45 225.11 C29.44 225.55 29.44 225.55 29.41 227.78 C29.46 231.51 29.51 233.64 31.59 236.81 C36.52 239.94 42.18 239.44 47.84 239.4 C48.62 239.4 49.39 239.4 50.19 239.4 C52.79 239.4 55.39 239.39 57.98 239.38 C59.85 239.37 61.71 239.37 63.57 239.37 C67.59 239.36 71.6 239.35 75.61 239.34 C81.95 239.32 88.29 239.31 94.63 239.3 C112.66 239.28 130.68 239.24 148.71 239.2 C158.67 239.17 168.63 239.16 178.59 239.15 C184.9 239.14 191.2 239.13 197.51 239.1 C201.43 239.09 205.35 239.09 209.27 239.09 C211.08 239.09 212.9 239.08 214.72 239.07 C217.2 239.06 219.68 239.06 222.16 239.06 C222.88 239.05 223.6 239.05 224.35 239.04 C228.3 239.06 231.43 239.42 234.94 241.3 C236.15 243.73 236.08 245.33 236.11 248.05 C236.13 249.04 236.14 250.02 236.15 251.04 C236.16 251.58 236.16 251.58 236.18 254.29 C236.18 255.38 236.19 256.48 236.2 257.61 C236.21 259.94 236.22 262.26 236.23 264.59 C236.25 268.15 236.29 271.71 236.34 275.27 C236.35 277.52 236.36 279.78 236.36 282.04 C236.38 283.1 236.4 284.17 236.42 285.27 C236.41 285.77 236.41 285.77 236.41 288.28 C236.41 288.72 236.41 288.72 236.43 290.93 C235.72 294.34 234.79 295.25 231.94 297.3 C228.45 297.91 224.99 297.83 221.46 297.8 C220.38 297.81 219.3 297.82 218.19 297.82 C214.57 297.84 210.94 297.83 207.31 297.81 C204.72 297.82 202.12 297.83 199.53 297.83 C193.2 297.85 186.88 297.85 180.55 297.84 C175.42 297.83 170.28 297.83 165.14 297.83 C164.77 297.83 164.77 297.83 162.92 297.83 C161.44 297.83 159.95 297.83 158.47 297.84 C144.54 297.85 130.61 297.83 116.68 297.81 C104.72 297.8 92.77 297.8 80.81 297.82 C66.93 297.84 53.05 297.85 39.18 297.83 C37.7 297.83 36.22 297.83 34.74 297.83 C34.01 297.83 33.28 297.83 32.53 297.83 C27.4 297.83 22.26 297.83 17.13 297.84 C10.22 297.85 3.31 297.84 -3.59 297.82 C-6.13 297.82 -8.67 297.82 -11.21 297.83 C-14.67 297.84 -18.13 297.82 -21.59 297.8 C-22.09 297.81 -22.09 297.81 -24.66 297.83 C-25.58 297.82 -26.51 297.81 -27.46 297.8 C-28.26 297.8 -29.06 297.8 -29.88 297.8 C-32.97 297.09 -34.16 295.79 -36.06 293.3 C-36.56 290.95 -36.56 290.95 -36.56 288.3 C-36.57 287.29 -36.58 286.27 -36.59 285.23 C-36.58 284.67 -36.58 284.67 -36.56 281.86 C-36.56 280.68 -36.57 279.5 -36.57 278.28 C-36.58 275 -36.57 271.72 -36.56 268.44 C-36.54 264.9 -36.55 261.37 -36.56 257.83 C-36.57 250.9 -36.56 243.97 -36.54 237.04 C-36.52 228.98 -36.52 220.91 -36.52 212.85 C-36.52 198.46 -36.5 184.07 -36.47 169.68 C-36.45 155.71 -36.43 141.75 -36.43 127.78 C-36.43 126.92 -36.43 126.05 -36.43 125.17 C-36.43 124.31 -36.43 123.45 -36.43 122.57 C-36.43 106.67 -36.42 90.78 -36.41 74.89 C-36.4 69.26 -36.4 63.64 -36.4 58.01 C-36.39 51.16 -36.39 44.31 -36.37 37.45 C-36.36 33.96 -36.35 30.46 -36.35 26.96 C-36.36 23.17 -36.34 19.39 -36.33 15.6 C-36.33 14.49 -36.34 13.37 -36.34 12.23 C-36.33 11.22 -36.33 10.21 -36.32 9.17 C-36.32 8.29 -36.32 7.42 -36.32 6.52 C-36.06 4.3 -36.06 4.3 -34.06 1.3 C-23.23 -0.92 -11.02 0.04 0 0 Z " fill="#ffffff" transform="translate(1812.0625,23.704833984375)"/><path d="M0 0 C1.64 -0.01 3.29 -0.03 4.93 -0.06 C7.35 -0.1 9.78 -0.12 12.2 -0.13 C12.93 -0.15 13.65 -0.17 14.4 -0.18 C20.89 -0.16 24.36 2.34 28.81 6.8 C31.83 10.6 33.75 14.99 35.85 19.34 C37.75 23.17 39.99 26.71 42.31 30.3 C45.22 34.93 48.06 39.49 50.19 44.55 C53.22 51.71 57.41 58.32 61.33 65.03 C63.69 69.11 65.85 73.26 67.94 77.48 C68.28 78.16 68.61 78.83 68.96 79.52 C70.95 83.53 72.92 87.55 74.88 91.57 C75.32 92.46 75.75 93.35 76.2 94.27 C77.05 96 77.89 97.73 78.73 99.47 C80.54 103.16 82.29 106.46 85.02 109.56 C87.86 112.95 88.45 115.7 89.35 119.93 C90.31 122.3 90.31 122.3 92.75 124.23 C95.8 126.69 96.56 128.58 97.88 132.23 C99.49 136.65 101.36 139.65 104.31 143.3 C105.44 145.76 105.44 145.76 106.31 148.23 C107.87 152.35 109.81 155.66 112.31 159.3 C112.79 160.43 113.26 161.56 113.75 162.73 C115.19 166 116.92 168.5 119.01 171.37 C121.12 174.49 122.7 177.83 124.31 181.23 C126.73 186.19 129.21 190.96 132.24 195.58 C134.19 198.69 135.72 202 137.31 205.3 C141.44 213.7 145.77 221.97 150.5 230.05 C152.31 233.3 152.31 233.3 153.75 236.92 C155.31 240.3 155.31 240.3 157.75 242.55 C160.96 245.99 161.88 249.31 163.35 253.72 C164.5 256.8 166.17 258.82 168.31 261.3 C169.38 263.28 170.34 265.29 171.29 267.33 C172.31 269.3 172.31 269.3 173.85 271.23 C175.52 273.58 176.03 275.5 176.69 278.3 C177.96 282.92 179.5 284.38 183.31 287.3 C184.25 290.92 184.25 290.92 184.31 294.3 C182.31 296.3 182.31 296.3 179.83 296.46 C178.75 296.42 177.67 296.39 176.56 296.36 C171.36 296.27 166.23 296.38 161.04 296.7 C150.63 297.32 140.29 297.29 129.88 296.98 C129.54 296.97 129.54 296.97 127.83 296.93 C125.89 296.88 123.95 296.81 122.01 296.74 C121.44 296.73 121.44 296.73 118.61 296.63 C113.83 296.14 109.63 295.58 106.13 292.17 C104.4 289.43 102.92 286.66 101.51 283.74 C100.01 280.67 98.42 277.64 96.81 274.61 C96.25 273.53 95.68 272.45 95.1 271.35 C93.31 268.3 93.31 268.3 91.22 265.67 C89.42 263.42 88.42 261.58 87.38 258.92 C86.11 255.89 84.77 253.39 82.75 250.8 C80.76 248.19 79.74 245.88 78.81 242.73 C77.5 238.35 75.33 235.76 72.31 232.3 C71.24 230.35 70.29 228.37 69.35 226.36 C68.29 224.25 67.1 222.33 65.81 220.36 C64.13 217.73 62.77 215.17 61.56 212.3 C59.65 207.77 57.26 203.6 54.81 199.36 C51.81 194.14 49.28 189.05 47.21 183.39 C46.03 180.63 44.36 178.5 42.54 176.15 C40.58 173.18 39.52 169.89 38.28 166.58 C37.07 163.71 35.31 161.67 33.31 159.3 C32.62 157.98 31.95 156.64 31.31 155.3 C30.14 152.84 29.12 151.05 27.38 148.92 C24.87 145.73 23.28 142.36 21.56 138.7 C20.31 136.3 20.31 136.3 18.75 134.23 C17.29 132.26 16.65 130.69 15.94 128.36 C14.87 125.28 14.28 124.26 11.81 121.92 C8.72 118.68 8.23 115.97 7.13 111.71 C6.32 109.3 5.52 108.02 3.81 106.17 C1.23 103.19 0.28 101.02 -0.81 97.32 C-1.69 95.3 -1.69 95.3 -3.59 92.92 C-6.46 89.32 -8.17 85.38 -10.12 81.23 C-11.71 78.26 -13.56 75.9 -15.69 73.3 C-16.81 71.3 -16.81 71.3 -17.69 69.42 C-18.95 66.79 -20.26 64.25 -21.75 61.73 C-23.69 58.3 -23.69 58.3 -25.19 54.67 C-26.69 51.3 -26.69 51.3 -28.69 48.98 C-30.7 46.27 -31.24 44.63 -32.06 41.42 C-33.04 37.79 -34 35.6 -36.62 32.92 C-40.23 29.17 -41.28 25.02 -42.74 20.12 C-43.91 16.63 -45.44 14.18 -47.69 11.3 C-47.36 10.64 -47.03 9.98 -46.69 9.3 C-45.37 10.25 -44.06 11.21 -42.75 12.17 C-42.02 12.7 -41.29 13.24 -40.53 13.79 C-38.31 15.6 -37.78 16.63 -37.37 19.46 C-37.29 20.27 -37.21 21.08 -37.12 21.92 C-37.04 22.74 -36.96 23.55 -36.87 24.4 C-36.81 25.02 -36.75 25.65 -36.69 26.3 C-35.37 26.63 -34.05 26.96 -32.69 27.3 C-32.69 22.68 -32.69 18.06 -32.69 13.3 C-29.72 11.98 -26.75 10.66 -23.69 9.3 C-23.69 7.98 -23.69 6.66 -23.69 5.3 C-27.63 4.2 -29.13 4.46 -32.69 6.3 C-34.81 6.11 -34.81 6.11 -36.69 5.3 C-37.35 4.31 -38.01 3.32 -38.69 2.3 C-26.01 -0.02 -12.85 0.06 0 0 Z M-15.69 5.3 C-13.09 8.61 -10.76 8.78 -6.69 9.3 C2.01 9.68 10.66 9.09 19.31 8.3 C19.64 6.98 19.97 5.66 20.31 4.3 C17.67 1.65 10.48 2.77 6.7 2.63 C4.59 2.55 2.48 2.44 0.37 2.34 C-0.98 2.29 -2.32 2.24 -3.67 2.19 C-4.89 2.13 -6.12 2.08 -7.38 2.03 C-10.98 2.32 -12.79 3.2 -15.69 5.3 Z " fill="#f2b000" transform="translate(1527.685546875,23.704833984375)"/><path d="M0 0 C2.34 0.21 2.34 0.21 5 1 C6.44 3.04 6.44 3.04 7.56 5.62 C7.77 6.08 7.77 6.08 8.81 8.37 C9.01 8.8 9.01 8.8 10 11 C11.28 13.37 12.64 15.68 14 18 C14.69 19.23 15.38 20.46 16.06 21.69 C18 25 18 25 19.5 26.9 C21.62 29.86 22.62 33.05 23.84 36.46 C25.18 39.39 26.98 41.5 29 44 C30.05 45.93 31.05 47.89 32 49.88 C33.67 53.32 35.35 56.71 37.31 60 C38.74 62.54 39.64 64.16 40 67 C40.07 67.52 40.07 67.52 40.44 70.12 C39.91 74.78 38.3 77.3 35.79 81.18 C33.18 85.3 30.97 89.61 28.71 93.92 C27 97 27 97 24.91 100.11 C23.27 102.59 22.1 104.82 21 107.56 C19.84 110.29 18.9 112.12 17 114.44 C14.55 117.57 13.47 120.75 12.07 124.45 C10.76 127.58 9.08 130.3 7.22 133.14 C6.07 134.89 5.02 136.67 4 138.5 C2.58 141.02 1.1 143.49 -0.44 145.94 C-0.65 146.27 -0.65 146.27 -1.71 147.97 C-2.56 149.3 -3.42 150.62 -4.29 151.93 C-7.2 156.38 -9.16 160.8 -11.04 165.76 C-12.25 168.58 -14.09 170.61 -16 173 C-16.68 174.63 -17.32 176.28 -17.94 177.94 C-19.63 182.43 -21.87 185.33 -25 189 C-26.29 191.3 -27.42 193.66 -28.56 196.04 C-30.25 199.51 -32.05 202.91 -33.88 206.31 C-34.05 206.63 -34.05 206.63 -34.91 208.24 C-35.6 209.53 -36.29 210.81 -36.98 212.1 C-37.97 213.94 -38.95 215.79 -39.93 217.64 C-40.53 218.77 -41.13 219.9 -41.75 221.06 C-42.28 222.06 -42.81 223.07 -43.36 224.1 C-45 227 -45 227 -47.05 230.07 C-48.73 232.59 -50.12 235.03 -51.44 237.75 C-51.86 238.6 -52.28 239.46 -52.71 240.34 C-53.13 241.22 -53.56 242.1 -54 243 C-54.87 244.77 -55.75 246.54 -56.62 248.31 C-57.01 249.09 -57.39 249.87 -57.79 250.68 C-59.1 253.19 -60.52 255.59 -62 258 C-62.28 258.47 -62.28 258.47 -63.72 260.86 C-64.01 261.34 -64.01 261.34 -65.5 263.75 C-65.79 264.23 -65.79 264.23 -67.28 266.67 C-69 269 -69 269 -72 270 C-74.17 270.1 -76.35 270.14 -78.52 270.15 C-78.85 270.15 -78.85 270.15 -80.51 270.16 C-82.68 270.16 -84.86 270.17 -87.03 270.17 C-88.54 270.17 -90.05 270.17 -91.56 270.18 C-94.73 270.18 -97.89 270.19 -101.06 270.19 C-105.12 270.19 -109.17 270.2 -113.23 270.22 C-116.35 270.23 -119.47 270.23 -122.59 270.23 C-124.08 270.23 -125.58 270.23 -127.08 270.24 C-129.17 270.25 -131.26 270.25 -133.35 270.24 C-134.54 270.24 -135.73 270.25 -136.96 270.25 C-139.88 270.01 -141.54 269.53 -144 268 C-144.31 265.81 -144.31 265.81 -144 263 C-142.33 261.33 -140.67 259.67 -139 258 C-137.61 255.51 -136.4 252.99 -135.21 250.4 C-134 248 -134 248 -132.47 246 C-130.83 243.76 -130 241.67 -129.06 239.06 C-127.92 236.06 -127.05 234.06 -125 231.56 C-122.89 228.86 -122.1 226.72 -121 223.5 C-119.54 219.23 -117.96 216.43 -115 213 C-113.93 211.02 -112.97 209 -112 206.97 C-111 205 -111 205 -108.94 202.06 C-107.24 199.38 -106.45 197.48 -105.56 194.5 C-104.21 190.1 -102 187.51 -99 184 C-97.89 181.75 -96.93 179.47 -95.96 177.16 C-94.64 174.2 -92.82 171.67 -91 169 C-90.32 167.65 -89.65 166.3 -89 164.94 C-87.79 162.42 -86.79 160.76 -84.94 158.62 C-82.97 155.96 -82.4 154.22 -81.56 151.06 C-80.66 147.72 -79.83 145.39 -77.5 142.81 C-74.74 139.71 -73.59 136.81 -72 133 C-71.36 132.26 -70.72 131.51 -70.06 130.75 C-67.44 127.26 -66.4 123.67 -65 119.57 C-63.81 116.52 -62.06 114.51 -60 112 C-59.34 110.43 -58.72 108.85 -58.12 107.25 C-56.41 102.7 -54.16 99 -51.38 95.03 C-49.64 92.48 -48.35 89.77 -47 87 C-46.34 86.07 -45.68 85.14 -45 84.19 C-43.25 81.4 -42.46 79.46 -41.56 76.38 C-40.57 73.1 -40.3 72.23 -37.5 70.06 C-34.11 67.27 -33.82 64.53 -32.74 60.38 C-31.78 57.29 -30.09 55.45 -28 53 C-26.67 50.5 -25.45 47.96 -24.23 45.41 C-23 43 -23 43 -20.81 39.94 C-19.09 37.15 -18.63 35.63 -18.06 32.5 C-17.19 27.86 -15.16 25.53 -12 22 C-10.9 19.99 -9.94 17.94 -8.96 15.87 C-8 14 -8 14 -6 11.56 C-3.24 8.03 -1.69 4.13 0 0 Z " fill="#ffffff" transform="translate(1458,50)"/><path d="M0 0 C6.49 1.05 14.54 1.53 20.79 -0.55 C26.33 -0.7 31.86 -0.58 37.4 -0.47 C39.24 -0.44 41.08 -0.42 42.91 -0.41 C45.57 -0.39 48.22 -0.35 50.88 -0.29 C51.28 -0.29 51.28 -0.29 53.35 -0.3 C57.56 -0.17 59.33 0.11 62.8 2.71 C64.78 5.44 65.45 6.66 65.6 9.95 C65.62 10.36 65.62 10.36 65.73 12.45 C65.75 13.29 65.77 14.14 65.79 15.01 C65.84 15.86 65.89 16.71 65.94 17.59 C66.08 21.17 66.17 23.69 64.55 26.92 C62.63 28.59 61.04 29.43 58.66 30.32 C52.92 32.7 47.9 36 43.02 39.84 C39.63 42.47 36.85 43.82 32.66 44.89 C27.67 46.2 26 48.4 22.79 52.45 C20.87 53.35 18.94 53.96 16.91 54.61 C11.82 56.63 7.57 60.55 3.79 64.45 C5.42 66.42 6.27 67.37 8.84 67.77 C9.61 67.75 10.38 67.73 11.17 67.71 C12.01 67.69 12.85 67.68 13.71 67.66 C14.58 67.63 15.45 67.6 16.35 67.57 C18.08 67.53 19.81 67.49 21.54 67.46 C22.31 67.43 23.08 67.41 23.87 67.38 C25.79 67.45 25.79 67.45 27.79 68.45 C27.79 69.11 27.79 69.77 27.79 70.45 C23.17 70.78 18.55 71.11 13.79 71.45 C13.79 72.44 13.79 73.43 13.79 74.45 C22.01 76.36 30.85 76.4 38.79 73.45 C38.79 73.12 38.79 72.79 38.79 72.45 C36.48 72.12 34.17 71.79 31.79 71.45 C39.82 66.73 52.94 67.64 61.79 69.45 C63.79 71 64.68 71.88 65.16 74.39 C65.16 75.11 65.16 75.83 65.15 76.57 C65.15 76.97 65.15 76.97 65.15 78.96 C65.13 79.78 65.12 80.6 65.1 81.45 C65.1 82.27 65.11 83.09 65.11 83.93 C65.06 90.05 65.06 90.05 62.79 93.45 C58.37 94.59 54.08 94.52 49.54 94.45 C40.55 94.35 31.59 94.74 22.61 95.18 C22.08 95.21 22.08 95.21 19.37 95.33 C18.89 95.35 18.89 95.35 16.47 95.47 C13.77 95.45 11.43 95 8.79 94.45 C7.09 94.38 5.38 94.36 3.68 94.39 C2.69 94.4 1.7 94.4 0.68 94.41 C-0.38 94.42 -1.44 94.44 -2.52 94.45 C-11.49 94.5 -20.44 94.41 -29.4 94.07 C-30.39 94.04 -31.39 94.01 -32.42 93.98 C-38.09 93.75 -43.08 93.41 -48.02 90.32 C-49.94 87.3 -49.99 84.05 -50.21 80.57 C-50.29 79.87 -50.36 79.16 -50.44 78.43 C-50.71 74.46 -50.47 72.77 -47.95 69.63 C-47.05 68.91 -46.14 68.19 -45.21 67.45 C-44.57 66.9 -43.92 66.35 -43.25 65.79 C-39.38 62.86 -35.59 60.57 -31.2 58.51 C-29.05 57.36 -27.25 56.02 -25.34 54.51 C-21.7 51.67 -17.94 49.77 -13.78 47.8 C-11.06 46.37 -8.69 44.71 -6.21 42.89 C-2.05 39.86 2.03 37.91 6.86 36.18 C8.79 35.45 8.79 35.45 9.79 34.45 C9.91 31.95 9.91 31.95 9.79 29.45 C8.79 28.45 8.79 28.45 6.81 28.35 C6.39 28.36 6.39 28.36 4.24 28.39 C3.31 28.39 2.39 28.4 1.43 28.41 C-0.53 28.44 -2.49 28.46 -4.44 28.49 C-5.37 28.5 -6.3 28.5 -7.26 28.51 C-8.11 28.52 -8.97 28.53 -9.84 28.55 C-12.21 28.45 -12.21 28.45 -14.2 27.94 C-16.66 27.34 -18.85 27.39 -21.39 27.46 C-22.38 27.47 -23.37 27.49 -24.4 27.51 C-26.47 27.55 -28.54 27.6 -30.62 27.66 C-36.63 27.75 -40.94 27.46 -46.21 24.45 C-49.88 19.6 -49.91 14.3 -49.21 8.45 C-47.83 4.64 -46.79 3.75 -43.2 1.89 C-38.74 0.07 -34.29 -0.35 -29.52 -0.74 C-28.64 -0.82 -27.76 -0.9 -26.84 -0.98 C-17.59 -1.76 -9.08 -2.09 0 0 Z " fill="#f2b000" transform="translate(78.2109375,115.55078125)"/><path d="M0 0 C1.32 0.87 2.62 1.76 3.91 2.67 C6.15 4.04 8.18 4.67 10.71 5.36 C15.23 6.71 16.6 8.82 18.96 12.92 C19.61 13.22 20.27 13.53 20.94 13.84 C23.57 15.25 23.89 16.47 24.89 19.23 C26.06 22.43 26.86 23.84 29.49 26.11 C33.73 30.94 32.81 36.92 32.77 43.06 C32.77 45.32 32.83 47.58 32.9 49.85 C33.06 61.92 29.88 70.76 21.34 79.65 C20.94 80.02 20.94 80.02 18.96 81.92 C18.58 82.34 18.58 82.34 16.64 84.48 C13.82 87.04 11.23 88.43 7.81 90.01 C5.96 90.92 5.96 90.92 3.71 92.61 C-0.43 95.71 -5.6 95.07 -10.54 95.05 C-11.37 95.06 -12.21 95.06 -13.06 95.06 C-14.82 95.06 -16.59 95.06 -18.35 95.05 C-21.01 95.05 -23.66 95.05 -26.32 95.06 C-52.52 95.07 -52.52 95.07 -59.04 90.92 C-59.37 90.73 -59.37 90.73 -61 89.79 C-65.27 87.27 -68.66 84.59 -72.04 80.92 C-72.72 80.24 -73.4 79.56 -74.11 78.86 C-74.74 78.22 -75.38 77.58 -76.04 76.92 C-76.68 76.42 -77.33 75.91 -77.99 75.39 C-80.98 71.8 -81.78 68.03 -82.86 63.55 C-83.07 62.65 -83.29 61.75 -83.51 60.83 C-85.2 53.24 -85.55 46.6 -84.04 38.92 C-83.92 38.26 -83.8 37.59 -83.68 36.9 C-81.41 25.15 -76.51 15.53 -67.04 7.92 C-63.93 6.16 -61.04 4.89 -57.64 3.82 C-55.04 2.92 -55.04 2.92 -53.37 1.4 C-50.08 -0.69 -46.95 -0.54 -43.17 -0.55 C-42.41 -0.57 -41.65 -0.59 -40.87 -0.6 C-38.45 -0.65 -36.03 -0.68 -33.61 -0.7 C-31.19 -0.74 -28.77 -0.78 -26.35 -0.83 C-24.85 -0.85 -23.35 -0.87 -21.84 -0.89 C-2.24 -1.18 -2.24 -1.18 0 0 Z M-62.04 38.92 C-64.07 42.89 -64.48 46.33 -63.79 50.78 C-62.55 54.35 -60.23 56.95 -57.81 59.81 C-56.3 61.61 -55.11 63.35 -53.92 65.36 C-51.66 68.44 -50.69 68.86 -47.04 69.92 C-43.85 70.26 -40.67 70.32 -37.46 70.36 C-36.54 70.38 -35.61 70.39 -34.66 70.41 C-32.7 70.43 -30.75 70.45 -28.79 70.46 C-25.82 70.48 -22.85 70.56 -19.88 70.63 C-3.94 70.86 -3.94 70.86 1.56 66.76 C3.46 64.84 3.46 64.84 4.96 62.92 C5.76 61.91 6.57 60.9 7.4 59.86 C11.88 52.04 11.88 52.04 12.21 47.48 C11.79 46.31 11.38 45.13 10.96 43.92 C10.7 42.91 10.44 41.9 10.17 40.86 C9.83 39.72 9.49 38.59 9.14 37.42 C8.83 36.36 8.51 35.3 8.19 34.2 C4.64 28.99 -0.04 25.84 -6.04 23.92 C-11.53 22.9 -17.07 22.95 -22.63 23.06 C-25.17 23.11 -27.7 23.08 -30.24 23.05 C-44.56 23.05 -53.42 27.03 -62.04 38.92 Z " fill="#f2b000" transform="translate(112.04296875,226.078125)"/><path d="M0 0 C0.33 0 0.66 0 1 0 C3.19 12.02 3.22 23.81 2.94 35.99 C2.87 39.22 2.84 42.45 2.8 45.67 C2.77 47.73 2.72 49.79 2.68 51.86 C2.68 52.34 2.68 52.34 2.66 54.77 C2.47 61.31 2.47 61.31 0.27 64.57 C-3.64 67.03 -7.65 67.12 -12.18 67.1 C-12.69 67.1 -12.69 67.1 -15.24 67.09 C-16.32 67.08 -17.4 67.07 -18.51 67.06 C-19.64 67.06 -20.76 67.05 -21.92 67.05 C-26.71 67.03 -31.51 67.01 -36.3 66.98 C-39.81 66.96 -43.32 66.95 -46.82 66.94 C-47.89 66.93 -48.96 66.92 -50.07 66.91 C-55.7 66.89 -61.21 67.11 -66.81 67.77 C-70.45 68.15 -74.09 68.15 -77.75 68.12 C-78.14 68.12 -78.14 68.12 -80.09 68.11 C-104.04 67.88 -104.04 67.88 -111 64 C-114.04 59.96 -114.37 56.96 -114.33 51.97 C-114.33 51.3 -114.32 50.62 -114.32 49.93 C-114.32 48.51 -114.3 47.09 -114.28 45.67 C-114.25 43.53 -114.24 41.4 -114.23 39.27 C-114.19 31.73 -113.88 24.26 -113.11 16.75 C-113 14 -113 14 -113.56 11.31 C-114 9 -114 9 -112.56 6.19 C-112.05 5.47 -111.53 4.74 -111 4 C-104.25 4.75 -104.25 4.75 -102 7 C-101.6 8.99 -101.26 10.99 -101 13 C-100.34 12.67 -99.68 12.34 -99 12 C-98.44 10.19 -98.44 10.19 -98 8 C-97.56 5.81 -97.56 5.81 -97 4 C-96.34 3.67 -95.68 3.34 -95 3 C-94.06 7.71 -93.92 12.22 -94 17 C-94.12 32.8 -94.12 32.8 -93 40 C-90.39 42.61 -88.53 42.26 -84.98 42.27 C-84.59 42.27 -84.59 42.27 -82.62 42.25 C-81.86 42.26 -81.09 42.27 -80.3 42.27 C-72.72 42.25 -72.72 42.25 -70 40 C-67.32 33.32 -67.44 25.25 -68.37 18.2 C-69.34 10.8 -69.34 10.8 -67.5 6.5 C-64.45 3.45 -62.14 2.19 -58 1 C-51.94 1.1 -51.94 1.1 -49.34 3.58 C-47.52 6.86 -47.39 9.96 -47.25 13.62 C-47.21 14.34 -47.17 15.05 -47.13 15.79 C-46.96 19.77 -47.07 23.54 -47.62 27.5 C-48.27 32.47 -47.31 35.54 -45 40 C-41.58 42.43 -38.22 42.3 -34.12 42.31 C-32.93 42.33 -31.74 42.35 -30.51 42.36 C-26.65 41.96 -24.28 41.04 -21 39 C-18.58 35.37 -18.66 33.37 -18.47 29.03 C-18.4 27.64 -18.33 26.25 -18.26 24.86 C-18.16 22.68 -18.06 20.49 -17.97 18.31 C-17.88 16.19 -17.77 14.08 -17.66 11.97 C-17.6 10.7 -17.55 9.44 -17.49 8.14 C-16.99 4.91 -16.59 3.89 -14 2 C-13.65 2.11 -13.65 2.11 -11.88 2.66 C-11.43 2.8 -11.43 2.8 -9.12 3.5 C-8.22 3.78 -7.32 4.06 -6.38 4.34 C-4 5 -4 5 -2 5 C-1.34 3.35 -0.68 1.7 0 0 Z " fill="#f2b000" transform="translate(142,31)"/><path d="M0 0 C2.62 2 2.62 2 4 4 C4.72 3.86 5.44 3.71 6.19 3.56 C7.12 3.38 8.04 3.19 9 3 C9.87 2.77 10.73 2.55 11.62 2.31 C14 2 14 2 17 4 C16.67 5.65 16.34 7.3 16 9 C13.03 9.99 10.06 10.98 7 12 C7.33 12.99 7.66 13.98 8 15 C8.07 16.89 8.08 18.79 8.06 20.69 C8.05 21.68 8.04 22.68 8.04 23.7 C8.02 24.46 8.01 25.22 8 26 C6.68 26.33 5.36 26.66 4 27 C1.6 24.6 1.77 23.9 1.62 20.62 C1.33 17.45 1.19 16.25 -0.75 13.62 C-3 12 -3 12 -5.5 10.5 C-8.15 8.91 -10.04 7.4 -12 5 C-12 3.68 -12 2.36 -12 1 C-8.32 -0.84 -4.02 -0.5 0 0 Z " fill="#ffffff" transform="translate(1488,25)"/><path d="M0 0 C0.89 -0.01 1.77 -0.03 2.69 -0.04 C5 0.19 5 0.19 7 2.19 C7.32 6.52 7.45 8.51 5 12.19 C4.29 14.51 3.62 16.84 3 19.19 C2.34 19.19 1.68 19.19 1 19.19 C0.65 18.07 0.3 16.96 -0.06 15.81 C-0.87 13.88 -0.87 13.88 -2 12.19 C-5.69 10.75 -5.69 10.75 -9 10.19 C-9.33 11.18 -9.66 12.17 -10 13.19 C-10.33 13.19 -10.66 13.19 -11 13.19 C-11.5 7.9 -10.27 5.32 -7 1.19 C-4.52 -0.05 -2.76 0.02 0 0 Z " fill="#ffffff" transform="translate(40,24.8125)"/><path d="M0 0 C0.66 0.03 1.32 0.05 2 0.08 C4.1 0.16 6.2 0.25 8.3 0.35 C9.72 0.41 11.15 0.47 12.58 0.52 C16.07 0.66 19.56 0.82 23.05 0.98 C23.21 1.64 23.21 1.64 24.05 4.98 C20.41 8.61 8.22 7.08 3.23 7.16 C-1.84 7.13 -6.12 6.49 -10.95 4.98 C-10.95 3.99 -10.95 3 -10.95 1.98 C-7.28 -0.37 -4.28 -0.18 0 0 Z " fill="#ffffff" transform="translate(1523.953125,26.0234375)"/><path d="M0 0 C1.01 3.22 1.17 4.6 -0.19 7.75 C-2.24 10.3 -2.85 10.61 -6 11 C-8.29 10.44 -8.29 10.44 -10.62 9.56 C-14.84 8 -14.84 8 -17 8 C-17.36 3.6 -17.36 3.6 -16 1.31 C-10.72 -2.15 -5.78 -2.6 0 0 Z " fill="#ffffff" transform="translate(142,26)"/><path d="M0 0 C1.26 0.12 2.52 0.25 3.81 0.38 C4.17 0.41 4.17 0.41 5.96 0.59 C9.03 1.21 10.83 2.83 13 5 C5.12 8.21 -3.63 9.89 -11.89 6.98 C-12.59 6.66 -13.28 6.33 -14 6 C-14 5.01 -14 4.02 -14 3 C-11.24 1.62 -8.95 1.9 -5.88 1.94 C-4.78 1.95 -3.68 1.96 -2.55 1.96 C-1.71 1.98 -0.87 1.99 0 2 C0 1.34 0 0.68 0 0 Z " fill="#ffffff" transform="translate(106,184)"/></svg>
-            <span class="bvfy">Verified Partner</span>
-            <h3>Trade with OneRoyal</h3>
-            <p>Our partner broker for MT5 trading. Tight spreads, reliable execution, and full support for your Smart Money strategy. Not mandatory — but recommended by our students.</p>
-            <button class="bbtn" onclick="window.open('https://www.oneroyal.com/en/open-account/sign-up?lid=12844','_blank')">Visit OneRoyal<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-          </div>
-          <div class="broker-r">
-            <div class="bstat"><b>Scalping</b><span>Low Latency</span></div>
-            <div class="bstat"><b>24/5</b><span>Always Open</span></div>
-            <div class="bstat"><b>$5 Min</b><span>To Start</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="marq" aria-hidden="true">
-      <div class="marq-track">
-        <span>Precision</span><span class="fill">Liquidity</span><span>Order Flow</span><span class="fill">Structure</span>
-        <span>Precision</span><span class="fill">Liquidity</span><span>Order Flow</span><span class="fill">Structure</span>
-      </div>
+  <div class="author">
+    <div class="av"><img src="data:image/png;base64,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" alt=""></div>
+    <div class="t">
+      <div class="n">FXDarwish</div>
+      <div class="r">Liquidity-Based Price Action · ICT/SMC · @fxdarwish</div>
     </div>
-
-    <section class="sec" id="reviews">
-      <div class="wrap">
-        <div class="lab reveal"><b>04</b> Student reviews</div>
-        <h2 class="big reveal">Real traders, <em>real results</em>.</h2>
-        <div class="rstat reveal">
-          <div><b>4.9★</b><span>Avg Rating</span></div><div><b>200+</b><span>Students</span></div><div><b>3 yrs</b><span>Teaching</span></div><div><b>87%</b><span>Completion</span></div>
-        </div>
-        <div class="reviews-shell collapsed reveal" id="rev-shell">
-        <div class="tg">
-          <div class="tc"><div class="stars">★★★★★</div><p>"After two years of losing with retail indicators, this finally made the market make sense. The liquidity framework explains why my trades were failing."</p><div class="who"><div class="av">OF</div><div><div class="nm">Omar F.</div><div class="mt">Cairo · Trading Course</div></div></div></div>
-          <div class="tc"><div class="stars">★★★★★</div><p>"Three months of coaching and I went from break-even to consistent. We built a rules-based plan around SMC. Best investment I've made."</p><div class="who"><div class="av">SK</div><div><div class="nm">Sarah K.</div><div class="mt">Kuwait City · 1-on-1</div></div></div></div>
-          <div class="tc"><div class="stars">★★★★★</div><p>"Nothing matches this course's depth on order blocks, PO3 and AMD. The way it's structured makes everything connect."</p><div class="who"><div class="av">AR</div><div><div class="nm">Ahmad R.</div><div class="mt">Dubai · Trading Course</div></div></div></div>
-          <div class="tc"><div class="stars">★★★★★</div><p>"The breakdown of institutional order flow and timing entries around kill zones gave me a system I can repeat. My consistency improved fast."</p><div class="who"><div class="av">JT</div><div><div class="nm">Jake T.</div><div class="mt">London · 1-on-1</div></div></div></div>
-          <div class="tc"><div class="stars">★★★★★</div><p>"Clear bias every morning before London open, and questions answered with actual ICT concepts — not generic advice."</p><div class="who"><div class="av">NH</div><div><div class="nm">Nour H.</div><div class="mt">Beirut · Community</div></div></div></div>
-          <div class="tc"><div class="stars">★★★★★</div><p>"Best Arabic trading education anywhere. Goes deep on SMC — not surface level. The market structure module alone is worth it."</p><div class="who"><div class="av">KR</div><div><div class="nm">Khalid R.</div><div class="mt">Riyadh · Trading Course</div></div></div></div>
-        </div>
-        <div class="rev-fade"></div>
-        <div class="rev-foot"><button class="more-btn" id="rev-more" type="button">Show more reviews <span>+</span></button></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec" id="faq">
-      <div class="wrap">
-        <div class="lab reveal"><b>05</b> Questions</div>
-        <h2 class="big reveal">Good to know before you start.</h2>
-        <div class="faq reveal">
-          <details class="q"><summary>Do I need prior experience to join? <span class="qi">+</span></summary><div class="qa">No. The course starts from institutional foundations and builds progressively, while 1-on-1 coaching is adapted to wherever you are right now.</div></details>
-          <details class="q"><summary>What exactly is ICT &amp; Smart Money Concepts? <span class="qi">+</span></summary><div class="qa">A framework for reading how large institutions move price — through liquidity manipulation, market structure, fair value gaps and timing — rather than relying on lagging retail indicators.</div></details>
-          <details class="q"><summary>Which markets does this apply to? <span class="qi">+</span></summary><div class="qa">The same concepts work across gold (XAU/USD), forex pairs, indices (NAS100, S&amp;P500) and crypto — anywhere there's enough liquidity for institutional order flow to operate.</div></details>
-          <details class="q"><summary>How do I get started? <span class="qi">+</span></summary><div class="qa">Message on WhatsApp for 1-on-1 coaching or to enrol in the course. Join the free Discord channel first if you want to see the analysis and community before committing.</div></details>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec connect" id="connect">
-      <div class="wrap">
-        <div class="lab reveal" style="justify-content:center"><b>06</b> Let's work together</div>
-        <h2 class="big reveal">Ready to trade with <em>precision</em>?</h2>
-        <a class="cmail reveal" href="https://wa.me/96181824829" target="_blank" rel="noopener">Message on WhatsApp</a>
-        <div class="socs reveal">
-          <a href="https://wa.me/96181824829" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12c0 2.1.56 4.1 1.53 5.85L.06 23.44a.75.75 0 0 0 .92.91l5.7-1.5C8.12 23.57 10 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0zm0 21.75c-1.9 0-3.67-.5-5.2-1.38l-.37-.21-3.73.98 1-3.64-.24-.37A9.71 9.71 0 0 1 2.25 12C2.25 6.62 6.62 2.25 12 2.25S21.75 6.62 21.75 12 17.38 21.75 12 21.75zm5.5-7.35c-.3-.15-1.8-.9-2.07-.99-.28-.1-.48-.15-.68.14-.2.3-.77.99-.95 1.2-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.63-.93-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.5 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.19-.57-.34z"/></svg>WhatsApp</a>
-          <a href="https://instagram.com/fxdarwish" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a>
-          <a href="https://discord.gg/EqGmzaK3Nd" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3c-.27.47-.52.95-.73 1.45a18.26 18.26 0 0 0-5.47 0C8.97 3.95 8.72 3.47 8.45 3A19.74 19.74 0 0 0 3.68 4.4C.52 9.04-.32 13.58.1 18.06A19.9 19.9 0 0 0 6.12 20.9c.48-.65.9-1.34 1.22-2.06a13.13 13.13 0 0 1-1.87-.92l.37-.29c3.93 1.8 8.18 1.8 12.06 0l.38.29a12.3 12.3 0 0 1-1.88.92c.32.72.74 1.41 1.22 2.06a19.8 19.8 0 0 0 6.01-2.84c.5-5.18-.84-9.67-3.55-13.66zM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42 2.18 1.1 2.16 2.42-.95 2.42-2.16 2.42zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42 2.18 1.1 2.16 2.42-.94 2.42-2.16 2.42z"/></svg>Discord</a>
-        </div>
-        <a class="email-line reveal" href="mailto:info@fxdarwish.com">info@fxdarwish.com</a>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="wrap">
-        <div class="fbar">
-          <a href="#top" class="brand" aria-label="FXDARWISH home">
-            <svg class="lk" style="height:26px" viewBox="115 433 875 214" role="img" aria-label="FXDARWISH">
-              <polygon class="lk-m1" points="242.84 489.4 165.74 489.4 165.74 564.42 115.73 514.41 115.73 439.39 192.83 439.39 242.84 489.4"/>
-              <polygon class="lk-m2" points="294.02 540.58 294.02 640.61 193.93 640.61 143.92 590.6 244.04 590.6 244.04 490.59 294.02 540.58"/>
-              <path class="lk-fx" d="M393.54,472.81v14.88h-30.47s0,5.4,0,5.44c0,.14,0,10.5,0,10.64h22.8v14.45h-22.8v30.85h-18.21v-76.26h48.68Z"/>
-              <path class="lk-fx" d="M455.02,549.08l-15.23-23.36-13.42,23.36h-20.67l23.97-38.78-24.5-37.48h21.2l15.02,23.03,13.21-23.03h20.67l-23.75,38.46,24.71,37.8h-21.2Z"/>
-              <path class="lk-word" d="M536.53,477.59c5.89,3.19,10.45,7.66,13.69,13.42,3.23,5.76,4.85,12.4,4.85,19.94s-1.62,14.09-4.85,19.88c-3.23,5.8-7.81,10.28-13.74,13.47-5.93,3.19-12.8,4.78-20.61,4.78h-28.02v-76.26h28.02c7.88,0,14.77,1.59,20.67,4.78ZM530.78,527.24c3.84-3.84,5.75-9.27,5.75-16.29s-1.92-12.49-5.75-16.4c-3.84-3.91-9.2-5.87-16.08-5.87h-8.63v44.32h8.63c6.89,0,12.25-1.92,16.08-5.76Z"/>
-              <path class="lk-word" d="M612.79,537.01h-25.01l-4.01,12.07h-17.08l24.24-68.33h18.9l24.24,68.33h-17.27l-4.01-12.07ZM608.59,524.16l-8.3-25.02-8.21,25.02h16.51Z"/>
-              <path class="lk-word" d="M679.87,549.08l-13.93-25.8h-3.91v25.8h-16.32v-68.33h27.39c5.28,0,9.78.94,13.51,2.82,3.72,1.88,6.51,4.46,8.35,7.74,1.84,3.28,2.77,6.93,2.77,10.95,0,4.54-1.26,8.6-3.77,12.17-2.51,3.57-6.22,6.1-11.12,7.59l15.46,27.06h-18.42ZM662.02,511.5h10.12c2.99,0,5.23-.75,6.73-2.24,1.49-1.49,2.24-3.6,2.24-6.33s-.75-4.64-2.24-6.13c-1.5-1.49-3.74-2.24-6.73-2.24h-10.12v16.94Z"/>
-              <path class="lk-word" d="M805.65,480.74l-17.47,68.33h-19.76l-10.69-44.97-11.07,44.97h-19.76l-16.99-68.33h17.47l9.64,49.74,11.93-49.74h17.94l11.45,49.74,9.74-49.74h17.56Z"/>
-              <path class="lk-word" d="M833.6,480.74v68.33h-16.32v-68.33h16.32Z"/>
-              <path class="lk-word" d="M857.9,546.7c-3.79-1.58-6.82-3.93-9.09-7.03-2.27-3.1-3.46-6.84-3.59-11.21h16.96c.25,2.47,1.09,4.36,2.52,5.66,1.43,1.3,3.29,1.95,5.59,1.95s4.22-.55,5.59-1.66c1.37-1.11,2.05-2.65,2.05-4.61,0-1.65-.54-3.01-1.63-4.09-1.09-1.08-2.42-1.96-4.01-2.66-1.58-.7-3.84-1.49-6.76-2.38-4.23-1.33-7.67-2.66-10.34-3.99-2.67-1.33-4.97-3.29-6.9-5.89-1.93-2.6-2.89-5.99-2.89-10.17,0-6.21,2.2-11.07,6.62-14.59,4.41-3.52,10.16-5.27,17.24-5.27s13.01,1.76,17.43,5.27c4.41,3.52,6.77,8.41,7.08,14.68h-17.24c-.13-2.15-.9-3.85-2.33-5.08-1.43-1.24-3.26-1.85-5.5-1.85-1.93,0-3.48.52-4.66,1.57-1.18,1.05-1.77,2.55-1.77,4.51,0,2.15.99,3.83,2.98,5.04,1.99,1.2,5.09,2.5,9.32,3.9,4.22,1.46,7.66,2.85,10.3,4.18,2.64,1.33,4.92,3.26,6.85,5.8,1.92,2.54,2.89,5.8,2.89,9.79s-.95,7.26-2.84,10.36c-1.9,3.1-4.65,5.58-8.25,7.41-3.6,1.84-7.86,2.76-12.77,2.76s-9.07-.79-12.86-2.38Z"/>
-              <path class="lk-word" d="M964.27,480.74v68.33h-16.32v-28.13h-25.39v28.13h-16.32v-68.33h16.32v26.77h25.39v-26.77h16.32Z"/>
-            </svg>
-          </a>
-          <div class="fnav"><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a href="#connect">Contact</a></div>
-        </div>
-        <p class="frisk">Trading involves substantial risk. Past performance is not indicative of future results. Educational content only — not financial advice. See terms for full disclaimer.</p>
-        <p class="fcc">© 2026 FXDARWISH. All rights reserved.</p>
-      </div>
-    </footer>
-
   </div>
+
+  <p class="disc">Risk disclaimer: Trading FX, indices and CFDs carries a high level of risk and is not suitable for all investors. Past performance is not indicative of future results. Educational content only — not financial advice.</p>
 </div>
 
 <script>
-/* ════════════════════════════════════════════════════════════
-   FXDARWISH — 3D Darwish icon (extruded brand mark) + loader
-   ════════════════════════════════════════════════════════════ */
-(function(){
-  var root = document.documentElement;
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var isMobile = window.matchMedia('(pointer:coarse)').matches || window.innerWidth < 760;
-  var VW=function(){return document.documentElement.clientWidth||window.innerWidth;};
-  var VH=function(){return window.innerHeight;};
-
-  function setVH(){ root.style.setProperty('--vh', (window.innerHeight*0.01)+'px'); }
-  setVH();
-  function bgHex(){ return root.getAttribute('data-theme')==='light' ? 0xeef2fa : 0x08122b; }
-
-  var canvas = document.getElementById('bg');
-  var scene, camera, renderer, mark, clock, rendererReady=false, BASE=0.0125;
-  var ok=true, envTex=null;
-
-  try{
-    renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-    if(THREE.ACESFilmicToneMapping){renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0;}
-    if('outputEncoding' in renderer && THREE.sRGBEncoding){renderer.outputEncoding=THREE.sRGBEncoding;}
-  }catch(e){ok=false;}
-
-  if(ok && typeof THREE!=='undefined'){ init(); animate(); }
-  else { canvas.style.display='none'; rendererReady=true; }
-
-  function init(){
-    scene=new THREE.Scene();
-    renderer.setClearColor(bgHex(),1);
-    camera=new THREE.PerspectiveCamera(42,VW()/VH(),0.1,100);
-    fitCamera();
-    renderer.setSize(VW(), VH());
-
-    /* ---- studio environment (PMREM) for crisp, stable reflections ---- */
-    try{
-      var pmrem=new THREE.PMREMGenerator(renderer);
-      var envScene=new THREE.Scene();
-      envScene.background=new THREE.Color(0x0a1226);
-      function light(col,mul,x,y,z,sx,sy){
-        var m=new THREE.Mesh(new THREE.PlaneGeometry(sx,sy), new THREE.MeshBasicMaterial({color:new THREE.Color(col).multiplyScalar(mul),side:THREE.DoubleSide}));
-        m.position.set(x,y,z); m.lookAt(0,0,0); envScene.add(m);
-      }
-      light(0xeaf1ff, 3.0, -7, 5, 7, 9, 16);
-      light(0xbcd2ff, 1.6,  8, 3, 6, 7, 12);
-      light(0xffffff, 2.4,  0, 9,-4, 12, 5);
-      light(0x2d6be4, 1.3, -2,-7,-6, 14, 6);
-      light(0x7f9dff, 0.9,  6,-4, 8, 6, 8);
-      envTex=pmrem.fromScene(envScene, 0.04).texture;
-      scene.environment=envTex;
-      pmrem.dispose();
-    }catch(e){ envTex=null; }
-
-    scene.add(new THREE.AmbientLight(0x334766, 0.3));
-    var key=new THREE.DirectionalLight(0xe6eeff, 0.9); key.position.set(5,7,8); scene.add(key);
-    var rim=new THREE.DirectionalLight(0x3a6bd0, 0.55); rim.position.set(-6,-2,-5); scene.add(rim);
-
-    var CX=204.875, CY=540;
-    function shape(arr){
-      var s=new THREE.Shape();
-      s.moveTo(arr[0]-CX, CY-arr[1]);
-      for(var i=2;i<arr.length;i+=2) s.lineTo(arr[i]-CX, CY-arr[i+1]);
-      s.closePath(); return s;
-    }
-    var P1=[242.84,489.4, 165.74,489.4, 165.74,564.42, 115.73,514.41, 115.73,439.39, 192.83,439.39];
-    var P2=[294.02,540.58, 294.02,640.61, 193.93,640.61, 143.92,590.6, 244.04,590.6, 244.04,490.59];
-    var ext={depth:44,bevelEnabled:true,bevelThickness:7,bevelSize:5,bevelSegments:6,curveSegments:6,steps:1};
-    var mat=new THREE.MeshPhysicalMaterial({
-      color:0x16294c, metalness:1.0, roughness:0.19,
-      clearcoat:1.0, clearcoatRoughness:0.22,
-      envMap:envTex, envMapIntensity:1.3, side:THREE.FrontSide
-    });
-    var g1=new THREE.ExtrudeGeometry(shape(P1),ext); g1.translate(0,0,-22); g1.computeVertexNormals();
-    var g2=new THREE.ExtrudeGeometry(shape(P2),ext); g2.translate(0,0,-22); g2.computeVertexNormals();
-    mark=new THREE.Group();
-    mark.add(new THREE.Mesh(g1,mat), new THREE.Mesh(g2,mat));
-    mark.scale.setScalar(BASE);
-    scene.add(mark);
-    clock=new THREE.Clock();
-  }
-
-  function fitCamera(){
-    var portrait=VH()>VW();
-    camera.position.set(0,0,portrait?4.6:3.6);
-    camera.lookAt(0,0,0);
-    camera.aspect=VW()/VH();
-    camera.updateProjectionMatrix();
-  }
-
-  var sp=0,tmx=0,tmy=0,mx=0,my=0,esp=0,inView=true;
-  function onScroll(){ var max=document.documentElement.scrollHeight-window.innerHeight; sp=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0; document.getElementById('sprog').style.width=(sp*100)+'%'; inView=!storyEl||storyEl.getBoundingClientRect().bottom>-140; updateBeats(); }
-  window.addEventListener('scroll',onScroll,{passive:true});
-  window.addEventListener('pointermove',function(e){ if(e.pointerType==='touch')return; tmx=(e.clientX/window.innerWidth-0.5); tmy=(e.clientY/window.innerHeight-0.5); });
-  function onOrient(e){ if(e.gamma==null)return; tmx=Math.max(-1,Math.min(1,e.gamma/40)); tmy=Math.max(-1,Math.min(1,(e.beta-40)/40)); }
-  if(isMobile){ window.addEventListener('touchstart',function once(){ try{ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){ DeviceOrientationEvent.requestPermission().then(function(s){if(s==='granted')window.addEventListener('deviceorientation',onOrient);}).catch(function(){}); } else { window.addEventListener('deviceorientation',onOrient); } }catch(e){} window.removeEventListener('touchstart',once); },{passive:true}); }
-
-  var beats=[].slice.call(document.querySelectorAll('.beat'));
-  var storyEl=document.getElementById('story');
-  function updateBeats(){ if(!beats.length||!storyEl)return; var r=storyEl.getBoundingClientRect(); var pinned=r.top<=0&&r.bottom>=window.innerHeight; var total=storyEl.offsetHeight-window.innerHeight; var p=total>0?Math.min(1,Math.max(0,(-r.top)/total)):0; var active=pinned?Math.min(beats.length-1,Math.floor(p*beats.length+0.0001)):-1; beats.forEach(function(b,i){ b.classList.toggle('on',i===active); }); }
-
-  var visible=true;
-  document.addEventListener('visibilitychange',function(){ visible=!document.hidden; if(visible&&clock)clock.getDelta(); });
-
-  function animate(){
-    requestAnimationFrame(animate);
-    if(!visible||!renderer||!mark) return;
-    if(!inView && rendererReady) return;
-    var t=clock.getElapsedTime();
-    esp+=(sp-esp)*0.06;
-    mx+=(tmx-mx)*0.05; my+=(tmy-my)*0.05;
-    if(!reduced){ mark.rotation.y=t*0.18+mx*0.7; mark.position.y=Math.sin(t*0.9)*0.05 - esp*0.4; }
-    else { mark.rotation.y=mx*0.7; mark.position.y=-esp*0.4; }
-    mark.rotation.x=my*0.4 + (reduced?0:Math.sin(t*0.6)*0.05);
-    var breathe=reduced?1:(1+Math.sin(t*1.1)*0.02);
-    mark.scale.setScalar(BASE*breathe*(1-esp*0.06));
-    renderer.render(scene,camera);
-    if(!rendererReady) rendererReady=true;
-  }
-
-  var rt=null, lastW=VW();
-  function onResize(){ if(rt)return; rt=requestAnimationFrame(function(){ rt=null; var nw=VW(); if(isMobile && nw===lastW) return; lastW=nw; setVH(); if(renderer){ fitCamera(); renderer.setSize(VW(),VH()); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2)); } }); }
-  window.addEventListener('resize',onResize);
-  window.addEventListener('orientationchange',onResize);
-
-  /* LOADER */
-  (function(){
-    var fill=document.getElementById('ld-fill'),pctEl=document.getElementById('ld-pct'),statusEl=document.getElementById('ld-status'),loader=document.getElementById('loader');
-    var pct=0,start=Date.now(),MIN=1500;
-    var iv=setInterval(function(){
-      pct+=Math.random()*8+3; if(pct>=88&&!rendererReady)pct=88; if(pct>100)pct=100;
-      fill.style.width=pct+'%'; pctEl.textContent=Math.floor(pct)+'%';
-      statusEl.textContent = pct<35?'Loading assets':(pct<72?'Building 3D':'Almost there');
-      if(pct>=100&&rendererReady&&(Date.now()-start)>=MIN){ clearInterval(iv); loader.classList.add('done'); document.body.classList.add('ready'); setVH(); onResize(); onScroll(); }
-    },90);
-    setTimeout(function(){ if(!document.body.classList.contains('ready')){ clearInterval(iv); fill.style.width='100%'; pctEl.textContent='100%'; loader.classList.add('done'); document.body.classList.add('ready'); onScroll(); } },6000);
-  })();
-
-  function applyTheme(){ var c=root.getAttribute('data-theme'),n=c==='dark'?'light':'dark'; root.setAttribute('data-theme',n); try{localStorage.setItem('fxd-theme',n);}catch(e){} if(renderer)renderer.setClearColor(bgHex(),1); document.querySelector('meta[name=theme-color]').setAttribute('content',n==='dark'?'#08122b':'#eef2fa'); }
-  var tt=document.getElementById('theme-toggle'); if(tt)tt.addEventListener('click',applyTheme);
-
-  var mb=document.getElementById('menu-toggle'),mm=document.getElementById('mobile-menu');
-  if(mb&&mm){ mb.addEventListener('click',function(){mm.classList.toggle('open');}); mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mm.classList.remove('open');});}); }
-
-  var ch=document.getElementById('cta-header'); if(ch)ch.addEventListener('click',function(){document.getElementById('connect').scrollIntoView({behavior:'smooth'});});
-
-  var rm=document.getElementById('rev-more'),rs=document.getElementById('rev-shell');
-  if(rm&&rs) rm.addEventListener('click',function(){
-    var collapsed=rs.classList.toggle('collapsed');
-    rm.innerHTML = collapsed ? 'Show more reviews <span>+</span>' : 'Show less <span>&minus;</span>';
-    if(collapsed){ var rv=document.getElementById('reviews'); if(rv) rv.scrollIntoView({behavior:'smooth',block:'start'}); }
-  });
-
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-})();
+/* ---- DEMO ONLY: shows the success screen without a backend. ----
+   Once you wire a real endpoint (see top of file), DELETE this whole
+   <script> block so the form actually POSTs and redirects. */
+document.getElementById('captureForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  document.getElementById('captureForm').style.display = 'none';
+  document.querySelector('#formCard .fh').style.display = 'none';
+  document.querySelector('#formCard .fs').style.display = 'none';
+  document.getElementById('success').classList.add('show');
+});
 </script>
 </body>
 </html>
