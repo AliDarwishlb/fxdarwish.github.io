@@ -102,7 +102,7 @@ button:hover{filter:brightness(1.06)}
 button:active{transform:scale(.985)}
 button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
 .fineprint{font-size:11px;color:var(--mut);margin-top:13px;text-align:center;line-height:1.5}
-<input type="hidden" name="_next" value="https://fxdarwish.com/playbook/thanks.html" />
+
 /* success state */
 .success{display:none;text-align:center;padding:8px 0}
 .success.show{display:block;animation:fade .5s ease}
@@ -122,23 +122,6 @@ button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
 .disc{font-size:10px;color:rgba(157,180,212,.55);margin-top:30px;line-height:1.5;text-align:center}
 </style>
 </head>
-  <script>
-  const form = document.getElementById('captureForm');
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const data = new FormData(form);
-    const resp = await fetch(form.action, {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    });
-    if (resp.ok) {
-      window.location.href = 'https://fxdarwish.com/playbook/thanks.html';
-    } else {
-      alert('Something went wrong. Please try again.');
-    }
-  });
-</script>
 <body>
 <div class="glow g1"></div>
 <div class="glow g2"></div>
@@ -171,9 +154,7 @@ button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
     <div class="fh">Send me the playbook</div>
     <div class="fs">Free. Goes straight to your inbox. No spam.</div>
 
-    <!-- WIRE THE FORM: see instructions at top of file -->
     <form id="captureForm" method="POST" action="https://formspree.io/f/mbdvrlbd">
-      <input type="hidden" name="_next" value="https://fxdarwish.com/playbook/thanks.html">
       <label for="name">First name</label>
       <input id="name" name="name" type="text" placeholder="Your first name" required autocomplete="given-name">
 
@@ -184,13 +165,6 @@ button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
       <p class="fineprint">You'll also get my weekly Nasdaq outlook. Unsubscribe anytime.</p>
     </form>
 
-    <div class="success" id="success">
-      <div class="badge">✓</div>
-      <h3>Check your inbox.</h3>
-      <p>Your Killzone Playbook is on its way. Grab it now and join the community below.</p>
-      <a class="dl" href="Nasdaq-Killzone-Playbook.pdf" download>Download the playbook</a><br>
-      <a class="discord" href="https://discord.gg/QpxPYuhN" target="_blank" rel="noopener">Join the free Discord →</a>
-    </div>
   </section>
 
   <div class="author">
@@ -206,5 +180,32 @@ button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
 
 
 
+<script>
+  document.getElementById('captureForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const resp = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (resp.ok) {
+        window.location.href = 'https://fxdarwish.com/playbook/thanks.html';
+      } else {
+        btn.textContent = 'Try again →';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again.');
+      }
+    } catch {
+      btn.textContent = 'Try again →';
+      btn.disabled = false;
+      alert('Network error. Please try again.');
+    }
+  });
+</script>
 </body>
 </html>
