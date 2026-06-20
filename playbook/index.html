@@ -122,6 +122,23 @@ button:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
 .disc{font-size:10px;color:rgba(157,180,212,.55);margin-top:30px;line-height:1.5;text-align:center}
 </style>
 </head>
+  <script>
+  const form = document.getElementById('captureForm');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    const resp = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (resp.ok) {
+      window.location.href = 'https://fxdarwish.com/playbook/thanks.html';
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  });
+</script>
 <body>
 <div class="glow g1"></div>
 <div class="glow g2"></div>
