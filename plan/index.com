@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Trading Journal · FXDARWISH</title>
-<meta name="description" content="Download the free FXDARWISH ICT/SMC trading journal — auto-calculating dashboard, R-multiples, kill zones, and equity tracking.">
+<title>Free Trading Plan · FXDARWISH</title>
+<meta name="description" content="Download the free FXDARWISH ICT/SMC trading plan — a printable template for your rules, setups, sessions and risk limits.">
 <meta property="og:site_name" content="FXDARWISH">
-<meta property="og:title" content="Free ICT/SMC Trading Journal">
+<meta property="og:title" content="Free ICT/SMC Trading Plan">
 <link rel="icon" type="image/png" href="../favicon1.png">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -71,24 +71,23 @@
     <div class="brand"><span class="fx">FX</span>DARWISH</div>
     <div class="card">
       <span class="badge">Free Download</span>
-      <h1>ICT / SMC<br><span class="accent">Trading Journal</span></h1>
-      <p class="desc">A complete Excel journal that does the maths for you. Log your trades, read your edge.</p>
+      <h1>ICT / SMC<br><span class="accent">Trading Plan</span></h1>
+      <p class="desc">A printable plan to lock in your rules before you trade. Print it, fill it by hand, sign it.</p>
       <ul class="feat">
-        <li>Auto-calculating performance dashboard</li>
-        <li>Win rate, expectancy, profit factor &amp; R-multiples</li>
-        <li>ICT/SMC fields — sessions, setups, kill zones</li>
-        <li>Equity curve &amp; drawdown tracking</li>
-        <li>MT5 / OneRoyal instrument presets</li>
+        <li>Goals, account size &amp; risk limits</li>
+        <li>Markets, sessions &amp; kill zones</li>
+        <li>Your A+ setups &amp; entry checklist</li>
+        <li>Risk rules &amp; trade management</li>
+        <li>Discipline list + commitment to sign</li>
       </ul>
       <br>
-      <a class="dl" href="FXDARWISH-Trading-Journal.xlsx" download>
+      <a class="dl" href="FXDARWISH-Trading-Plan.pdf" download>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
-        Download Free Journal
+        Download Free Plan
       </a>
-      <div class="meta">Excel (.xlsx) · works in Excel &amp; Google Sheets · no email required</div>
+      <div class="meta">PDF · 2 pages · print &amp; write · no email required</div>
     </div>
     <div class="footer">More free tools at <a href="../links/">fxdarwish.com/links</a></div>
   </div>
 </body>
 </html>
-
