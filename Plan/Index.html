@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Trading Journal · FXDARWISH</title>
+<meta name="description" content="Download the free FXDARWISH ICT/SMC trading journal — auto-calculating dashboard, R-multiples, kill zones, and equity tracking.">
+<meta property="og:site_name" content="FXDARWISH">
+<meta property="og:title" content="Free ICT/SMC Trading Journal">
+<link rel="icon" type="image/png" href="../favicon1.png">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --blue:#2f7dff; --blue2:#1a4fcc; --blue-soft:#5e9bff; --cyan:#37d4d0;
+    --card:#141b30; --card2:#1a2238; --line:#26304d; --txt:#e8edf7; --muted:#8b97b5;
+  }
+  body{
+    font-family:'Poppins','Segoe UI',sans-serif;
+    background:
+      radial-gradient(900px 520px at 82% -8%, rgba(47,125,255,0.18), transparent 60%),
+      radial-gradient(700px 520px at -10% 110%, rgba(55,212,208,0.10), transparent 55%),
+      linear-gradient(180deg,#0a0e1a 0%,#0b1020 100%);
+    color:var(--txt); min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding:30px 18px; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ width:100%; max-width:480px; text-align:center; }
+  .brand{ font-size:14px; letter-spacing:3px; font-weight:700; margin-bottom:24px; }
+  .brand .fx{ color:var(--blue); }
+
+  .card{
+    background:linear-gradient(160deg,var(--card),var(--card2));
+    border:1px solid var(--line); border-radius:20px;
+    padding:36px 30px; box-shadow:0 30px 80px -30px rgba(0,0,0,.7);
+  }
+  .badge{
+    display:inline-block; font-size:10.5px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--cyan); font-weight:600; border:1px solid rgba(55,212,208,.3);
+    border-radius:30px; padding:5px 14px; margin-bottom:16px;
+  }
+  h1{ font-size:27px; font-weight:700; line-height:1.15; margin-bottom:10px; }
+  h1 .accent{ color:var(--blue-soft); }
+  .desc{ font-size:13.5px; line-height:1.6; color:#c2cce4; margin-bottom:20px; }
+
+  ul.feat{ list-style:none; text-align:left; display:inline-block; margin-bottom:26px; }
+  ul.feat li{ font-size:12.5px; color:#cdd6ec; padding:5px 0 5px 22px; position:relative; }
+  ul.feat li::before{
+    content:""; position:absolute; left:0; top:8px; width:7px;height:7px;
+    background:var(--blue); border-radius:2px; transform:rotate(45deg);
+  }
+
+  .dl{
+    display:inline-flex; align-items:center; gap:11px;
+    background:linear-gradient(135deg,var(--blue),var(--blue2));
+    color:#fff; text-decoration:none; font-weight:600; font-size:15px;
+    padding:15px 32px; border-radius:13px;
+    box-shadow:0 14px 34px -12px rgba(47,125,255,.8);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .dl:hover{ transform:translateY(-2px); box-shadow:0 20px 44px -12px rgba(47,125,255,.9);}
+  .dl:active{ transform:translateY(0);}
+  .dl svg{ width:19px;height:19px;}
+  .meta{ font-size:11px; color:var(--muted); margin-top:12px; letter-spacing:.4px;}
+
+  .footer{ margin-top:24px; font-size:11.5px; color:var(--muted); letter-spacing:.5px; }
+  .footer a{ color:var(--blue-soft); text-decoration:none; font-weight:600; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand"><span class="fx">FX</span>DARWISH</div>
+    <div class="card">
+      <span class="badge">Free Download</span>
+      <h1>ICT / SMC<br><span class="accent">Trading Journal</span></h1>
+      <p class="desc">A complete Excel journal that does the maths for you. Log your trades, read your edge.</p>
+      <ul class="feat">
+        <li>Auto-calculating performance dashboard</li>
+        <li>Win rate, expectancy, profit factor &amp; R-multiples</li>
+        <li>ICT/SMC fields — sessions, setups, kill zones</li>
+        <li>Equity curve &amp; drawdown tracking</li>
+        <li>MT5 / OneRoyal instrument presets</li>
+      </ul>
+      <br>
+      <a class="dl" href="FXDARWISH-Trading-Journal.xlsx" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
+        Download Free Journal
+      </a>
+      <div class="meta">Excel (.xlsx) · works in Excel &amp; Google Sheets · no email required</div>
+    </div>
+    <div class="footer">More free tools at <a href="../links/">fxdarwish.com/links</a></div>
+  </div>
+</body>
+</html>
+
