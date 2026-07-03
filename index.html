@@ -432,6 +432,41 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
   </div>
 </div>
 
+<script>
+/* ── Standalone page loader ─────────────────────────────────────────
+   Runs immediately during parse. Reveals the site on its own timer
+   with ZERO dependency on Three.js, the CDN, the network, or the 3D
+   code. The 3D scene (if/when it loads) simply renders behind and
+   pops in whenever it's ready. This guarantees the page always opens. */
+(function(){
+  var fill=document.getElementById('ld-fill'),
+      pctEl=document.getElementById('ld-pct'),
+      statusEl=document.getElementById('ld-status'),
+      loader=document.getElementById('loader');
+  if(!loader){ document.body.classList.add('ready'); return; }
+  var reduced=false;
+  try{ reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  var pct=0, done=false;
+  function finish(){
+    if(done) return; done=true;
+    if(fill) fill.style.width='100%';
+    if(pctEl) pctEl.textContent='100%';
+    loader.classList.add('done');
+    document.body.classList.add('ready');
+  }
+  if(reduced){ setTimeout(finish,300); return; }
+  var iv=setInterval(function(){
+    pct += Math.random()*11 + 6;
+    if(pct>=100){ pct=100; clearInterval(iv); }
+    if(fill) fill.style.width=pct+'%';
+    if(pctEl) pctEl.textContent=Math.floor(pct)+'%';
+    if(statusEl) statusEl.textContent = pct<45?'Loading assets':(pct<80?'Preparing':'Ready');
+    if(pct>=100) setTimeout(finish,180);
+  },90);
+  setTimeout(finish,3000); /* hard guarantee: reveal within 3s no matter what */
+})();
+</script>
+
 <div class="sprog" id="sprog"></div>
 
 <header class="header" id="header">
@@ -829,23 +864,4 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
   window.addEventListener('scroll',onScroll,{passive:true});
   window.addEventListener('pointermove',function(e){ if(e.pointerType==='touch')return; tmx=(e.clientX/window.innerWidth-0.5); tmy=(e.clientY/window.innerHeight-0.5); });
   function onOrient(e){ if(e.gamma==null)return; tmx=Math.max(-1,Math.min(1,e.gamma/40)); tmy=Math.max(-1,Math.min(1,(e.beta-40)/40)); }
-  if(isMobile){ window.addEventListener('touchstart',function once(){ try{ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){ DeviceOrientationEvent.requestPermission().then(function(s){if(s==='granted')window.addEventListener('deviceorientation',onOrient);}).catch(function(){}); } else { window.addEventListener('deviceorientation',onOrient); } }catch(e){} window.removeEventListener('touchstart',once); },{passive:true}); }
-
-  var beats=[].slice.call(document.querySelectorAll('.beat'));
-  var storyEl=document.getElementById('story');
-  function updateBeats(){ if(!beats.length||!storyEl)return; var r=storyEl.getBoundingClientRect(); var pinned=r.top<=0&&r.bottom>=window.innerHeight; var total=storyEl.offsetHeight-window.innerHeight; var p=total>0?Math.min(1,Math.max(0,(-r.top)/total)):0; var active=pinned?Math.min(beats.length-1,Math.floor(p*beats.length+0.0001)):-1; beats.forEach(function(b,i){ b.classList.toggle('on',i===active); }); }
-
-  var visible=true;
-  document.addEventListener('visibilitychange',function(){ visible=!document.hidden; if(visible&&clock)clock.getDelta(); });
-
-  function animate(){
-    requestAnimationFrame(animate);
-    if(!visible||!renderer||!mark) return;
-    if(!inView && rendererReady) return;
-    var t=clock.getElapsedTime();
-    esp+=(sp-esp)*0.06;
-    mx+=(tmx-mx)*0.05; my+=(tmy-my)*0.05;
-    if(!reduced){ mark.rotation.y=t*0.18+mx*0.7; mark.position.y=Math.sin(t*0.9)*0.05 - esp*0.4; }
-    else { mark.rotation.y=mx*0.7; mark.position.y=-esp*0.4; }
-    mark.rotation.x=my*0.4 + (reduced?0:Math.sin(t*0.6)*0.05);
-    var breathe=red
+  if(isMobile){ window.addEventListener('touchstart',function once(){ try{ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission
