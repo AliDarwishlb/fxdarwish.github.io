@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <script>(function(){try{var t=localStorage.getItem('fxd-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <style>
 /* ═══════════════════════════════════════════════════════════════
@@ -726,17 +726,32 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 
   var canvas = document.getElementById('bg');
   var scene, camera, renderer, mark, clock, rendererReady=false, BASE=0.0125;
-  var ok=true, envTex=null;
+  var envTex=null;
 
-  try{
-    renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-    if(THREE.ACESFilmicToneMapping){renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0;}
-    if('outputEncoding' in renderer && THREE.sRGBEncoding){renderer.outputEncoding=THREE.sRGBEncoding;}
-  }catch(e){ok=false;}
+  function degrade(){ if(canvas) canvas.style.display='none'; rendererReady=true; }
 
-  if(ok && typeof THREE!=='undefined'){ init(); animate(); }
-  else { canvas.style.display='none'; rendererReady=true; }
+  function boot3D(){
+    try{
+      renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+      if(THREE.ACESFilmicToneMapping){renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0;}
+      if('outputEncoding' in renderer && THREE.sRGBEncoding){renderer.outputEncoding=THREE.sRGBEncoding;}
+      init();
+      animate();
+    }catch(e){ renderer=null; degrade(); }
+  }
+
+  /* Three.js is loaded with `defer`, so it may execute AFTER this script.
+     Poll for it (without blocking the loader) and degrade gracefully if the CDN never arrives. */
+  (function waitForThree(){
+    var waited=0;
+    (function tick(){
+      if(typeof THREE!=='undefined'){ boot3D(); return; }
+      waited+=60;
+      if(waited>=4500){ degrade(); return; }
+      setTimeout(tick,60);
+    })();
+  })();
 
   function init(){
     scene=new THREE.Scene();
@@ -833,11 +848,4 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
     if(!reduced){ mark.rotation.y=t*0.18+mx*0.7; mark.position.y=Math.sin(t*0.9)*0.05 - esp*0.4; }
     else { mark.rotation.y=mx*0.7; mark.position.y=-esp*0.4; }
     mark.rotation.x=my*0.4 + (reduced?0:Math.sin(t*0.6)*0.05);
-    var breathe=reduced?1:(1+Math.sin(t*1.1)*0.02);
-    mark.scale.setScalar(BASE*breathe*(1-esp*0.06));
-    renderer.render(scene,camera);
-    if(!rendererReady) rendererReady=true;
-  }
-
-  var rt=null, lastW=VW();
-  function onResize(){ if(rt)return; rt=requestAnimationFrame(function(){ rt=null; var nw=VW(); if(isMobile && nw===lastW) return; lastW=nw; setVH(); if(renderer){ fitCamera(); renderer.setSize(VW(),VH()); renderer.setPixelRatio(Math.min(window.devicePixelRat
+    var breathe=red
