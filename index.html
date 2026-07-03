@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta property="og:site_name" content="FXDARWISH">
+<meta property="og:title" content="FXDARWISH — Trading with Precision">
+<meta property="og:description" content="Institutional ICT & Smart Money trading education — 1-on-1 coaching, a structured 10-module course, and live market analysis.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "FXDARWISH",
+  "url": "https://fxdarwish.com"
+}
+</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5,viewport-fit=cover"/>
+<title>FXDARWISH — Trading with Precision</title>
+<link rel="icon" type="image/png" href="Artboard 20.png">
+<meta name="description" content="Institutional ICT & Smart Money trading education — 1-on-1 coaching, structured courses, and live market analysis."/>
+<meta name="theme-color" content="#070d20"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>(function(){var d=document.documentElement;d.className+=' js';try{var t=localStorage.getItem('fxd-theme');d.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){d.setAttribute('data-theme','dark');}})();</script>
+<script defer src="three.min.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   FXDARWISH — Design System
+   Display  : Montserrat (brand)
+   Body     : Manrope (brand)
+   Data      : JetBrains Mono (signature terminal layer)
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --blue:#2d6be4;--blue-3:#5b8def;--blue-glow:rgba(45,107,228,.55);
+  --up:#46d3a1;--down:#e5687c;
+  --maxw:1200px;--head:76px;
+  --r-sm:10px;--r:16px;--r-lg:24px;--r-xl:34px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --sp:clamp(3px,.4vw,5px);
+}
+[data-theme="dark"]{
+  --bg:#070d20;--bg-solid:#08122b;--ink:#f4f6fc;--muted:#9aa3bf;--faint:#646c8a;
+  --hair:rgba(255,255,255,.10);--hair-2:rgba(255,255,255,.16);
+  --hbg:rgba(7,13,32,.62);
+  --panel:rgba(9,16,38,.72);--card:rgba(15,25,56,.66);--card-2:rgba(20,32,68,.5);
+  --glass-hi:rgba(255,255,255,.06);
+  --shadow:0 24px 60px -22px rgba(0,0,0,.7);
+  --shadow-lg:0 40px 120px -30px rgba(2,8,26,.85);
+  --glow:0 0 0 1px rgba(45,107,228,.18),0 30px 80px -30px rgba(45,107,228,.45);
+}
+[data-theme="light"]{
+  --bg:#0a0c10;--bg-solid:#eaf0fb;--ink:#0d1424;--muted:#4a516a;--faint:#7c8299;
+  --hair:rgba(16,22,40,.12);--hair-2:rgba(16,22,40,.2);
+  --hbg:rgba(240,244,252,.7);
+  --panel:rgba(246,249,254,.78);--card:rgba(255,255,255,.9);--card-2:rgba(255,255,255,.7);
+  --glass-hi:rgba(255,255,255,.7);
+  --shadow:0 22px 50px -24px rgba(23,39,84,.28);
+  --shadow-lg:0 40px 100px -34px rgba(23,39,84,.35);
+  --glow:0 0 0 1px rgba(45,107,228,.16),0 30px 70px -32px rgba(45,107,228,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden;scrollbar-gutter:stable}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;width:100%;max-width:100%;-webkit-font-smoothing:antialiased;line-height:1.6;letter-spacing:-.005em}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--blue);color:#fff}
+:focus-visible{outline:2px solid var(--blue-3);outline-offset:3px;border-radius:6px}
+img,svg{max-width:100%}
+
+.mono{font-family:'JetBrains Mono',monospace;font-feature-settings:"tnum" 1;letter-spacing:0}
+
+/* ── LOADER ─────────────────────────────────── */
+#loader{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .9s ease,visibility .9s}
+#loader.done{opacity:0;visibility:hidden}
+.ld-inner{width:min(80vw,400px);text-align:center}
+.ld-mark{width:74px;height:auto;display:block;margin:0 auto 26px;overflow:visible;animation:ldbreath 3s ease-in-out 2.4s infinite}
+.ld-mark polygon{stroke-width:2.5;stroke-linejoin:round;stroke-dasharray:560;stroke-dashoffset:560;fill-opacity:0;animation:lddraw 1.5s ease .2s forwards, ldfill 1s ease 1.4s forwards}
+.ld-mark .ldm1{fill:url(#lkg);stroke:#5b8def}
+.ld-mark .ldm2{fill:#6f9bff;stroke:#9fc0ff}
+@keyframes lddraw{to{stroke-dashoffset:0}}
+@keyframes ldfill{from{fill-opacity:0}to{fill-opacity:1;stroke-opacity:0}}
+@keyframes ldbreath{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+@keyframes ldup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ld-logo{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.44em;text-transform:uppercase;color:var(--ink);margin-bottom:9px;padding-left:.44em;opacity:0;animation:ldup .6s ease .5s forwards}
+.ld-tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--faint);margin-bottom:34px;opacity:0;animation:ldup .6s ease 1.3s forwards}
+.ld-row{display:flex;align-items:baseline;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:13px}
+.ld-pct{font-size:12px;color:var(--ink)}
+.ld-bar{height:2px;background:var(--hair);position:relative;overflow:hidden;border-radius:2px}
+.ld-bar span{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--blue),var(--up));transition:width .2s ease}
+
+#bg{position:fixed;inset:0;z-index:0;display:block;touch-action:pan-y}
+.content{position:relative;isolation:isolate}
+.sprog{position:fixed;top:0;left:0;height:2px;width:0;z-index:90;background:linear-gradient(90deg,var(--blue-3),var(--up));box-shadow:0 0 12px var(--blue-glow)}
+
+/* ── LOGO LOCKUP ────────────────────────────── */
+.lk{height:28px;width:auto;display:block}
+.lk .lk-m1{fill:url(#lkg)}
+.lk .lk-m2{fill:#0c2a52}
+.lk .lk-fx{fill:#2d6be4}
+.lk .lk-word{fill:#10141f}
+[data-theme="dark"] .lk .lk-m1,[data-theme="dark"] .lk .lk-m2,[data-theme="dark"] .lk .lk-fx,[data-theme="dark"] .lk .lk-word{fill:#ffffff}
+
+/* ── HEADER ─────────────────────────────────── */
+.header{position:fixed;top:0;left:0;right:0;z-index:80;height:var(--head);display:flex;align-items:center;
+  background:var(--hbg);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+  border-bottom:1px solid transparent;transition:background .4s,border-color .4s,box-shadow .4s}
+.header.scrolled{border-bottom-color:var(--hair);box-shadow:0 10px 40px -24px rgba(0,0,0,.6)}
+.header .wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;flex-shrink:0}
+nav.main{display:flex;gap:34px}
+nav.main a{font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--muted);transition:color .25s;position:relative}
+nav.main a:hover{color:var(--ink)}
+nav.main a::after{content:'';position:absolute;left:0;right:100%;bottom:-7px;height:1.5px;background:var(--blue-3);transition:right .3s var(--ease)}
+nav.main a:hover::after{right:0}
+.hact{display:flex;align-items:center;gap:12px}
+.htgl{width:38px;height:38px;border-radius:50%;border:1px solid var(--hair);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);transition:border-color .25s,background .25s,transform .25s}
+.htgl:hover{border-color:var(--ink);transform:rotate(18deg)}
+.htgl svg{width:15px;height:15px}
+[data-theme="dark"] .i-sun{display:block}[data-theme="dark"] .i-moon{display:none}
+[data-theme="light"] .i-sun{display:none}[data-theme="light"] .i-moon{display:block}
+.hcta{position:relative;overflow:hidden;font-size:12.5px;font-weight:700;letter-spacing:-.01em;color:#fff;background:var(--blue);border:1px solid var(--blue);padding:11px 22px;border-radius:100px;cursor:pointer;transition:transform .25s var(--ease),box-shadow .3s;box-shadow:0 8px 24px -10px var(--blue-glow)}
+.hcta:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px var(--blue-glow)}
+.mbtn{display:none;width:42px;height:42px;border:1px solid var(--hair);border-radius:50%;background:transparent;color:var(--ink);cursor:pointer;align-items:center;justify-content:center}
+.mbtn svg{width:18px;height:18px}
+.mmenu{position:fixed;inset:0;z-index:79;background:var(--bg-solid);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:0;pointer-events:none;transition:opacity .4s}
+.mmenu.open{opacity:1;pointer-events:auto}
+.mmenu a{font-family:'Montserrat',sans-serif;font-size:30px;font-weight:600;color:var(--ink);padding:10px;opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.mmenu.open a{opacity:1;transform:none}
+.mmenu.open a:nth-child(1){transition-delay:.06s}
+.mmenu.open a:nth-child(2){transition-delay:.12s}
+.mmenu.open a:nth-child(3){transition-delay:.18s}
+.mmenu.open a:nth-child(4){transition-delay:.24s}
+.mmenu .m-cta{margin-top:22px;font-size:15px;font-weight:700;color:#fff;background:var(--blue);padding:16px 40px;border-radius:100px}
+
+/* ── SHARED TYPE / EYEBROWS ─────────────────── */
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--blue-3);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--blue-3)}
+
+/* ── HERO ───────────────────────────────────── */
+.hero{min-height:calc(var(--vh,1vh)*100);min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:var(--head) 28px 0;position:relative}
+.hero .eyebrow{margin-bottom:32px;opacity:0;transform:translateY(20px);transition:.9s .2s}
+.h1{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(46px,10.5vw,138px);line-height:.94;letter-spacing:-.035em}
+.h1 .ln{display:block;overflow:hidden;padding-bottom:.12em}
+.h1 .ln span{display:block;transform:translateY(110%);transition:transform 1s var(--ease)}
+.h1 em{font-style:normal;background:linear-gradient(120deg,var(--blue-3),#8fb4ff 60%,var(--up));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .sub{font-size:clamp(15px,1.65vw,18px);font-weight:500;color:#e7ecfa;margin-top:32px;max-width:32em;line-height:1.62;opacity:0;transform:translateY(20px);transition:.9s .85s;text-shadow:0 1px 18px rgba(5,10,25,.65)}
+[data-theme="light"] .hero .sub{color:#1a2743;text-shadow:0 1px 14px rgba(255,255,255,.8)}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:40px;opacity:0;transform:translateY(20px);transition:.9s 1s}
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:700;letter-spacing:-.01em;padding:16px 30px;border-radius:100px;cursor:pointer;border:1px solid transparent;transition:transform .3s var(--ease),box-shadow .3s,background .3s,border-color .3s;will-change:transform}
+.btn svg{width:16px;height:16px}
+.btn-primary{color:#fff;background:var(--blue);border-color:var(--blue);box-shadow:0 14px 40px -14px var(--blue-glow)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 22px 50px -14px var(--blue-glow)}
+.btn-ghost{color:var(--ink);background:var(--glass-hi);border-color:var(--hair-2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn-ghost:hover{transform:translateY(-3px);border-color:var(--ink)}
+.hero-trust{display:flex;gap:22px;flex-wrap:wrap;justify-content:center;align-items:center;margin-top:36px;opacity:0;transform:translateY(20px);transition:.9s 1.15s}
+.hero-trust .tchip{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.04em;color:var(--muted);display:inline-flex;align-items:center;gap:8px}
+.hero-trust .tchip b{color:var(--ink);font-weight:600}
+.hero-trust .dot{width:6px;height:6px;border-radius:50%;background:var(--up);box-shadow:0 0 9px var(--up)}
+.hero .scrollcue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%) translateY(14px);font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);font-weight:500;display:flex;flex-direction:column;align-items:center;gap:11px;opacity:0;transition:.9s 1.3s}
+.hero .scrollcue::after{content:'';width:1px;height:34px;background:linear-gradient(var(--faint),transparent);animation:cueLine 2s infinite}
+@keyframes cueLine{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+body.ready .hero .eyebrow,body.ready .hero .sub,body.ready .hero-cta,body.ready .hero-trust{opacity:1;transform:none}
+body.ready .hero .scrollcue{opacity:1;transform:translateX(-50%)}
+body.ready .h1 .ln span{transform:none}
+body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
+.hero{z-index:1}
+.hero::before{content:'';position:absolute;inset:-8% 0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 94% 66% at 50% 46%,rgba(7,13,32,.84) 0%,rgba(7,13,32,.84) 34%,transparent 80%)}
+[data-theme="light"] .hero::before{background:radial-gradient(ellipse 94% 66% at 50% 46%,rgba(234,240,251,.9) 0%,rgba(234,240,251,.9) 34%,transparent 82%)}
+.hero .eyebrow,.hero .h1,.hero .sub,.hero-cta,.hero-trust,.hero .scrollcue{position:relative}
+.hero .h1{text-shadow:0 2px 34px rgba(4,8,22,.6)}
+[data-theme="light"] .hero .h1{text-shadow:0 2px 26px rgba(255,255,255,.85)}
+.beat .k,.beat em{color:var(--blue-3)}
+.beat h2{color:var(--ink);text-shadow:0 2px 30px rgba(4,8,22,.6)}
+[data-theme="light"] .beat h2{text-shadow:0 2px 24px rgba(255,255,255,.9)}
+
+/* ── STORY ──────────────────────────────────── */
+.story{position:relative;height:calc(var(--vh,1vh)*260);height:260svh}
+.beat{position:fixed;top:50%;left:50%;width:88%;max-width:19em;text-align:center;opacity:0;transform:translate(-50%,-44%) scale(.98);transition:opacity .7s ease,transform .7s ease;pointer-events:none}
+.beat.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.beat .k{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-3);margin-bottom:24px;display:block}
+.beat h2{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(30px,5.4vw,56px);line-height:1.08;letter-spacing:-.03em}
+.beat em{font-style:normal;color:var(--blue-3)}
+
+/* ── SOLID CONTENT ──────────────────────────── */
+.solid{position:relative;z-index:3;background:transparent}
+.solid::before{content:"";position:absolute;top:0;left:0;right:0;height:200px;background:linear-gradient(to bottom,transparent,var(--panel));pointer-events:none;z-index:-1}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
+.sec{padding:clamp(74px,9vw,128px) 0;border-top:1px solid var(--hair);background:var(--panel);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);position:relative}
+.lab{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:34px;display:flex;align-items:center;gap:12px}
+.lab b{color:var(--blue-3);font-weight:600}
+.big{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(29px,4.6vw,52px);line-height:1.07;letter-spacing:-.03em;max-width:17em}
+.big em{font-style:normal;background:linear-gradient(120deg,var(--blue-3),#8fb4ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub-lead{font-size:16px;color:var(--muted);max-width:40em;margin-top:20px;line-height:1.7}
+.js .reveal{opacity:0;transform:translateY(38px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ── SERVICES ROWS ──────────────────────────── */
+.rows{margin-top:26px}
+.row{display:grid;grid-template-columns:64px 1fr 1.15fr auto;gap:30px;align-items:center;padding:40px 0;border-top:1px solid var(--hair);transition:padding-left .45s var(--ease),background .4s;position:relative}
+.row:last-child{border-bottom:1px solid var(--hair)}
+.row::before{content:'';position:absolute;left:-30px;top:0;bottom:0;width:2px;background:var(--blue);transform:scaleY(0);transform-origin:center;transition:transform .45s var(--ease)}
+.row:hover{padding-left:20px}
+.row:hover::before{transform:scaleY(.6)}
+.row .rn{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:14px;color:var(--faint);letter-spacing:.05em}
+.row .rt{font-family:'Montserrat',sans-serif;font-size:clamp(21px,2.8vw,32px);font-weight:700;letter-spacing:-.02em}
+.row .rtag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--blue-3);letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:8px}
+.row .rd{font-size:14.5px;color:var(--muted);line-height:1.68;max-width:34em}
+.row .ra{width:52px;height:52px;border-radius:50%;border:1px solid var(--hair-2);display:flex;align-items:center;justify-content:center;color:var(--blue-3);transition:all .4s var(--ease);flex-shrink:0;background:var(--card-2)}
+.row:hover .ra{background:var(--blue);border-color:var(--blue);color:#fff;transform:rotate(-45deg) scale(1.05);box-shadow:0 12px 30px -10px var(--blue-glow)}
+.row .ra svg{width:19px;height:19px}
+
+/* ── CURRICULUM ─────────────────────────────── */
+.mods{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:26px}
+.mod{position:relative;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-lg);padding:38px;transition:transform .4s var(--ease),border-color .4s,box-shadow .4s;overflow:hidden}
+.mod::after{content:'';position:absolute;inset:0;background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(45,107,228,.12),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+.mod:hover{transform:translateY(-6px);border-color:var(--hair-2);box-shadow:var(--shadow)}
+.mod:hover::after{opacity:1}
+.mod .mn{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:13px;color:var(--blue-3);letter-spacing:.08em}
+.mod h3{font-family:'Montserrat',sans-serif;font-size:21px;font-weight:700;margin-top:18px;letter-spacing:-.02em}
+.mod p{font-size:14px;color:var(--muted);margin-top:11px;line-height:1.68}
+.mod-more{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--muted);border:1px solid var(--hair);background:var(--card-2);padding:9px 15px;border-radius:100px;letter-spacing:.02em;transition:border-color .3s,color .3s}
+.chip:hover{border-color:var(--blue-3);color:var(--ink)}
+
+/* ── COURSE / PRICING ───────────────────────── */
+.launch-note{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--up);background:rgba(70,211,161,.1);border:1px solid rgba(70,211,161,.28);padding:9px 16px;border-radius:100px;margin-top:22px}
+.launch-note .pulse{width:7px;height:7px;border-radius:50%;background:var(--up);box-shadow:0 0 0 0 rgba(70,211,161,.5);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(70,211,161,.5)}70%{box-shadow:0 0 0 8px rgba(70,211,161,0)}100%{box-shadow:0 0 0 0 rgba(70,211,161,0)}}
+.plans{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:34px}
+.plan{position:relative;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-xl);padding:40px 36px;display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
+.plan:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.plan.featured{border-color:transparent;background:
+  radial-gradient(130% 120% at 100% 0%,rgba(45,107,228,.2),transparent 58%),var(--card);
+  box-shadow:var(--glow)}
+.plan.featured::before{content:'';position:absolute;inset:0;border-radius:var(--r-xl);padding:1px;background:linear-gradient(150deg,var(--blue-3),transparent 40%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.plan .p-badge{position:absolute;top:22px;right:22px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--blue);padding:6px 12px;border-radius:100px}
+.plan .p-name{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-3);font-weight:600}
+.plan .p-price{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(42px,5.5vw,58px);letter-spacing:-.03em;margin-top:16px;line-height:1;display:flex;align-items:flex-start;gap:4px}
+.plan .p-price .cur{font-size:24px;font-weight:700;margin-top:8px;color:var(--muted)}
+.plan .p-price .per{font-family:'Manrope',sans-serif;font-size:14px;font-weight:600;color:var(--faint);align-self:flex-end;margin-bottom:10px}
+.plan .p-desc{font-size:14px;color:var(--muted);margin-top:14px;line-height:1.6}
+.plan .p-list{list-style:none;margin:26px 0 30px;display:flex;flex-direction:column;gap:14px}
+.plan .p-list li{font-size:14px;color:var(--ink);display:flex;align-items:flex-start;gap:12px;line-height:1.5}
+.plan .p-list li.dim{color:var(--faint)}
+.plan .p-list .ic{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(45,107,228,.14);color:var(--blue-3);margin-top:1px}
+.plan .p-list li.dim .ic{background:var(--hair);color:var(--faint)}
+.plan .p-list .ic svg{width:11px;height:11px}
+.plan .btn{width:100%;justify-content:center;margin-top:auto}
+.plan-foot{text-align:center;margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--faint);letter-spacing:.03em}
+.plan-foot a{color:var(--blue-3);border-bottom:1px solid transparent;transition:border-color .25s}
+.plan-foot a:hover{border-color:var(--blue-3)}
+
+/* ── BROKER ─────────────────────────────────── */
+.broker{margin-top:26px;border:1px solid var(--hair);border-radius:var(--r-xl);overflow:hidden;display:grid;grid-template-columns:1.35fr .65fr;
+  background:radial-gradient(120% 130% at 100% 0%,rgba(45,107,228,.2),transparent 58%),linear-gradient(160deg,#0d1a38,#070d1c);box-shadow:var(--shadow)}
+.broker-l{padding:52px}
+.royal-logo{height:28px;width:auto;display:block;margin-bottom:24px}
+.bvfy{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-3);display:inline-flex;align-items:center;gap:8px}
+.bvfy::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--up);box-shadow:0 0 9px var(--up)}
+.broker h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(26px,3.4vw,34px);margin-top:16px;color:#fff;letter-spacing:-.02em}
+.broker p{font-size:14.5px;color:rgba(233,238,251,.76);margin-top:15px;line-height:1.72;max-width:34em}
+.bbtn{display:inline-flex;align-items:center;gap:9px;margin-top:28px;background:#fff;color:#0c1730;font-size:13px;font-weight:700;letter-spacing:-.01em;padding:15px 28px;border-radius:100px;border:none;cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s}
+.bbtn:hover{transform:translateY(-3px);box-shadow:0 18px 40px -16px rgba(255,255,255,.4)}
+.bbtn svg{width:14px;height:14px}
+.broker-r{border-left:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column}
+.bstat{padding:30px 38px;border-bottom:1px solid rgba(255,255,255,.12);flex:1;display:flex;flex-direction:column;justify-content:center}
+.bstat:last-child{border-bottom:0}
+.bstat b{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:24px;color:#fff}
+.bstat span{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,238,251,.55);margin-top:7px}
+
+/* ── MARQUEE ────────────────────────────────── */
+.marq{overflow:hidden;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:32px 0;background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);position:relative;z-index:3}
+.marq-track{display:flex;gap:54px;width:max-content;white-space:nowrap;animation:marq 26s linear infinite}
+.marq-track span{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(34px,6vw,72px);letter-spacing:-.03em;color:var(--faint);opacity:.4;display:inline-flex;align-items:center;gap:54px}
+.marq-track span::after{content:'✦';font-size:.35em;color:var(--blue-3);opacity:.7}
+.marq-track span.fill{color:var(--blue-3);opacity:.95}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ── REVIEWS ────────────────────────────────── */
+.rstat{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hair);border-radius:var(--r-lg);margin-top:26px;overflow:hidden;background:var(--card-2)}
+.rstat>div{padding:34px 24px;border-right:1px solid var(--hair);text-align:center}
+.rstat>div:last-child{border-right:0}
+.rstat b{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(28px,3.6vw,36px);color:var(--ink);display:block;letter-spacing:-.02em}
+.rstat b .u{color:var(--blue-3)}
+.rstat span{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:10px;display:block}
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.tc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r-lg);padding:32px;transition:transform .4s var(--ease),border-color .4s,box-shadow .4s}
+.tc:hover{transform:translateY(-5px);border-color:var(--hair-2);box-shadow:var(--shadow)}
+.tc .stars{color:var(--blue-3);font-size:13px;letter-spacing:3px}
+.tc p{font-size:14.5px;line-height:1.72;margin-top:16px;color:var(--ink)}
+.tc .who{display:flex;align-items:center;gap:13px;margin-top:26px;padding-top:20px;border-top:1px solid var(--hair)}
+.tc .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-3));display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#fff}
+.tc .nm{font-weight:700;font-size:13.5px}.tc .mt{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:3px}
+.reviews-shell{position:relative}
+.reviews-shell.collapsed .tg .tc:nth-child(n+4){display:none}
+.rev-fade{display:none}
+.reviews-shell.collapsed .rev-fade{display:block;position:absolute;left:0;right:0;bottom:56px;height:150px;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--panel))}
+.more-btn{display:inline-flex;align-items:center;gap:9px;margin:32px auto 0;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.03em;color:var(--ink);background:var(--card);border:1px solid var(--hair);padding:15px 28px;border-radius:100px;cursor:pointer;transition:all .3s var(--ease)}
+.more-btn:hover{border-color:var(--blue-3);color:var(--blue-3);transform:translateY(-2px)}
+.more-btn span{color:var(--blue-3);font-size:15px;line-height:1}
+.rev-foot{text-align:center}
+
+/* ── FAQ ────────────────────────────────────── */
+.faq{max-width:900px;margin-top:26px}
+.q{border-bottom:1px solid var(--hair)}
+.q summary{list-style:none;cursor:pointer;padding:30px 0;font-family:'Montserrat',sans-serif;font-size:clamp(17px,2.1vw,22px);font-weight:600;display:flex;justify-content:space-between;gap:20px;letter-spacing:-.02em;transition:color .25s}
+.q summary:hover{color:var(--blue-3)}
+.q summary::-webkit-details-marker{display:none}
+.q .qi{color:var(--blue-3);font-size:26px;transition:transform .35s var(--ease);flex-shrink:0;line-height:1}
+.q[open] .qi{transform:rotate(45deg)}
+.q .qa{font-size:15px;color:var(--muted);line-height:1.78;padding:0 0 30px;max-width:54em}
+
+/* ── LEAD MAGNET ────────────────────────────── */
+.leadmag{position:relative;z-index:3}
+.lm-inner{border:1px solid var(--hair);border-radius:var(--r-xl);padding:clamp(36px,5vw,60px);display:grid;grid-template-columns:1.5fr auto;gap:32px;align-items:center;
+  background:radial-gradient(130% 160% at 0% 0%,rgba(45,107,228,.18),transparent 55%),var(--card);box-shadow:var(--shadow);overflow:hidden}
+.lm-kick{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-3);font-weight:600}
+.lm-inner h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(24px,3.4vw,38px);letter-spacing:-.03em;margin-top:14px;line-height:1.08}
+.lm-inner p{font-size:15px;color:var(--muted);margin-top:14px;max-width:36em;line-height:1.68}
+.lm-inner .btn{white-space:nowrap}
+.lm-free{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--faint);letter-spacing:.05em;margin-top:14px;display:block}
+
+/* ── CONNECT ────────────────────────────────── */
+.connect{text-align:center}
+.connect .big{margin:0 auto}
+.connect .sub-lead{margin-left:auto;margin-right:auto}
+.cmail{display:inline-flex;align-items:center;gap:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(22px,4vw,42px);color:#fff;background:var(--blue);padding:20px 40px;border-radius:100px;margin-top:38px;letter-spacing:-.02em;transition:transform .3s var(--ease),box-shadow .3s;box-shadow:0 20px 50px -18px var(--blue-glow)}
+.cmail:hover{transform:translateY(-3px);box-shadow:0 28px 60px -18px var(--blue-glow)}
+.cmail svg{width:26px;height:26px}
+.socs{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-top:44px}
+.socs a{display:inline-flex;align-items:center;gap:10px;font-size:13.5px;font-weight:600;letter-spacing:-.01em;color:var(--ink);background:var(--card);border:1px solid var(--hair);padding:15px 26px;border-radius:100px;transition:all .3s var(--ease)}
+.socs a:hover{border-color:var(--blue-3);color:var(--blue-3);transform:translateY(-3px)}
+.socs svg{width:18px;height:18px;flex-shrink:0;color:var(--blue-3)}
+.socs a:hover svg{color:var(--blue)}
+.email-line{display:inline-block;margin-top:30px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.02em;color:var(--muted);border-bottom:1px solid var(--hair);padding-bottom:3px;transition:color .25s,border-color .25s}
+.email-line:hover{color:var(--blue-3);border-color:var(--blue-3)}
+
+/* ── FLOATING WHATSAPP ──────────────────────── */
+.fab{position:fixed;right:22px;bottom:22px;z-index:70;display:inline-flex;align-items:center;gap:10px;background:#22c15e;color:#fff;font-weight:700;font-size:14px;padding:14px 20px 14px 16px;border-radius:100px;box-shadow:0 18px 40px -12px rgba(34,193,94,.55);opacity:0;transform:translateY(18px) scale(.9);transition:opacity .5s var(--ease),transform .5s var(--ease),box-shadow .3s;pointer-events:none}
+.fab.show{opacity:1;transform:none;pointer-events:auto}
+.fab:hover{transform:translateY(-3px);box-shadow:0 24px 50px -12px rgba(34,193,94,.65)}
+.fab svg{width:22px;height:22px;flex-shrink:0}
+.fab .fab-lbl{white-space:nowrap}
+
+/* ── FOOTER ─────────────────────────────────── */
+.footer{padding:70px 0 54px;border-top:1px solid var(--hair);position:relative;z-index:3;background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.fbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.fnav{display:flex;gap:26px}
+.fnav a{font-size:13px;color:var(--muted);transition:color .2s}
+.fnav a:hover{color:var(--ink)}
+.frisk{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);margin-top:34px;line-height:1.7;max-width:66em;letter-spacing:.01em}
+.fcc{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);margin-top:14px;letter-spacing:.02em}
+
+/* ── VIDEOS ─────────────────────────────────── */
+.vids{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:34px}
+.vid{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--hair);background:linear-gradient(160deg,#0d1a38,#070d1c);box-shadow:var(--shadow);transition:transform .4s var(--ease),border-color .4s,box-shadow .4s}
+.vid:hover{transform:translateY(-6px);border-color:var(--hair-2);box-shadow:var(--shadow-lg)}
+.vframe{position:relative;aspect-ratio:16/9;width:100%;cursor:pointer;display:block;background:linear-gradient(150deg,#132449,#0a1226)}
+.vframe .vthumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block;transition:transform .6s var(--ease),opacity .4s}
+.vid:hover .vthumb{transform:scale(1.04)}
+.vframe::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(4,8,22,.72),transparent 46%);pointer-events:none;transition:opacity .4s}
+.vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;border:0;cursor:pointer;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 16px 40px -10px var(--blue-glow);transition:transform .3s var(--ease),background .3s;z-index:2}
+.vframe:hover .vplay{transform:translate(-50%,-50%) scale(1.08);background:var(--blue-3)}
+.vplay::before{content:'';display:block;width:0;height:0;margin-left:5px;border-style:solid;border-width:12px 0 12px 20px;border-color:transparent transparent transparent #fff}
+.vpill{position:absolute;top:16px;left:16px;z-index:2;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(4,8,22,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.18);padding:7px 12px;border-radius:100px;display:inline-flex;align-items:center;gap:7px}
+.vpill .rd{width:6px;height:6px;border-radius:50%;background:var(--down);box-shadow:0 0 8px var(--down)}
+.vmeta{padding:22px 24px;position:relative;z-index:2}
+.vmeta .vt{font-family:'Montserrat',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#fff}
+.vmeta .vd{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(233,238,251,.6);letter-spacing:.04em;margin-top:8px}
+.vid.playing .vplay,.vid.playing .vpill,.vid.playing .vframe::after{display:none}
+
+/* ── RESPONSIVE ─────────────────────────────── */
+@media(max-width:1024px){
+  :root{--head:68px}
+  .tg{grid-template-columns:repeat(2,1fr)}
+  .reviews-shell.collapsed .tg .tc:nth-child(4){display:block}
+  .reviews-shell.collapsed .tg .tc:nth-child(n+5){display:none}
+}
+@media(max-width:860px){
+  nav.main,.hcta.desk{display:none}
+  .mbtn{display:flex}
+  .row{grid-template-columns:44px 1fr auto;gap:18px}
+  .row .rd{display:none}
+  .mods{grid-template-columns:1fr}
+  .vids{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+  .broker{grid-template-columns:1fr}
+  .broker-r{flex-direction:row;border-left:0;border-top:1px solid rgba(255,255,255,.12)}
+  .bstat{border-bottom:0;border-right:1px solid rgba(255,255,255,.12);padding:22px 12px;text-align:center;align-items:center}
+  .bstat:last-child{border-right:0}
+  .bstat b{font-size:19px}
+  .tg{grid-template-columns:1fr}
+  .reviews-shell.collapsed .tg .tc:nth-child(4){display:none}
+  .rstat{grid-template-columns:repeat(2,1fr)}
+  .rstat>div{padding:26px 12px}
+  .rstat>div:nth-child(2){border-right:0}
+  .lm-inner{grid-template-columns:1fr;text-align:left}
+  .fab .fab-lbl{display:none}
+  .fab{padding:15px}
+}
+@media(max-width:560px){
+  :root{--head:60px}
+  .wrap,.header .wrap{padding:0 20px}
+  .hero{padding:var(--head) 20px 0}
+  .h1{font-size:clamp(42px,13vw,64px)}
+  .hero .sub{font-size:15px;margin-top:26px}
+  .hero-cta{margin-top:32px;width:100%}
+  .hero-cta .btn{flex:1;justify-content:center;min-width:140px}
+  .lab{margin-bottom:26px}
+  .big{font-size:clamp(26px,7.6vw,36px)}
+  .beat h2{font-size:clamp(26px,8.4vw,40px)}
+  .broker-l{padding:30px}
+  .plan{padding:34px 28px}
+  .mod{padding:28px}
+  .tc{padding:26px}
+  .marq{padding:24px 0}
+  .q summary{font-size:16px;padding:24px 0}
+  .cmail{font-size:clamp(20px,6.5vw,32px);padding:18px 30px}
+  .socs{gap:10px}
+  .socs a{padding:13px 18px;font-size:12.5px}
+  .fbar{flex-direction:column;align-items:flex-start;gap:20px}
+  .fnav{flex-wrap:wrap;gap:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none}.h1 .ln span{transform:none}.marq-track{animation:none}
+  *{scroll-behavior:auto}.hero .scrollcue::after{animation:none}
+  .ld-mark,.ld-mark polygon,.ld-logo,.ld-tag{animation:none}
+  .ld-mark polygon{stroke-dashoffset:0;fill-opacity:1;stroke-opacity:0}
+  .ld-logo,.ld-tag{opacity:1}
+  .launch-note .pulse{animation:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="lkg" x1="0" y1="1" x2="1" y2="0">
+    <stop offset="0" stop-color="#0a2c4d"/><stop offset=".55" stop-color="#2d6be4"/><stop offset="1" stop-color="#5b8def"/>
+  </linearGradient>
+</defs></svg>
+
+<div id="loader">
+  <div class="ld-inner">
+    <svg class="ld-mark" viewBox="110 435 188 211" aria-hidden="true">
+      <polygon class="ldm1" points="242.84 489.4 165.74 489.4 165.74 564.42 115.73 514.41 115.73 439.39 192.83 439.39 242.84 489.4"/>
+      <polygon class="ldm2" points="294.02 540.58 294.02 640.61 193.93 640.61 143.92 590.6 244.04 590.6 244.04 490.59 294.02 540.58"/>
+    </svg>
+    <div class="ld-logo">FXDARWISH</div>
+    <div class="ld-tag">Institutional Trading Education</div>
+    <div class="ld-row"><span id="ld-status">Loading assets</span><span class="ld-pct" id="ld-pct">0%</span></div>
+    <div class="ld-bar"><span id="ld-fill"></span></div>
+  </div>
+</div>
+
+<script>
+/* ── Standalone page loader ─────────────────────────────────────────
+   Runs immediately during parse. Reveals the site on its own timer
+   with ZERO dependency on Three.js, the CDN, the network, or the 3D
+   code. The 3D scene (if/when it loads) simply renders behind and
+   pops in whenever it's ready. This guarantees the page always opens. */
+(function(){
+  var fill=document.getElementById('ld-fill'),
+      pctEl=document.getElementById('ld-pct'),
+      statusEl=document.getElementById('ld-status'),
+      loader=document.getElementById('loader');
+  if(!loader){ document.body.classList.add('ready'); return; }
+  var reduced=false;
+  try{ reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  var pct=0, done=false;
+  function finish(){
+    if(done) return; done=true;
+    if(fill) fill.style.width='100%';
+    if(pctEl) pctEl.textContent='100%';
+    loader.classList.add('done');
+    document.body.classList.add('ready');
+  }
+  if(reduced){ setTimeout(finish,300); return; }
+  var iv=setInterval(function(){
+    pct += Math.random()*11 + 6;
+    if(pct>=100){ pct=100; clearInterval(iv); }
+    if(fill) fill.style.width=pct+'%';
+    if(pctEl) pctEl.textContent=Math.floor(pct)+'%';
+    if(statusEl) statusEl.textContent = pct<45?'Loading assets':(pct<80?'Preparing':'Ready');
+    if(pct>=100) setTimeout(finish,180);
+  },90);
+  setTimeout(finish,3000); /* hard guarantee: reveal within 3s no matter what */
+})();
+</script>
+
+<div class="sprog" id="sprog"></div>
+
+<header class="header" id="header">
+  <div class="wrap">
+    <a href="#top" class="brand" aria-label="FXDARWISH home">
+      <svg class="lk" viewBox="115 433 875 214" role="img" aria-label="FXDARWISH — Trading with Precision">
+        <polygon class="lk-m1" points="242.84 489.4 165.74 489.4 165.74 564.42 115.73 514.41 115.73 439.39 192.83 439.39 242.84 489.4"/>
+        <polygon class="lk-m2" points="294.02 540.58 294.02 640.61 193.93 640.61 143.92 590.6 244.04 590.6 244.04 490.59 294.02 540.58"/>
+        <path class="lk-fx" d="M393.54,472.81v14.88h-30.47s0,5.4,0,5.44c0,.14,0,10.5,0,10.64h22.8v14.45h-22.8v30.85h-18.21v-76.26h48.68Z"/>
+        <path class="lk-fx" d="M455.02,549.08l-15.23-23.36-13.42,23.36h-20.67l23.97-38.78-24.5-37.48h21.2l15.02,23.03,13.21-23.03h20.67l-23.75,38.46,24.71,37.8h-21.2Z"/>
+        <path class="lk-word" d="M536.53,477.59c5.89,3.19,10.45,7.66,13.69,13.42,3.23,5.76,4.85,12.4,4.85,19.94s-1.62,14.09-4.85,19.88c-3.23,5.8-7.81,10.28-13.74,13.47-5.93,3.19-12.8,4.78-20.61,4.78h-28.02v-76.26h28.02c7.88,0,14.77,1.59,20.67,4.78ZM530.78,527.24c3.84-3.84,5.75-9.27,5.75-16.29s-1.92-12.49-5.75-16.4c-3.84-3.91-9.2-5.87-16.08-5.87h-8.63v44.32h8.63c6.89,0,12.25-1.92,16.08-5.76Z"/>
+        <path class="lk-word" d="M612.79,537.01h-25.01l-4.01,12.07h-17.08l24.24-68.33h18.9l24.24,68.33h-17.27l-4.01-12.07ZM608.59,524.16l-8.3-25.02-8.21,25.02h16.51Z"/>
+        <path class="lk-word" d="M679.87,549.08l-13.93-25.8h-3.91v25.8h-16.32v-68.33h27.39c5.28,0,9.78.94,13.51,2.82,3.72,1.88,6.51,4.46,8.35,7.74,1.84,3.28,2.77,6.93,2.77,10.95,0,4.54-1.26,8.6-3.77,12.17-2.51,3.57-6.22,6.1-11.12,7.59l15.46,27.06h-18.42ZM662.02,511.5h10.12c2.99,0,5.23-.75,6.73-2.24,1.49-1.49,2.24-3.6,2.24-6.33s-.75-4.64-2.24-6.13c-1.5-1.49-3.74-2.24-6.73-2.24h-10.12v16.94Z"/>
+        <path class="lk-word" d="M805.65,480.74l-17.47,68.33h-19.76l-10.69-44.97-11.07,44.97h-19.76l-16.99-68.33h17.47l9.64,49.74,11.93-49.74h17.94l11.45,49.74,9.74-49.74h17.56Z"/>
+        <path class="lk-word" d="M833.6,480.74v68.33h-16.32v-68.33h16.32Z"/>
+        <path class="lk-word" d="M857.9,546.7c-3.79-1.58-6.82-3.93-9.09-7.03-2.27-3.1-3.46-6.84-3.59-11.21h16.96c.25,2.47,1.09,4.36,2.52,5.66,1.43,1.3,3.29,1.95,5.59,1.95s4.22-.55,5.59-1.66c1.37-1.11,2.05-2.65,2.05-4.61,0-1.65-.54-3.01-1.63-4.09-1.09-1.08-2.42-1.96-4.01-2.66-1.58-.7-3.84-1.49-6.76-2.38-4.23-1.33-7.67-2.66-10.34-3.99-2.67-1.33-4.97-3.29-6.9-5.89-1.93-2.6-2.89-5.99-2.89-10.17,0-6.21,2.2-11.07,6.62-14.59,4.41-3.52,10.16-5.27,17.24-5.27s13.01,1.76,17.43,5.27c4.41,3.52,6.77,8.41,7.08,14.68h-17.24c-.13-2.15-.9-3.85-2.33-5.08-1.43-1.24-3.26-1.85-5.5-1.85-1.93,0-3.48.52-4.66,1.57-1.18,1.05-1.77,2.55-1.77,4.51,0,2.15.99,3.83,2.98,5.04,1.99,1.2,5.09,2.5,9.32,3.9,4.22,1.46,7.66,2.85,10.3,4.18,2.64,1.33,4.92,3.26,6.85,5.8,1.92,2.54,2.89,5.8,2.89,9.79s-.95,7.26-2.84,10.36c-1.9,3.1-4.65,5.58-8.25,7.41-3.6,1.84-7.86,2.76-12.77,2.76s-9.07-.79-12.86-2.38Z"/>
+        <path class="lk-word" d="M964.27,480.74v68.33h-16.32v-28.13h-25.39v28.13h-16.32v-68.33h16.32v26.77h25.39v-26.77h16.32Z"/>
+      </svg>
+    </a>
+    <nav class="main"><a href="#services">Services</a><a href="#course">Course</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a href="#connect">Contact</a></nav>
+    <div class="hact">
+      <button class="htgl" id="theme-toggle" aria-label="Toggle theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hcta desk" id="cta-header">Enroll now</button>
+      <button class="mbtn" id="menu-toggle" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="mmenu" id="mobile-menu">
+  <a href="#services">Services</a><a href="#course">Course</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a>
+  <a class="m-cta" href="#connect">Enroll now</a>
+</div>
+
+<div class="content" id="top">
+  <canvas id="bg"></canvas>
+
+  <section class="hero">
+    <span class="eyebrow">Institutional Trading Education</span>
+    <h1 class="h1"><span class="ln"><span>Trading with</span></span><span class="ln"><span><em>Precision</em></span></span></h1>
+    <p class="sub">Smart Money Concepts, order flow &amp; liquidity — taught the way the market actually moves, not the way retail indicators guess.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#course">Enroll in the course<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost" href="https://discord.gg/EqGmzaK3Nd" target="_blank" rel="noopener">Join free Discord</a>
+    </div>
+    <div class="hero-trust">
+      <span class="tchip"><span class="dot"></span><b>200+</b>&nbsp;students</span>
+      <span class="tchip"><b>4.9★</b>&nbsp;avg rating</span>
+      <span class="tchip"><b>3&nbsp;yrs</b>&nbsp;teaching SMC</span>
+    </div>
+    <div class="scrollcue">Scroll</div>
+  </section>
+
+  <section class="story" id="story">
+    <div class="beat" data-beat="0"><span class="k">01 — The Problem</span><h2>We don't teach retail <em>indicators</em>.</h2></div>
+    <div class="beat" data-beat="1"><span class="k">02 — The Method</span><h2>We teach how institutions <em>move price</em>.</h2></div>
+    <div class="beat" data-beat="2"><span class="k">03 — The Edge</span><h2>Liquidity. Structure. <em>Order flow</em>.</h2></div>
+  </section>
+
+  <div class="solid">
+
+    <section class="sec" id="services">
+      <div class="wrap">
+        <div class="lab reveal"><b>01</b> What you get</div>
+        <h2 class="big reveal">Three ways to learn <em>institutional trading</em>.</h2>
+        <p class="sub-lead reveal">Start where you are. Whether you want a full system, hands-on mentorship, or a live room to trade alongside — each path teaches the same Smart Money framework.</p>
+        <div class="rows reveal">
+          <div class="row">
+            <div class="rn">01</div>
+            <div><div class="rt">1-on-1 Coaching</div><span class="rtag">Private · mentorship</span></div>
+            <div class="rd">Personalised guidance on your trades. We review your chart work, find what's failing, and build a repeatable system around SMC and order flow.</div>
+            <a class="ra" href="https://wa.me/96181824829?text=I%27m%20interested%20in%201-on-1%20coaching" target="_blank" rel="noopener" aria-label="Ask about coaching on WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="row">
+            <div class="rn">02</div>
+            <div><div class="rt">Structured Course</div><span class="rtag">10 modules · lifetime access</span></div>
+            <div class="rd">BSL/SSL, BOS/CHoCH, fair value gaps, order blocks, kill zones, PO3/AMD, and institutional order flow — built module by module.</div>
+            <a class="ra" href="#course" aria-label="See the course"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="row">
+            <div class="rn">03</div>
+            <div><div class="rt">Discord Community</div><span class="rtag">Free · daily analysis</span></div>
+            <div class="rd">Daily market analysis, bias before London open, economic-calendar highlights, and direct support from experienced traders.</div>
+            <a class="ra" href="https://discord.gg/EqGmzaK3Nd" target="_blank" rel="noopener" aria-label="Join the Discord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap">
+        <div class="lab reveal"><b>02</b> Curriculum</div>
+        <h2 class="big reveal">Ten modules. One coherent system.</h2>
+        <p class="sub-lead reveal">Every concept builds on the last — from raw market structure to timing entries inside the kill zone.</p>
+        <div class="mods reveal">
+          <div class="mod"><div class="mn">01</div><h3>Market Structure</h3><p>How institutions read price. BOS, CHoCH, support/resistance, and the flow model.</p></div>
+          <div class="mod"><div class="mn">02</div><h3>Liquidity Zones</h3><p>BSL, SSL, order blocks. Where institutions cluster stops and feast on retail liquidity.</p></div>
+          <div class="mod"><div class="mn">03</div><h3>Fair Value Gaps</h3><p>Imbalances in price. How to spot them, trade them, and anticipate the refill.</p></div>
+          <div class="mod"><div class="mn">04</div><h3>Order Blocks</h3><p>Where price was consumed. These become magnets for re-entry and reversal zones.</p></div>
+          <div class="mod-more">
+            <span class="chip">05 · Kill Zones</span><span class="chip">06 · PO3 / AMD</span><span class="chip">07 · Order Flow</span>
+            <span class="chip">08 · Entry Models</span><span class="chip">09 · Risk &amp; Sizing</span><span class="chip">10 · Trade Journal</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="videos">
+      <div class="wrap">
+        <div class="lab reveal"><b>03</b> In action</div>
+        <h2 class="big reveal">See the method <em>on a live chart</em>.</h2>
+        <p class="sub-lead reveal">No theory-only promises. Watch full trade breakdowns — how the setup was read, where liquidity sat, and how the entry was timed inside the kill zone.</p>
+        <div class="vids reveal">
+          <div class="vid" data-id="j9hOEQ4Ds1g">
+            <div class="vframe" role="button" tabindex="0" aria-label="Play trade breakdown 1">
+              <img class="vthumb" src="https://i.ytimg.com/vi/j9hOEQ4Ds1g/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/j9hOEQ4Ds1g/hqdefault.jpg'" alt="Trade breakdown 1 cover" loading="lazy" width="1280" height="720">
+              <span class="vpill"><span class="rd"></span>Breakdown</span>
+              <button class="vplay" aria-label="Play video" type="button"></button>
+            </div>
+            <div class="vmeta"><div class="vt">Trade Breakdown — 01</div><div class="vd">ICT / Smart Money · full walkthrough</div></div>
+          </div>
+          <div class="vid" data-id="WoKOPk-MJuI">
+            <div class="vframe" role="button" tabindex="0" aria-label="Play trade breakdown 2">
+              <img class="vthumb" src="https://i.ytimg.com/vi/WoKOPk-MJuI/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/WoKOPk-MJuI/hqdefault.jpg'" alt="Trade breakdown 2 cover" loading="lazy" width="1280" height="720">
+              <span class="vpill"><span class="rd"></span>Breakdown</span>
+              <button class="vplay" aria-label="Play video" type="button"></button>
+            </div>
+            <div class="vmeta"><div class="vt">Trade Breakdown — 02</div><div class="vd">ICT / Smart Money · full walkthrough</div></div>
+          </div>
+        </div>
+        <p class="plan-foot reveal">Want the full system behind these trades? <a href="#course">See the course below.</a></p>
+      </div>
+    </section>
+
+    <section class="sec" id="course">
+      <div class="wrap">
+        <div class="lab reveal"><b>04</b> Enroll</div>
+        <h2 class="big reveal">Own the full system, <em>for life</em>.</h2>
+        <p class="sub-lead reveal">One payment. Lifetime access to all ten modules, every future update, and the private community. Pick the tier that fits how much hands-on support you want.</p>
+        <div class="reveal"><span class="launch-note"><span class="pulse"></span>Next cohort opens July 22</span></div>
+        <div class="plans reveal">
+          <div class="plan">
+            <div class="p-name">Standard</div>
+            <div class="p-price"><span class="cur">$</span>450<span class="per">once</span></div>
+            <p class="p-desc">The complete self-paced program with everything you need to trade the system.</p>
+            <ul class="p-list">
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>All 10 course modules</li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>Lifetime access &amp; updates</li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>Private Discord community</li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>Recorded trade breakdowns</li>
+              <li class="dim"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 6l12 12M18 6L6 18"/></svg></span>1-on-1 onboarding call</li>
+            </ul>
+            <a class="btn btn-ghost" href="https://wa.me/96181824829?text=I%20want%20to%20enroll%20in%20the%20Standard%20course" target="_blank" rel="noopener">Enroll — Standard</a>
+          </div>
+          <div class="plan featured">
+            <span class="p-badge">Most popular</span>
+            <div class="p-name">Premium</div>
+            <div class="p-price"><span class="cur">$</span>500<span class="per">once</span></div>
+            <p class="p-desc">Everything in Standard, plus direct mentorship to shortcut your learning curve.</p>
+            <ul class="p-list">
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>Everything in Standard</li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>1-on-1 onboarding call</li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>Priority support &amp; feedback</li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>Live session recordings</li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>Trade journal template</li>
+            </ul>
+            <a class="btn btn-primary" href="https://wa.me/96181824829?text=I%20want%20to%20enroll%20in%20the%20Premium%20course" target="_blank" rel="noopener">Enroll — Premium<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <p class="plan-foot reveal">Not sure which fits? <a href="https://wa.me/96181824829?text=Which%20course%20tier%20is%20right%20for%20me%3F" target="_blank" rel="noopener">Message on WhatsApp</a> and we'll help you choose.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap">
+        <div class="lab reveal"><b>05</b> Partner Broker</div>
+        <div class="broker reveal">
+          <div class="broker-l">
+            <svg class="royal-logo" viewBox="0 0 2072 352" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OneRoyal" fill-rule="evenodd"><path d="M0 0 C1.92 -0 3.84 -0.01 5.77 -0.01 C10.94 -0.02 16.11 -0.02 21.29 -0.01 C26.73 -0 32.18 -0.01 37.63 -0.01 C46.78 -0.02 55.92 -0.01 65.07 -0 C75.6 0.01 86.12 0.01 96.65 -0.01 C105.74 -0.01 114.82 -0.02 123.9 -0.01 C129.31 -0.01 134.72 -0.01 140.12 -0.01 C145.21 -0.02 150.3 -0.02 155.39 -0 C157.24 -0 159.09 -0 160.94 -0.01 C170.26 -0.03 179.47 0.21 188.75 1.13 C189.14 1.16 189.14 1.16 191.13 1.35 C196.26 1.92 200.08 3.07 204.33 5.97 C206.65 7.48 208.97 8.36 211.56 9.32 C215.42 10.81 218.19 12.49 221.31 15.26 C223.3 16.6 225.3 17.93 227.31 19.26 C234.92 24.44 240.86 29.12 245.31 37.26 C245.67 37.89 246.04 38.52 246.41 39.17 C247.39 40.86 248.35 42.56 249.31 44.26 C252.83 49.7 252.83 49.7 254.81 52 C256.76 54.93 257.43 57.74 258.31 61.13 C259.26 64.78 260.13 67.92 261.93 71.24 C263.63 74.97 263.57 77.61 263.43 81.7 C263.28 86.7 263.39 91.53 263.79 96.53 C264.59 107.56 264.51 118.62 264.55 129.67 C264.55 130.82 264.56 131.97 264.56 133.16 C264.58 139.24 264.6 145.31 264.6 151.39 C264.62 157.63 264.65 163.87 264.69 170.12 C264.72 174.95 264.72 179.79 264.73 184.63 C264.73 186.93 264.74 189.23 264.76 191.53 C264.85 203.56 264.79 213.96 260.31 225.26 C259.93 226.74 259.57 228.22 259.25 229.71 C257.53 237.69 255.39 243.77 250.31 250.26 C249.3 251.75 248.3 253.25 247.31 254.76 C246.81 255.5 246.31 256.25 245.79 257.01 C244.82 258.48 243.89 259.97 242.99 261.47 C235.71 273.33 223.44 283.07 210.58 288.29 C208.12 289.34 205.84 290.6 203.5 291.88 C197.94 294.69 192.45 295.58 186.31 296.26 C185.7 296.34 185.08 296.42 184.45 296.51 C175.61 297.57 166.73 297.41 157.83 297.4 C155.97 297.41 154.11 297.41 152.24 297.41 C147.2 297.42 142.16 297.43 137.12 297.43 C133.96 297.43 130.8 297.43 127.64 297.43 C116.6 297.44 105.56 297.44 94.51 297.44 C84.26 297.44 74.01 297.45 63.75 297.47 C54.92 297.48 46.08 297.49 37.25 297.49 C31.99 297.49 26.73 297.49 21.46 297.5 C16.51 297.51 11.55 297.51 6.59 297.5 C4.79 297.5 2.98 297.5 1.18 297.51 C-7.74 297.54 -16.56 297.34 -25.43 296.43 C-26.15 296.36 -26.87 296.29 -27.61 296.22 C-34.96 295.36 -41.06 292.46 -47.69 289.26 C-49.18 288.72 -50.68 288.19 -52.19 287.7 C-56.1 286.09 -58.52 284.03 -61.69 281.26 C-63.03 280.4 -64.39 279.57 -65.75 278.76 C-69.24 276.64 -71.91 274.27 -74.69 271.26 C-75.6 270.39 -76.51 269.53 -77.44 268.63 C-79.69 266.26 -79.69 266.26 -80.69 263.26 C-81.68 262.93 -82.67 262.6 -83.69 262.26 C-85.16 260.15 -85.16 260.15 -86.63 257.51 C-88.19 254.72 -89.67 252.28 -91.75 249.84 C-93.99 246.86 -94.79 244.34 -95.75 240.76 C-97.42 234.64 -97.42 234.64 -99.15 232.22 C-101.42 227.86 -101.79 223.5 -102.36 218.65 C-102.48 217.6 -102.61 216.54 -102.74 215.45 C-104.11 202.95 -104.09 190.49 -104.02 177.93 C-104.02 175.4 -104.01 172.87 -104.01 170.34 C-104.01 165.09 -103.99 159.84 -103.97 154.59 C-103.94 147.86 -103.93 141.14 -103.93 134.41 C-103.92 127.96 -103.91 121.51 -103.89 115.06 C-103.89 113.84 -103.89 112.61 -103.89 111.35 C-103.88 107.9 -103.87 104.45 -103.85 101 C-103.85 99.98 -103.85 98.96 -103.85 97.91 C-103.84 96.97 -103.84 96.03 -103.83 95.06 C-103.83 94.25 -103.83 93.44 -103.82 92.6 C-103.68 90.08 -103.2 87.73 -102.69 85.26 C-102.64 83.28 -102.58 81.31 -102.55 79.33 C-102.38 71.64 -101.41 66.26 -97.18 59.63 C-95.76 57.37 -94.9 55.34 -94.07 52.82 C-92.69 49.26 -92.69 49.26 -90.75 47.38 C-88.51 45.07 -88.03 43.64 -87 40.63 C-83.84 32.18 -77.37 25.79 -69.69 21.26 C-68.91 20.6 -68.12 19.94 -67.32 19.26 C-64.53 17.13 -61.74 15.76 -58.59 14.26 C-56.69 13.26 -56.69 13.26 -54.32 11.26 C-51.16 8.85 -47.99 7.65 -44.29 6.29 C-41.69 5.26 -41.69 5.26 -38.97 3.77 C-27.55 -1.48 -12.34 -0.03 0 0 Z M-26.3 74.38 C-28.64 77.2 -30.52 79.7 -31.81 83.13 C-32.69 85.26 -32.69 85.26 -33.91 87.35 C-38.99 96.56 -38.44 105.9 -38.43 116.12 C-38.45 118.04 -38.47 119.95 -38.49 121.87 C-38.52 125.87 -38.54 129.87 -38.55 133.87 C-38.56 138.99 -38.6 144.11 -38.64 149.22 C-38.68 154.13 -38.72 159.03 -38.75 163.93 C-38.75 164.86 -38.76 165.79 -38.76 166.74 C-38.78 169.38 -38.79 172.02 -38.79 174.65 C-38.8 175.42 -38.8 176.19 -38.81 176.99 C-38.81 181.51 -38.38 185.78 -37.69 190.26 C-37.92 192.92 -37.92 192.92 -38.32 195.32 C-38.96 200.76 -37.57 203.81 -34.25 208.13 C-32.69 210.26 -32.69 210.26 -31.25 213.76 C-29.17 218.07 -26.16 221.21 -22.82 224.57 C-22.31 225.09 -21.8 225.6 -21.28 226.13 C-16.44 230.87 -11.07 233.23 -4.72 235.42 C-2.69 236.26 -2.69 236.26 -0.47 237.79 C2.86 239.55 5.01 239.64 8.77 239.65 C10.07 239.66 11.38 239.68 12.72 239.69 C14.16 239.68 15.6 239.68 17.04 239.68 C18.56 239.69 20.08 239.69 21.6 239.7 C25.73 239.73 29.86 239.73 33.99 239.73 C37.44 239.73 40.89 239.74 44.34 239.74 C52.49 239.76 60.64 239.77 68.79 239.76 C77.18 239.75 85.57 239.78 93.96 239.81 C101.17 239.84 108.39 239.86 115.6 239.85 C119.91 239.85 124.21 239.85 128.51 239.88 C132.57 239.9 136.62 239.9 140.67 239.88 C142.15 239.88 143.63 239.88 145.11 239.9 C154.26 239.98 160.47 238.96 168.31 234.26 C168.88 234.06 168.88 234.06 171.75 233.07 C179.27 229.24 185.13 222.82 190.31 216.26 C191.02 215.61 191.73 214.95 192.46 214.28 C194.67 211.87 195.16 210.11 195.87 206.95 C196.61 203.74 197.39 201.1 198.84 198.13 C200.68 193.86 200.73 189.96 200.68 185.36 C200.69 184.5 200.69 183.63 200.69 182.74 C200.7 179.91 200.69 177.08 200.67 174.25 C200.67 172.27 200.67 170.3 200.67 168.32 C200.67 164.19 200.66 160.06 200.65 155.93 C200.62 150.63 200.62 145.33 200.63 140.04 C200.63 135.96 200.63 131.89 200.62 127.81 C200.61 125.86 200.61 123.9 200.61 121.95 C200.61 119.22 200.6 116.5 200.58 113.77 C200.59 112.96 200.59 112.16 200.59 111.33 C200.55 107.45 200.38 104.58 198.31 101.26 C197.97 99.56 197.68 97.85 197.43 96.13 C195.01 82.81 188.71 73.9 178.31 65.26 C165.84 56.64 153.13 54.95 138.22 55 C136.83 55 135.44 54.99 134.04 54.99 C130.29 54.98 126.54 54.98 122.78 54.99 C118.84 55 114.89 54.99 110.94 54.99 C104.32 54.98 97.69 54.99 91.06 55 C83.43 55.01 75.79 55.01 68.15 54.99 C61.57 54.99 54.99 54.98 48.41 54.99 C44.49 54.99 40.57 54.99 36.65 54.99 C32.96 54.98 29.27 54.98 25.59 55 C23.6 55 21.62 54.99 19.64 54.99 C0.81 55.08 -13.52 60.35 -26.3 74.38 Z " fill="#ffffff" transform="translate(622.690673828125,23.7412109375)"/><path d="M0 0 C0.68 -0 1.36 -0.01 2.06 -0.01 C4.33 -0.02 6.61 -0.01 8.88 0 C10.51 -0 12.14 -0 13.77 -0.01 C18.21 -0.02 22.64 -0.01 27.08 0 C31.73 0.02 36.38 0.01 41.03 0.01 C48.85 0.01 56.67 0.02 64.5 0.04 C73.51 0.06 82.52 0.06 91.53 0.06 C100.23 0.05 108.92 0.06 117.61 0.07 C121.29 0.07 124.98 0.07 128.67 0.07 C133.02 0.07 137.38 0.08 141.74 0.09 C143.33 0.1 144.92 0.1 146.51 0.1 C159.66 0.08 172.85 0.06 184.81 6.15 C187.06 7.28 189.23 8.1 191.62 8.87 C195.54 10.5 197.35 12.33 200.24 15.37 C201.19 15.83 202.14 16.28 203.12 16.75 C209.64 20.14 213.02 24.93 216.24 31.37 C216.63 31.59 216.63 31.59 218.62 32.69 C222.07 34.91 223.21 37.51 225.03 41.12 C226.24 43.37 226.24 43.37 227.77 45.26 C229.66 47.97 230.32 50.57 231.18 53.75 C232.63 58.75 234.22 62.21 237.24 66.37 C238.47 70.76 238.44 75.2 238.48 79.72 C238.49 80.52 238.5 81.33 238.5 82.16 C238.52 83.86 238.53 85.57 238.54 87.27 C238.55 88.99 238.57 90.71 238.6 92.43 C238.83 106.12 237.07 116.81 231.17 129.33 C230.26 131.34 229.52 133.35 228.8 135.44 C225.26 144.96 217.84 155.9 209.24 161.37 C208.58 161.37 207.92 161.37 207.24 161.37 C207.13 161.76 207.13 161.76 206.55 163.69 C204.93 167.02 203.5 167.67 200.24 169.37 C199.27 170.03 198.3 170.69 197.3 171.37 C193.58 173.8 189.85 175.78 185.68 177.31 C183.24 178.37 183.24 178.37 180.99 180.5 C177.65 182.78 175.84 182.66 171.91 182.32 C169.42 182.37 167.53 182.76 165.12 183.37 C160.51 184.41 156.2 184.64 151.49 184.57 C150.7 184.57 149.92 184.56 149.11 184.56 C146.63 184.55 144.15 184.52 141.68 184.5 C139.99 184.49 138.29 184.48 136.6 184.47 C132.48 184.45 128.36 184.42 124.24 184.37 C124.03 190.14 124.03 190.14 125.96 192.25 C126.35 192.5 126.35 192.5 128.3 193.81 C132.76 196.98 136.46 200.44 140.24 204.37 C140.99 205.11 141.74 205.85 142.51 206.61 C146.47 210.62 150.27 214.78 154.07 218.93 C157.28 222.4 160.48 225.49 164.24 228.37 C167.24 231.89 167.24 231.89 167.24 234.37 C167.83 234.64 168.42 234.9 169.02 235.17 C171.36 236.44 172.88 237.78 174.74 239.68 C175.38 240.32 176.02 240.97 176.68 241.64 C177.01 241.98 177.01 241.98 178.68 243.69 C179.33 244.35 179.99 245.02 180.67 245.7 C181.95 247 183.22 248.3 184.5 249.6 C186.73 251.87 188.99 254.12 191.24 256.37 C191.84 256.98 192.44 257.59 193.05 258.22 C195.74 260.96 198.43 263.59 201.43 266 C204.14 268.28 206.08 270.59 208.24 273.37 C211.84 277.08 215.61 280.59 219.43 284.06 C225.02 289.15 225.02 289.15 227.24 291.37 C226.37 296.25 226.37 296.25 225.24 297.37 C222.78 297.49 220.34 297.53 217.88 297.54 C217.11 297.54 216.34 297.55 215.54 297.55 C212.98 297.57 210.42 297.57 207.86 297.58 C206.08 297.58 204.3 297.59 202.52 297.59 C198.79 297.61 195.05 297.61 191.32 297.61 C186.54 297.62 181.76 297.64 176.98 297.67 C173.3 297.69 169.62 297.7 165.95 297.7 C164.19 297.7 162.42 297.71 160.66 297.72 C158.19 297.74 155.72 297.74 153.25 297.73 C152.53 297.74 151.8 297.75 151.05 297.76 C145.75 297.72 141.64 296.55 137.66 292.94 C137.25 292.42 136.85 291.91 136.43 291.37 C135.94 290.76 135.44 290.15 134.93 289.53 C134.65 289.17 134.65 289.17 133.24 287.37 C128.32 281.23 123.43 275.33 117.68 269.93 C116.24 268.37 116.24 268.37 116.24 266.37 C115.95 266.27 115.95 266.27 114.49 265.75 C112.24 264.37 112.24 264.37 110.37 261.5 C108.24 258.37 108.24 258.37 105.43 256.5 C101.98 254.2 99.81 251.74 97.17 248.59 C94.41 245.42 91.39 242.55 88.36 239.65 C86.24 237.37 86.24 237.37 84.33 234.43 C82.05 231.1 79.6 228.82 76.55 226.19 C71.75 221.93 67.7 217.46 63.73 212.4 C60.13 208.02 56.22 203.94 52.29 199.85 C48.77 196.15 45.63 192.33 42.61 188.22 C38.34 182.48 33.43 177.25 27.93 172.69 C25.35 170.53 23.63 168.66 22.05 165.69 C20.14 162.19 18.35 160.76 15.24 158.37 C14.77 157.55 14.29 156.72 13.8 155.87 C11.79 152.65 9.44 151.41 6.24 149.37 C-0.34 144.65 -0.34 144.65 -1.82 140.12 C-1.76 137.37 -1.76 137.37 0.24 135.37 C3.07 135.25 5.8 135.23 8.62 135.31 C10.15 135.35 11.67 135.38 13.2 135.4 C13.88 135.42 14.56 135.44 15.26 135.46 C17.24 135.37 17.24 135.37 19.06 134.88 C21.47 134.32 23.6 134.26 26.07 134.27 C27.04 134.27 28.01 134.27 29.01 134.27 C30.07 134.28 31.13 134.29 32.22 134.29 C33.34 134.3 34.46 134.3 35.61 134.3 C38.04 134.31 40.47 134.32 42.9 134.33 C46.75 134.35 50.6 134.36 54.45 134.37 C65.4 134.39 76.35 134.43 87.3 134.47 C93.99 134.5 100.69 134.51 107.39 134.53 C109.94 134.53 112.49 134.54 115.04 134.56 C118.61 134.57 122.18 134.58 125.75 134.59 C126.8 134.59 127.85 134.6 128.93 134.61 C138.96 134.6 151.16 132.69 158.98 125.85 C160.15 124.42 161.2 122.9 162.24 121.37 C162.94 120.69 163.64 120.01 164.37 119.31 C166.44 117.17 167.76 114.96 169.24 112.37 C169.51 112.08 169.51 112.08 170.87 110.56 C172.91 107.3 173.03 104.12 173.24 100.37 C173.33 99.29 173.42 98.21 173.51 97.09 C173.93 88.22 172.27 83.52 167.24 76.37 C166.51 74.91 165.79 73.43 165.12 71.94 C162.51 66.65 158.61 64.95 153.44 62.53 C151.24 61.37 151.24 61.37 148.51 59.33 C144.84 57.13 142.97 56.89 138.74 56.93 C138.09 56.93 138.09 56.93 134.83 56.93 C133.41 56.95 132 56.98 130.58 57 C129.08 57.01 127.58 57.02 126.07 57.02 C122.85 57.04 119.62 57.07 116.39 57.1 C111.29 57.16 106.19 57.19 101.09 57.21 C88.42 57.27 75.76 57.37 63.09 57.48 C53.24 57.57 43.39 57.64 33.54 57.68 C28.46 57.7 23.39 57.75 18.32 57.81 C15.17 57.85 12.02 57.86 8.86 57.87 C7.4 57.87 5.94 57.89 4.48 57.92 C2.48 57.95 0.49 57.95 -1.51 57.95 C-2.63 57.96 -3.74 57.97 -4.89 57.98 C-7.76 57.37 -7.76 57.37 -10.12 54.99 C-11.92 52.11 -12.24 50.71 -12.18 47.36 C-12.18 46.39 -12.17 45.41 -12.16 44.41 C-12.13 43.38 -12.1 42.34 -12.07 41.27 C-12.05 40.2 -12.03 39.13 -12.01 38.02 C-11.97 35.76 -11.92 33.49 -11.85 31.23 C-11.76 27.75 -11.71 24.28 -11.66 20.81 C-11.61 18.61 -11.56 16.41 -11.51 14.21 C-11.49 13.17 -11.48 12.13 -11.47 11.06 C-11.43 10.09 -11.4 9.13 -11.37 8.13 C-11.35 7.28 -11.33 6.44 -11.3 5.56 C-10.76 3.37 -10.76 3.37 -9.15 1.76 C-5.96 -0.09 -3.68 -0 0 0 Z " fill="#ffffff" transform="translate(217.7580108642578,23.625778198242188)"/><path d="M0 0 C0.69 -0 1.39 -0.01 2.1 -0.02 C4.41 -0.03 6.72 -0.04 9.03 -0.04 C10.63 -0.05 12.23 -0.05 13.83 -0.06 C17.19 -0.07 20.56 -0.08 23.92 -0.08 C28.22 -0.08 32.53 -0.11 36.83 -0.14 C40.14 -0.16 43.45 -0.16 46.76 -0.16 C48.35 -0.17 49.94 -0.17 51.52 -0.19 C53.75 -0.2 55.97 -0.2 58.2 -0.2 C59.46 -0.2 60.73 -0.2 62.03 -0.21 C68.1 0.46 71.28 3.87 75.36 8.16 C76.04 8.76 76.72 9.36 77.42 9.97 C79.68 12.53 80.9 15.14 82.35 18.21 C83.69 20.8 85.52 22.9 87.36 25.16 C87.52 25.6 87.52 25.6 88.36 27.85 C89.36 30.16 89.36 30.16 91.22 31.06 C93.8 32.39 94.85 33.81 96.54 36.16 C99.18 39.7 101.96 42.94 104.98 46.16 C108.47 49.96 110.97 53.69 113.31 58.27 C114.64 60.67 116.36 62.3 118.36 64.16 C119 65.13 119.64 66.1 120.29 67.1 C122.36 70.16 122.36 70.16 124.98 72.79 C127.36 75.16 127.36 75.16 128.36 77.22 C129.36 79.16 129.36 79.16 131.73 80.91 C134.25 83.07 134.96 84.09 136.29 86.97 C137.98 90.62 139.99 93.29 142.66 96.26 C147.66 101.87 152.18 107.87 156.54 113.97 C158.61 116.86 160.6 119.58 163.17 122.04 C165.43 124.23 166.86 126.4 168.36 129.16 C170.67 129.4 170.67 129.4 173.36 129.16 C175.02 127.55 175.02 127.55 176.42 125.41 C178.5 122.3 180.69 119.79 183.36 117.16 C186.1 113.89 188.72 110.52 191.36 107.16 C192.01 106.36 192.66 105.55 193.33 104.72 C195.85 101.56 198.11 98.66 199.92 95.04 C201.53 91.81 203.52 89.51 205.95 86.87 C207.36 85.16 207.36 85.16 208.4 83.03 C209.36 81.16 209.36 81.16 211.67 79.91 C214.87 77.82 216.01 75.8 217.9 72.55 C221.32 66.93 225.36 61.64 229.48 56.52 C231.36 54.16 231.36 54.16 233.36 51.1 C235.76 47.56 238.53 44.92 241.67 42.04 C245.38 38.06 248.3 33.65 251.36 29.16 C254.9 24.04 258.45 19.01 262.36 14.16 C263 13.17 263.64 12.18 264.29 11.16 C266.4 8.1 268.67 5.71 271.36 3.16 C271.76 2.63 272.15 2.09 272.56 1.54 C275.39 -0.63 277.95 -0.21 281.46 -0.21 C282.18 -0.21 282.9 -0.22 283.64 -0.22 C286.01 -0.23 288.39 -0.22 290.77 -0.2 C292.42 -0.2 294.07 -0.2 295.72 -0.2 C299.17 -0.2 302.63 -0.19 306.09 -0.18 C310.53 -0.15 314.96 -0.15 319.4 -0.16 C322.81 -0.16 326.22 -0.16 329.62 -0.15 C331.26 -0.14 332.9 -0.14 334.53 -0.14 C336.82 -0.14 339.1 -0.13 341.38 -0.11 C342.03 -0.11 342.03 -0.11 345.33 -0.1 C348.36 0.16 348.36 0.16 350.36 2.16 C350.36 4.97 350.36 4.97 349.36 8.16 C347.97 9.38 346.58 10.59 345.1 11.69 C339.86 16.1 336.05 22.33 332.69 28.24 C330.87 30.86 328.62 32.92 326.36 35.16 C324.21 37.68 322.11 40.22 320.02 42.79 C317.59 45.74 315.05 48.46 312.36 51.16 C311.72 52.13 311.08 53.1 310.42 54.1 C308.36 57.16 308.36 57.16 306.06 59.44 C303.13 62.39 300.63 65.5 298.11 68.79 C297.14 70.03 296.17 71.28 295.2 72.52 C294.72 73.14 294.24 73.75 293.75 74.39 C291.03 77.85 288.22 81.23 285.42 84.62 C282.87 87.76 280.4 90.96 277.96 94.19 C276.22 96.33 274.31 98.22 272.36 100.16 C271.47 101.23 270.59 102.31 269.73 103.41 C268.95 104.32 268.16 105.23 267.36 106.16 C266.7 106.16 266.04 106.16 265.36 106.16 C265.23 106.51 265.23 106.51 264.61 108.29 C262.15 113.93 258.66 117.86 254.36 122.16 C252.29 124.78 250.33 127.47 248.36 130.16 C244.91 134.65 241.08 138.53 236.98 142.41 C233.99 145.54 231.47 148.89 228.91 152.37 C228.4 152.96 227.88 153.55 227.36 154.16 C226.7 154.16 226.04 154.16 225.36 154.16 C225.23 154.6 225.23 154.6 224.61 156.85 C223.31 160.29 221.87 162.49 219.36 165.16 C218.7 165.16 218.04 165.16 217.36 165.16 C217.13 165.86 216.9 166.56 216.67 167.29 C214.85 171.28 212.22 174.58 208.87 177.43 C203.63 183.44 201.98 192.96 202.42 200.7 C202.6 202.74 202.83 204.77 203.06 206.8 C203.39 210.11 203.21 213.14 202.86 216.44 C202.25 223.27 202.36 230.03 202.56 236.87 C202.62 239.09 202.67 241.3 202.72 243.52 C202.86 249.81 203 256.1 203.18 262.39 C203.28 266.26 203.37 270.13 203.44 274.01 C203.48 275.47 203.52 276.94 203.56 278.41 C203.63 280.45 203.67 282.5 203.7 284.54 C203.73 285.7 203.76 286.86 203.79 288.06 C203.26 291.87 202.06 293.48 199.36 296.16 C196.34 297.17 194.29 297.3 191.14 297.32 C190.07 297.33 189.01 297.34 187.91 297.35 C186.76 297.36 185.61 297.36 184.43 297.36 C183.84 297.37 183.84 297.37 180.84 297.38 C178.34 297.39 175.84 297.4 173.33 297.4 C169.5 297.41 165.67 297.44 161.84 297.47 C159.41 297.48 156.98 297.49 154.55 297.49 C153.41 297.5 152.26 297.51 151.08 297.53 C150.54 297.53 150.54 297.53 147.83 297.52 C146.89 297.52 145.96 297.52 144.99 297.53 C141.66 297.06 139.91 296.36 137.36 294.16 C135.89 288.61 136.24 282.74 136.29 277.02 C136.29 276.53 136.29 276.53 136.3 274.01 C136.32 271.86 136.33 269.71 136.34 267.56 C136.36 264.15 136.38 260.75 136.39 257.34 C136.42 247.67 136.47 237.99 136.53 228.31 C136.57 222.38 136.59 216.46 136.6 210.53 C136.61 208.27 136.62 206.02 136.64 203.76 C136.67 200.61 136.68 197.45 136.68 194.3 C136.69 193.37 136.71 192.45 136.72 191.49 C136.7 185.95 136.03 182.06 133.36 177.16 C131.7 175.81 130.03 174.48 128.36 173.16 C127.61 172.04 126.9 170.89 126.23 169.72 C123.46 165.02 119.99 161.06 116.44 156.95 C113.92 154.03 111.49 151.1 109.23 147.97 C106.25 143.87 102.82 140.22 99.4 136.49 C97.78 134.65 96.41 132.9 95.11 130.85 C92.56 126.94 89.27 124 85.86 120.85 C83.82 118.66 82.49 116.87 80.98 114.35 C78.75 110.62 76.16 107.52 73.25 104.31 C71.15 101.93 69.19 99.47 67.23 96.97 C65.17 94.36 63.18 91.99 60.79 89.66 C58.56 87.37 56.95 85.18 55.17 82.54 C51.79 77.58 47.93 73.29 43.85 68.9 C39.24 63.84 34.94 58.56 31.17 52.85 C29.17 49.89 26.94 47.62 24.36 45.16 C19.85 40.77 16.07 36.29 12.62 31.03 C8.8 25.37 4.82 19.77 0.36 14.6 C-1.64 12.16 -1.64 12.16 -1.64 10.16 C-2.04 10.02 -2.04 10.02 -4.02 9.29 C-6.64 8.16 -6.64 8.16 -8.64 6.16 C-7.48 -0.34 -6.59 0.04 0 0 Z " fill="#ffffff" transform="translate(960.6435546875,23.8388671875)"/><path d="M0 0 C2.06 -0.01 4.12 -0.03 6.18 -0.06 C9.18 -0.1 12.19 -0.12 15.2 -0.13 C16.12 -0.15 17.03 -0.17 17.98 -0.18 C18.84 -0.18 19.69 -0.18 20.57 -0.17 C21.32 -0.18 22.07 -0.19 22.84 -0.19 C26 0.54 26.99 1.69 28.94 4.3 C29.54 7.35 29.47 10.37 29.43 13.48 C29.43 14.42 29.44 15.36 29.44 16.33 C29.45 19.49 29.44 22.64 29.42 25.8 C29.42 28.06 29.43 30.32 29.43 32.58 C29.44 37.45 29.44 42.32 29.42 47.19 C29.4 54.89 29.41 62.58 29.43 70.28 C29.45 81.07 29.45 91.86 29.45 102.64 C29.45 103.33 29.45 104.01 29.45 104.72 C29.44 110.27 29.44 115.83 29.44 121.38 C29.43 126.24 29.43 131.09 29.43 135.95 C29.43 136.63 29.43 137.31 29.43 138.02 C29.42 149.41 29.43 160.81 29.45 172.2 C29.47 179.86 29.46 187.52 29.44 195.17 C29.43 199.93 29.44 204.69 29.45 209.44 C29.45 211.65 29.45 213.87 29.44 216.08 C29.42 219.09 29.43 222.1 29.45 225.11 C29.44 225.55 29.44 225.55 29.41 227.78 C29.46 231.51 29.51 233.64 31.59 236.81 C36.52 239.94 42.18 239.44 47.84 239.4 C48.62 239.4 49.39 239.4 50.19 239.4 C52.79 239.4 55.39 239.39 57.98 239.38 C59.85 239.37 61.71 239.37 63.57 239.37 C67.59 239.36 71.6 239.35 75.61 239.34 C81.95 239.32 88.29 239.31 94.63 239.3 C112.66 239.28 130.68 239.24 148.71 239.2 C158.67 239.17 168.63 239.16 178.59 239.15 C184.9 239.14 191.2 239.13 197.51 239.1 C201.43 239.09 205.35 239.09 209.27 239.09 C211.08 239.09 212.9 239.08 214.72 239.07 C217.2 239.06 219.68 239.06 222.16 239.06 C222.88 239.05 223.6 239.05 224.35 239.04 C228.3 239.06 231.43 239.42 234.94 241.3 C236.15 243.73 236.08 245.33 236.11 248.05 C236.13 249.04 236.14 250.02 236.15 251.04 C236.16 251.58 236.16 251.58 236.18 254.29 C236.18 255.38 236.19 256.48 236.2 257.61 C236.21 259.94 236.22 262.26 236.23 264.59 C236.25 268.15 236.29 271.71 236.34 275.27 C236.35 277.52 236.36 279.78 236.36 282.04 C236.38 283.1 236.4 284.17 236.42 285.27 C236.41 285.77 236.41 285.77 236.41 288.28 C236.41 288.72 236.41 288.72 236.43 290.93 C235.72 294.34 234.79 295.25 231.94 297.3 C228.45 297.91 224.99 297.83 221.46 297.8 C220.38 297.81 219.3 297.82 218.19 297.82 C214.57 297.84 210.94 297.83 207.31 297.81 C204.72 297.82 202.12 297.83 199.53 297.83 C193.2 297.85 186.88 297.85 180.55 297.84 C175.42 297.83 170.28 297.83 165.14 297.83 C164.77 297.83 164.77 297.83 162.92 297.83 C161.44 297.83 159.95 297.83 158.47 297.84 C144.54 297.85 130.61 297.83 116.68 297.81 C104.72 297.8 92.77 297.8 80.81 297.82 C66.93 297.84 53.05 297.85 39.18 297.83 C37.7 297.83 36.22 297.83 34.74 297.83 C34.01 297.83 33.28 297.83 32.53 297.83 C27.4 297.83 22.26 297.83 17.13 297.84 C10.22 297.85 3.31 297.84 -3.59 297.82 C-6.13 297.82 -8.67 297.82 -11.21 297.83 C-14.67 297.84 -18.13 297.82 -21.59 297.8 C-22.09 297.81 -22.09 297.81 -24.66 297.83 C-25.58 297.82 -26.51 297.81 -27.46 297.8 C-28.26 297.8 -29.06 297.8 -29.88 297.8 C-32.97 297.09 -34.16 295.79 -36.06 293.3 C-36.56 290.95 -36.56 290.95 -36.56 288.3 C-36.57 287.29 -36.58 286.27 -36.59 285.23 C-36.58 284.67 -36.58 284.67 -36.56 281.86 C-36.56 280.68 -36.57 279.5 -36.57 278.28 C-36.58 275 -36.57 271.72 -36.56 268.44 C-36.54 264.9 -36.55 261.37 -36.56 257.83 C-36.57 250.9 -36.56 243.97 -36.54 237.04 C-36.52 228.98 -36.52 220.91 -36.52 212.85 C-36.52 198.46 -36.5 184.07 -36.47 169.68 C-36.45 155.71 -36.43 141.75 -36.43 127.78 C-36.43 126.92 -36.43 126.05 -36.43 125.17 C-36.43 124.31 -36.43 123.45 -36.43 122.57 C-36.43 106.67 -36.42 90.78 -36.41 74.89 C-36.4 69.26 -36.4 63.64 -36.4 58.01 C-36.39 51.16 -36.39 44.31 -36.37 37.45 C-36.36 33.96 -36.35 30.46 -36.35 26.96 C-36.36 23.17 -36.34 19.39 -36.33 15.6 C-36.33 14.49 -36.34 13.37 -36.34 12.23 C-36.33 11.22 -36.33 10.21 -36.32 9.17 C-36.32 8.29 -36.32 7.42 -36.32 6.52 C-36.06 4.3 -36.06 4.3 -34.06 1.3 C-23.23 -0.92 -11.02 0.04 0 0 Z " fill="#ffffff" transform="translate(1812.0625,23.704833984375)"/><path d="M0 0 C1.64 -0.01 3.29 -0.03 4.93 -0.06 C7.35 -0.1 9.78 -0.12 12.2 -0.13 C12.93 -0.15 13.65 -0.17 14.4 -0.18 C20.89 -0.16 24.36 2.34 28.81 6.8 C31.83 10.6 33.75 14.99 35.85 19.34 C37.75 23.17 39.99 26.71 42.31 30.3 C45.22 34.93 48.06 39.49 50.19 44.55 C53.22 51.71 57.41 58.32 61.33 65.03 C63.69 69.11 65.85 73.26 67.94 77.48 C68.28 78.16 68.61 78.83 68.96 79.52 C70.95 83.53 72.92 87.55 74.88 91.57 C75.32 92.46 75.75 93.35 76.2 94.27 C77.05 96 77.89 97.73 78.73 99.47 C80.54 103.16 82.29 106.46 85.02 109.56 C87.86 112.95 88.45 115.7 89.35 119.93 C90.31 122.3 90.31 122.3 92.75 124.23 C95.8 126.69 96.56 128.58 97.88 132.23 C99.49 136.65 101.36 139.65 104.31 143.3 C105.44 145.76 105.44 145.76 106.31 148.23 C107.87 152.35 109.81 155.66 112.31 159.3 C112.79 160.43 113.26 161.56 113.75 162.73 C115.19 166 116.92 168.5 119.01 171.37 C121.12 174.49 122.7 177.83 124.31 181.23 C126.73 186.19 129.21 190.96 132.24 195.58 C134.19 198.69 135.72 202 137.31 205.3 C141.44 213.7 145.77 221.97 150.5 230.05 C152.31 233.3 152.31 233.3 153.75 236.92 C155.31 240.3 155.31 240.3 157.75 242.55 C160.96 245.99 161.88 249.31 163.35 253.72 C164.5 256.8 166.17 258.82 168.31 261.3 C169.38 263.28 170.34 265.29 171.29 267.33 C172.31 269.3 172.31 269.3 173.85 271.23 C175.52 273.58 176.03 275.5 176.69 278.3 C177.96 282.92 179.5 284.38 183.31 287.3 C184.25 290.92 184.25 290.92 184.31 294.3 C182.31 296.3 182.31 296.3 179.83 296.46 C178.75 296.42 177.67 296.39 176.56 296.36 C171.36 296.27 166.23 296.38 161.04 296.7 C150.63 297.32 140.29 297.29 129.88 296.98 C129.54 296.97 129.54 296.97 127.83 296.93 C125.89 296.88 123.95 296.81 122.01 296.74 C121.44 296.73 121.44 296.73 118.61 296.63 C113.83 296.14 109.63 295.58 106.13 292.17 C104.4 289.43 102.92 286.66 101.51 283.74 C100.01 280.67 98.42 277.64 96.81 274.61 C96.25 273.53 95.68 272.45 95.1 271.35 C93.31 268.3 93.31 268.3 91.22 265.67 C89.42 263.42 88.42 261.58 87.38 258.92 C86.11 255.89 84.77 253.39 82.75 250.8 C80.76 248.19 79.74 245.88 78.81 242.73 C77.5 238.35 75.33 235.76 72.31 232.3 C71.24 230.35 70.29 228.37 69.35 226.36 C68.29 224.25 67.1 222.33 65.81 220.36 C64.13 217.73 62.77 215.17 61.56 212.3 C59.65 207.77 57.26 203.6 54.81 199.36 C51.81 194.14 49.28 189.05 47.21 183.39 C46.03 180.63 44.36 178.5 42.54 176.15 C40.58 173.18 39.52 169.89 38.28 166.58 C37.07 163.71 35.31 161.67 33.31 159.3 C32.62 157.98 31.95 156.64 31.31 155.3 C30.14 152.84 29.12 151.05 27.38 148.92 C24.87 145.73 23.28 142.36 21.56 138.7 C20.31 136.3 20.31 136.3 18.75 134.23 C17.29 132.26 16.65 130.69 15.94 128.36 C14.87 125.28 14.28 124.26 11.81 121.92 C8.72 118.68 8.23 115.97 7.13 111.71 C6.32 109.3 5.52 108.02 3.81 106.17 C1.23 103.19 0.28 101.02 -0.81 97.32 C-1.69 95.3 -1.69 95.3 -3.59 92.92 C-6.46 89.32 -8.17 85.38 -10.12 81.23 C-11.71 78.26 -13.56 75.9 -15.69 73.3 C-16.81 71.3 -16.81 71.3 -17.69 69.42 C-18.95 66.79 -20.26 64.25 -21.75 61.73 C-23.69 58.3 -23.69 58.3 -25.19 54.67 C-26.69 51.3 -26.69 51.3 -28.69 48.98 C-30.7 46.27 -31.24 44.63 -32.06 41.42 C-33.04 37.79 -34 35.6 -36.62 32.92 C-40.23 29.17 -41.28 25.02 -42.74 20.12 C-43.91 16.63 -45.44 14.18 -47.69 11.3 C-47.36 10.64 -47.03 9.98 -46.69 9.3 C-45.37 10.25 -44.06 11.21 -42.75 12.17 C-42.02 12.7 -41.29 13.24 -40.53 13.79 C-38.31 15.6 -37.78 16.63 -37.37 19.46 C-37.29 20.27 -37.21 21.08 -37.12 21.92 C-37.04 22.74 -36.96 23.55 -36.87 24.4 C-36.81 25.02 -36.75 25.65 -36.69 26.3 C-35.37 26.63 -34.05 26.96 -32.69 27.3 C-32.69 22.68 -32.69 18.06 -32.69 13.3 C-29.72 11.98 -26.75 10.66 -23.69 9.3 C-23.69 7.98 -23.69 6.66 -23.69 5.3 C-27.63 4.2 -29.13 4.46 -32.69 6.3 C-34.81 6.11 -34.81 6.11 -36.69 5.3 C-37.35 4.31 -38.01 3.32 -38.69 2.3 C-26.01 -0.02 -12.85 0.06 0 0 Z M-15.69 5.3 C-13.09 8.61 -10.76 8.78 -6.69 9.3 C2.01 9.68 10.66 9.09 19.31 8.3 C19.64 6.98 19.97 5.66 20.31 4.3 C17.67 1.65 10.48 2.77 6.7 2.63 C4.59 2.55 2.48 2.44 0.37 2.34 C-0.98 2.29 -2.32 2.24 -3.67 2.19 C-4.89 2.13 -6.12 2.08 -7.38 2.03 C-10.98 2.32 -12.79 3.2 -15.69 5.3 Z " fill="#f2b000" transform="translate(1527.685546875,23.704833984375)"/><path d="M0 0 C2.34 0.21 2.34 0.21 5 1 C6.44 3.04 6.44 3.04 7.56 5.62 C7.77 6.08 7.77 6.08 8.81 8.37 C9.01 8.8 9.01 8.8 10 11 C11.28 13.37 12.64 15.68 14 18 C14.69 19.23 15.38 20.46 16.06 21.69 C18 25 18 25 19.5 26.9 C21.62 29.86 22.62 33.05 23.84 36.46 C25.18 39.39 26.98 41.5 29 44 C30.05 45.93 31.05 47.89 32 49.88 C33.67 53.32 35.35 56.71 37.31 60 C38.74 62.54 39.64 64.16 40 67 C40.07 67.52 40.07 67.52 40.44 70.12 C39.91 74.78 38.3 77.3 35.79 81.18 C33.18 85.3 30.97 89.61 28.71 93.92 C27 97 27 97 24.91 100.11 C23.27 102.59 22.1 104.82 21 107.56 C19.84 110.29 18.9 112.12 17 114.44 C14.55 117.57 13.47 120.75 12.07 124.45 C10.76 127.58 9.08 130.3 7.22 133.14 C6.07 134.89 5.02 136.67 4 138.5 C2.58 141.02 1.1 143.49 -0.44 145.94 C-0.65 146.27 -0.65 146.27 -1.71 147.97 C-2.56 149.3 -3.42 150.62 -4.29 151.93 C-7.2 156.38 -9.16 160.8 -11.04 165.76 C-12.25 168.58 -14.09 170.61 -16 173 C-16.68 174.63 -17.32 176.28 -17.94 177.94 C-19.63 182.43 -21.87 185.33 -25 189 C-26.29 191.3 -27.42 193.66 -28.56 196.04 C-30.25 199.51 -32.05 202.91 -33.88 206.31 C-34.05 206.63 -34.05 206.63 -34.91 208.24 C-35.6 209.53 -36.29 210.81 -36.98 212.1 C-37.97 213.94 -38.95 215.79 -39.93 217.64 C-40.53 218.77 -41.13 219.9 -41.75 221.06 C-42.28 222.06 -42.81 223.07 -43.36 224.1 C-45 227 -45 227 -47.05 230.07 C-48.73 232.59 -50.12 235.03 -51.44 237.75 C-51.86 238.6 -52.28 239.46 -52.71 240.34 C-53.13 241.22 -53.56 242.1 -54 243 C-54.87 244.77 -55.75 246.54 -56.62 248.31 C-57.01 249.09 -57.39 249.87 -57.79 250.68 C-59.1 253.19 -60.52 255.59 -62 258 C-62.28 258.47 -62.28 258.47 -63.72 260.86 C-64.01 261.34 -64.01 261.34 -65.5 263.75 C-65.79 264.23 -65.79 264.23 -67.28 266.67 C-69 269 -69 269 -72 270 C-74.17 270.1 -76.35 270.14 -78.52 270.15 C-78.85 270.15 -78.85 270.15 -80.51 270.16 C-82.68 270.16 -84.86 270.17 -87.03 270.17 C-88.54 270.17 -90.05 270.17 -91.56 270.18 C-94.73 270.18 -97.89 270.19 -101.06 270.19 C-105.12 270.19 -109.17 270.2 -113.23 270.22 C-116.35 270.23 -119.47 270.23 -122.59 270.23 C-124.08 270.23 -125.58 270.23 -127.08 270.24 C-129.17 270.25 -131.26 270.25 -133.35 270.24 C-134.54 270.24 -135.73 270.25 -136.96 270.25 C-139.88 270.01 -141.54 269.53 -144 268 C-144.31 265.81 -144.31 265.81 -144 263 C-142.33 261.33 -140.67 259.67 -139 258 C-137.61 255.51 -136.4 252.99 -135.21 250.4 C-134 248 -134 248 -132.47 246 C-130.83 243.76 -130 241.67 -129.06 239.06 C-127.92 236.06 -127.05 234.06 -125 231.56 C-122.89 228.86 -122.1 226.72 -121 223.5 C-119.54 219.23 -117.96 216.43 -115 213 C-113.93 211.02 -112.97 209 -112 206.97 C-111 205 -111 205 -108.94 202.06 C-107.24 199.38 -106.45 197.48 -105.56 194.5 C-104.21 190.1 -102 187.51 -99 184 C-97.89 181.75 -96.93 179.47 -95.96 177.16 C-94.64 174.2 -92.82 171.67 -91 169 C-90.32 167.65 -89.65 166.3 -89 164.94 C-87.79 162.42 -86.79 160.76 -84.94 158.62 C-82.97 155.96 -82.4 154.22 -81.56 151.06 C-80.66 147.72 -79.83 145.39 -77.5 142.81 C-74.74 139.71 -73.59 136.81 -72 133 C-71.36 132.26 -70.72 131.51 -70.06 130.75 C-67.44 127.26 -66.4 123.67 -65 119.57 C-63.81 116.52 -62.06 114.51 -60 112 C-59.34 110.43 -58.72 108.85 -58.12 107.25 C-56.41 102.7 -54.16 99 -51.38 95.03 C-49.64 92.48 -48.35 89.77 -47 87 C-46.34 86.07 -45.68 85.14 -45 84.19 C-43.25 81.4 -42.46 79.46 -41.56 76.38 C-40.57 73.1 -40.3 72.23 -37.5 70.06 C-34.11 67.27 -33.82 64.53 -32.74 60.38 C-31.78 57.29 -30.09 55.45 -28 53 C-26.67 50.5 -25.45 47.96 -24.23 45.41 C-23 43 -23 43 -20.81 39.94 C-19.09 37.15 -18.63 35.63 -18.06 32.5 C-17.19 27.86 -15.16 25.53 -12 22 C-10.9 19.99 -9.94 17.94 -8.96 15.87 C-8 14 -8 14 -6 11.56 C-3.24 8.03 -1.69 4.13 0 0 Z " fill="#ffffff" transform="translate(1458,50)"/></svg>
+            <span class="bvfy">Verified Partner</span>
+            <h3>Trade with OneRoyal</h3>
+            <p>Our partner broker for MT5 trading. Tight spreads, reliable execution, and full support for your Smart Money strategy. Not mandatory — but recommended by our students.</p>
+            <button class="bbtn" onclick="window.open('https://www.oneroyal.com/en/open-account/sign-up?lid=12844','_blank')">Open an account<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+          <div class="broker-r">
+            <div class="bstat"><b>Scalping</b><span>Low Latency</span></div>
+            <div class="bstat"><b>24/5</b><span>Always Open</span></div>
+            <div class="bstat"><b>$5 Min</b><span>To Start</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marq" aria-hidden="true">
+      <div class="marq-track">
+        <span>Precision</span><span class="fill">Liquidity</span><span>Order Flow</span><span class="fill">Structure</span>
+        <span>Precision</span><span class="fill">Liquidity</span><span>Order Flow</span><span class="fill">Structure</span>
+      </div>
+    </div>
+
+    <section class="sec" id="reviews">
+      <div class="wrap">
+        <div class="lab reveal"><b>06</b> Student reviews</div>
+        <h2 class="big reveal">Real traders, <em>real results</em>.</h2>
+        <div class="rstat reveal">
+          <div><b class="countup" data-to="4.9" data-dec="1" data-suffix="">0</b><span>Avg Rating</span></div>
+          <div><b class="countup" data-to="200" data-suffix="+">0</b><span>Students</span></div>
+          <div><b class="countup" data-to="3" data-suffix=" yrs">0</b><span>Teaching</span></div>
+          <div><b class="countup" data-to="87" data-suffix="%">0</b><span>Completion</span></div>
+        </div>
+        <div class="reviews-shell collapsed reveal" id="rev-shell">
+        <div class="tg">
+          <div class="tc"><div class="stars">★★★★★</div><p>"After two years of losing with retail indicators, this finally made the market make sense. The liquidity framework explains why my trades were failing."</p><div class="who"><div class="av">OF</div><div><div class="nm">Omar F.</div><div class="mt">Cairo · Course</div></div></div></div>
+          <div class="tc"><div class="stars">★★★★★</div><p>"Three months of coaching and I went from break-even to consistent. We built a rules-based plan around SMC. Best investment I've made."</p><div class="who"><div class="av">SK</div><div><div class="nm">Sarah K.</div><div class="mt">Kuwait City · 1-on-1</div></div></div></div>
+          <div class="tc"><div class="stars">★★★★★</div><p>"Nothing matches this course's depth on order blocks, PO3 and AMD. The way it's structured makes everything connect."</p><div class="who"><div class="av">AR</div><div><div class="nm">Ahmad R.</div><div class="mt">Dubai · Course</div></div></div></div>
+          <div class="tc"><div class="stars">★★★★★</div><p>"The breakdown of institutional order flow and timing entries around kill zones gave me a system I can repeat. My consistency improved fast."</p><div class="who"><div class="av">JT</div><div><div class="nm">Jake T.</div><div class="mt">London · 1-on-1</div></div></div></div>
+          <div class="tc"><div class="stars">★★★★★</div><p>"Clear bias every morning before London open, and questions answered with actual ICT concepts — not generic advice."</p><div class="who"><div class="av">NH</div><div><div class="nm">Nour H.</div><div class="mt">Beirut · Community</div></div></div></div>
+          <div class="tc"><div class="stars">★★★★★</div><p>"Best Arabic trading education anywhere. Goes deep on SMC — not surface level. The market structure module alone is worth it."</p><div class="who"><div class="av">KR</div><div><div class="nm">Khalid R.</div><div class="mt">Riyadh · Course</div></div></div></div>
+        </div>
+        <div class="rev-fade"></div>
+        <div class="rev-foot"><button class="more-btn" id="rev-more" type="button">Show more reviews <span>+</span></button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="faq">
+      <div class="wrap">
+        <div class="lab reveal"><b>07</b> Questions</div>
+        <h2 class="big reveal">Good to know before you start.</h2>
+        <div class="faq reveal">
+          <details class="q"><summary>Do I need prior experience to join? <span class="qi">+</span></summary><div class="qa">No. The course starts from institutional foundations and builds progressively, while 1-on-1 coaching is adapted to wherever you are right now.</div></details>
+          <details class="q"><summary>What exactly is ICT &amp; Smart Money Concepts? <span class="qi">+</span></summary><div class="qa">A framework for reading how large institutions move price — through liquidity manipulation, market structure, fair value gaps and timing — rather than relying on lagging retail indicators.</div></details>
+          <details class="q"><summary>Which markets does this apply to? <span class="qi">+</span></summary><div class="qa">The same concepts work across gold (XAU/USD), forex pairs, indices (NAS100, S&amp;P500) and crypto — anywhere there's enough liquidity for institutional order flow to operate.</div></details>
+          <details class="q"><summary>What's the difference between Standard and Premium? <span class="qi">+</span></summary><div class="qa">Both include all ten modules, lifetime access and the community. Premium adds a 1-on-1 onboarding call, priority feedback on your charts, and live session recordings — best if you want direct mentorship.</div></details>
+          <details class="q"><summary>How do I get started? <span class="qi">+</span></summary><div class="qa">Enroll in the course above, or message on WhatsApp for 1-on-1 coaching. Join the free Discord first if you want to see the analysis and community before committing.</div></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec leadmag">
+      <div class="wrap">
+        <div class="lm-inner reveal">
+          <div>
+            <span class="lm-kick">Free download</span>
+            <h3>The Nasdaq Killzone Playbook</h3>
+            <p>A concise breakdown of how to time NAS100 entries inside the New York kill zone — the exact liquidity and order-flow checklist before you take a trade.</p>
+            <span class="lm-free">PDF · no cost · instant access</span>
+          </div>
+          <a class="btn btn-primary" href="https://fxdarwish.com/playbook" target="_blank" rel="noopener">Get the playbook<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v13M6 11l6 6 6-6M5 21h14"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec connect" id="connect">
+      <div class="wrap">
+        <div class="lab reveal" style="justify-content:center"><b>08</b> Let's work together</div>
+        <h2 class="big reveal">Ready to trade with <em>precision</em>?</h2>
+        <p class="sub-lead reveal">Enroll in the course, book 1-on-1 coaching, or just say hi. The fastest way to reach us is WhatsApp.</p>
+        <a class="cmail reveal" href="https://wa.me/96181824829?text=Hi%20FXDARWISH%2C%20I%27d%20like%20to%20get%20started" target="_blank" rel="noopener">Message on WhatsApp
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12c0 2.1.56 4.1 1.53 5.85L.06 23.44a.75.75 0 0 0 .92.91l5.7-1.5C8.12 23.57 10 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0zm5.5 14.4c-.3-.15-1.8-.9-2.07-.99-.28-.1-.48-.15-.68.14-.2.3-.77.99-.95 1.2-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.63-.93-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.5 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.19-.57-.34z"/></svg>
+        </a>
+        <div class="socs reveal">
+          <a href="https://wa.me/96181824829" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12c0 2.1.56 4.1 1.53 5.85L.06 23.44a.75.75 0 0 0 .92.91l5.7-1.5C8.12 23.57 10 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0zm0 21.75c-1.9 0-3.67-.5-5.2-1.38l-.37-.21-3.73.98 1-3.64-.24-.37A9.71 9.71 0 0 1 2.25 12C2.25 6.62 6.62 2.25 12 2.25S21.75 6.62 21.75 12 17.38 21.75 12 21.75zm5.5-7.35c-.3-.15-1.8-.9-2.07-.99-.28-.1-.48-.15-.68.14-.2.3-.77.99-.95 1.2-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.63-.93-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.5 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.19-.57-.34z"/></svg>WhatsApp</a>
+          <a href="https://instagram.com/fxdarwish" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a>
+          <a href="https://discord.gg/EqGmzaK3Nd" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3c-.27.47-.52.95-.73 1.45a18.26 18.26 0 0 0-5.47 0C8.97 3.95 8.72 3.47 8.45 3A19.74 19.74 0 0 0 3.68 4.4C.52 9.04-.32 13.58.1 18.06A19.9 19.9 0 0 0 6.12 20.9c.48-.65.9-1.34 1.22-2.06a13.13 13.13 0 0 1-1.87-.92l.37-.29c3.93 1.8 8.18 1.8 12.06 0l.38.29a12.3 12.3 0 0 1-1.88.92c.32.72.74 1.41 1.22 2.06a19.8 19.8 0 0 0 6.01-2.84c.5-5.18-.84-9.67-3.55-13.66zM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42 2.18 1.1 2.16 2.42-.95 2.42-2.16 2.42zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42 2.18 1.1 2.16 2.42-.94 2.42-2.16 2.42z"/></svg>Discord</a>
+        </div>
+        <a class="email-line reveal" href="mailto:info@fxdarwish.com">info@fxdarwish.com</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap">
+        <div class="fbar">
+          <a href="#top" class="brand" aria-label="FXDARWISH home">
+            <svg class="lk" style="height:24px" viewBox="115 433 875 214" role="img" aria-label="FXDARWISH">
+              <polygon class="lk-m1" points="242.84 489.4 165.74 489.4 165.74 564.42 115.73 514.41 115.73 439.39 192.83 439.39 242.84 489.4"/>
+              <polygon class="lk-m2" points="294.02 540.58 294.02 640.61 193.93 640.61 143.92 590.6 244.04 590.6 244.04 490.59 294.02 540.58"/>
+              <path class="lk-fx" d="M393.54,472.81v14.88h-30.47s0,5.4,0,5.44c0,.14,0,10.5,0,10.64h22.8v14.45h-22.8v30.85h-18.21v-76.26h48.68Z"/>
+              <path class="lk-fx" d="M455.02,549.08l-15.23-23.36-13.42,23.36h-20.67l23.97-38.78-24.5-37.48h21.2l15.02,23.03,13.21-23.03h20.67l-23.75,38.46,24.71,37.8h-21.2Z"/>
+              <path class="lk-word" d="M536.53,477.59c5.89,3.19,10.45,7.66,13.69,13.42,3.23,5.76,4.85,12.4,4.85,19.94s-1.62,14.09-4.85,19.88c-3.23,5.8-7.81,10.28-13.74,13.47-5.93,3.19-12.8,4.78-20.61,4.78h-28.02v-76.26h28.02c7.88,0,14.77,1.59,20.67,4.78ZM530.78,527.24c3.84-3.84,5.75-9.27,5.75-16.29s-1.92-12.49-5.75-16.4c-3.84-3.91-9.2-5.87-16.08-5.87h-8.63v44.32h8.63c6.89,0,12.25-1.92,16.08-5.76Z"/>
+              <path class="lk-word" d="M612.79,537.01h-25.01l-4.01,12.07h-17.08l24.24-68.33h18.9l24.24,68.33h-17.27l-4.01-12.07ZM608.59,524.16l-8.3-25.02-8.21,25.02h16.51Z"/>
+              <path class="lk-word" d="M679.87,549.08l-13.93-25.8h-3.91v25.8h-16.32v-68.33h27.39c5.28,0,9.78.94,13.51,2.82,3.72,1.88,6.51,4.46,8.35,7.74,1.84,3.28,2.77,6.93,2.77,10.95,0,4.54-1.26,8.6-3.77,12.17-2.51,3.57-6.22,6.1-11.12,7.59l15.46,27.06h-18.42ZM662.02,511.5h10.12c2.99,0,5.23-.75,6.73-2.24,1.49-1.49,2.24-3.6,2.24-6.33s-.75-4.64-2.24-6.13c-1.5-1.49-3.74-2.24-6.73-2.24h-10.12v16.94Z"/>
+              <path class="lk-word" d="M805.65,480.74l-17.47,68.33h-19.76l-10.69-44.97-11.07,44.97h-19.76l-16.99-68.33h17.47l9.64,49.74,11.93-49.74h17.94l11.45,49.74,9.74-49.74h17.56Z"/>
+              <path class="lk-word" d="M833.6,480.74v68.33h-16.32v-68.33h16.32Z"/>
+              <path class="lk-word" d="M857.9,546.7c-3.79-1.58-6.82-3.93-9.09-7.03-2.27-3.1-3.46-6.84-3.59-11.21h16.96c.25,2.47,1.09,4.36,2.52,5.66,1.43,1.3,3.29,1.95,5.59,1.95s4.22-.55,5.59-1.66c1.37-1.11,2.05-2.65,2.05-4.61,0-1.65-.54-3.01-1.63-4.09-1.09-1.08-2.42-1.96-4.01-2.66-1.58-.7-3.84-1.49-6.76-2.38-4.23-1.33-7.67-2.66-10.34-3.99-2.67-1.33-4.97-3.29-6.9-5.89-1.93-2.6-2.89-5.99-2.89-10.17,0-6.21,2.2-11.07,6.62-14.59,4.41-3.52,10.16-5.27,17.24-5.27s13.01,1.76,17.43,5.27c4.41,3.52,6.77,8.41,7.08,14.68h-17.24c-.13-2.15-.9-3.85-2.33-5.08-1.43-1.24-3.26-1.85-5.5-1.85-1.93,0-3.48.52-4.66,1.57-1.18,1.05-1.77,2.55-1.77,4.51,0,2.15.99,3.83,2.98,5.04,1.99,1.2,5.09,2.5,9.32,3.9,4.22,1.46,7.66,2.85,10.3,4.18,2.64,1.33,4.92,3.26,6.85,5.8,1.92,2.54,2.89,5.8,2.89,9.79s-.95,7.26-2.84,10.36c-1.9,3.1-4.65,5.58-8.25,7.41-3.6,1.84-7.86,2.76-12.77,2.76s-9.07-.79-12.86-2.38Z"/>
+              <path class="lk-word" d="M964.27,480.74v68.33h-16.32v-28.13h-25.39v28.13h-16.32v-68.33h16.32v26.77h25.39v-26.77h16.32Z"/>
+            </svg>
+          </a>
+          <div class="fnav"><a href="#services">Services</a><a href="#course">Course</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a href="#connect">Contact</a></div>
+        </div>
+        <p class="frisk">Trading involves substantial risk. Past performance is not indicative of future results. Educational content only — not financial advice. See terms for full disclaimer.</p>
+        <p class="fcc">© 2026 FXDARWISH. All rights reserved.</p>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<a class="fab" id="fab" href="https://wa.me/96181824829?text=Hi%20FXDARWISH%2C%20I%27d%20like%20to%20get%20started" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12c0 2.1.56 4.1 1.53 5.85L.06 23.44a.75.75 0 0 0 .92.91l5.7-1.5C8.12 23.57 10 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0zm5.5 14.4c-.3-.15-1.8-.9-2.07-.99-.28-.1-.48-.15-.68.14-.2.3-.77.99-.95 1.2-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.63-.93-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.5 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.19-.57-.34z"/></svg>
+  <span class="fab-lbl">Chat with us</span>
+</a>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   FXDARWISH — 3D Darwish icon (extruded brand mark) + loader
+   ════════════════════════════════════════════════════════════ */
+(function(){
+  var root = document.documentElement;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isMobile = window.matchMedia('(pointer:coarse)').matches || window.innerWidth < 760;
+  var VW=function(){return document.documentElement.clientWidth||window.innerWidth;};
+  var VH=function(){return window.innerHeight;};
+
+  function setVH(){ root.style.setProperty('--vh', (window.innerHeight*0.01)+'px'); }
+  setVH();
+  function bgHex(){ return root.getAttribute('data-theme')==='light' ? 0xeaf0fb : 0x070d20; }
+
+  var canvas = document.getElementById('bg');
+  var scene, camera, renderer, mark, clock, rendererReady=false, BASE=0.0108;
+  var envTex=null;
+
+  function degrade(){ if(canvas) canvas.style.display='none'; rendererReady=true; }
+
+  function boot3D(){
+    try{
+      renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+      if(THREE.ACESFilmicToneMapping){renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0;}
+      if('outputEncoding' in renderer && THREE.sRGBEncoding){renderer.outputEncoding=THREE.sRGBEncoding;}
+      init();
+      animate();
+    }catch(e){ renderer=null; degrade(); }
+  }
+
+  /* Three.js is loaded with `defer`, so it may execute AFTER this script.
+     Poll for it (without blocking the loader) and degrade gracefully if the CDN never arrives. */
+  (function waitForThree(){
+    var waited=0;
+    (function tick(){
+      if(typeof THREE!=='undefined'){ boot3D(); return; }
+      waited+=60;
+      if(waited>=4500){ degrade(); return; }
+      setTimeout(tick,60);
+    })();
+  })();
+
+  function init(){
+    scene=new THREE.Scene();
+    renderer.setClearColor(bgHex(),1);
+    camera=new THREE.PerspectiveCamera(42,VW()/VH(),0.1,100);
+    fitCamera();
+    renderer.setSize(VW(), VH());
+
+    try{
+      var pmrem=new THREE.PMREMGenerator(renderer);
+      var envScene=new THREE.Scene();
+      envScene.background=new THREE.Color(0x0a1226);
+      function light(col,mul,x,y,z,sx,sy){
+        var m=new THREE.Mesh(new THREE.PlaneGeometry(sx,sy), new THREE.MeshBasicMaterial({color:new THREE.Color(col).multiplyScalar(mul),side:THREE.DoubleSide}));
+        m.position.set(x,y,z); m.lookAt(0,0,0); envScene.add(m);
+      }
+      light(0xeaf1ff, 3.0, -7, 5, 7, 9, 16);
+      light(0xbcd2ff, 1.6,  8, 3, 6, 7, 12);
+      light(0xffffff, 2.4,  0, 9,-4, 12, 5);
+      light(0x2d6be4, 1.3, -2,-7,-6, 14, 6);
+      light(0x7f9dff, 0.9,  6,-4, 8, 6, 8);
+      envTex=pmrem.fromScene(envScene, 0.04).texture;
+      scene.environment=envTex;
+      pmrem.dispose();
+    }catch(e){ envTex=null; }
+
+    scene.add(new THREE.AmbientLight(0x334766, 0.3));
+    var key=new THREE.DirectionalLight(0xe6eeff, 0.9); key.position.set(5,7,8); scene.add(key);
+    var rim=new THREE.DirectionalLight(0x3a6bd0, 0.55); rim.position.set(-6,-2,-5); scene.add(rim);
+
+    var CX=204.875, CY=540;
+    function shape(arr){
+      var s=new THREE.Shape();
+      s.moveTo(arr[0]-CX, CY-arr[1]);
+      for(var i=2;i<arr.length;i+=2) s.lineTo(arr[i]-CX, CY-arr[i+1]);
+      s.closePath(); return s;
+    }
+    var P1=[242.84,489.4, 165.74,489.4, 165.74,564.42, 115.73,514.41, 115.73,439.39, 192.83,439.39];
+    var P2=[294.02,540.58, 294.02,640.61, 193.93,640.61, 143.92,590.6, 244.04,590.6, 244.04,490.59];
+    var ext={depth:44,bevelEnabled:true,bevelThickness:7,bevelSize:5,bevelSegments:6,curveSegments:6,steps:1};
+    var mat=new THREE.MeshPhysicalMaterial({
+      color:0x16294c, metalness:1.0, roughness:0.19,
+      clearcoat:1.0, clearcoatRoughness:0.22,
+      envMap:envTex, envMapIntensity:1.3, side:THREE.FrontSide
+    });
+    var g1=new THREE.ExtrudeGeometry(shape(P1),ext); g1.translate(0,0,-22); g1.computeVertexNormals();
+    var g2=new THREE.ExtrudeGeometry(shape(P2),ext); g2.translate(0,0,-22); g2.computeVertexNormals();
+    mark=new THREE.Group();
+    mark.add(new THREE.Mesh(g1,mat), new THREE.Mesh(g2,mat));
+    mark.scale.setScalar(BASE);
+    scene.add(mark);
+    clock=new THREE.Clock();
+  }
+
+  function fitCamera(){
+    var portrait=VH()>VW();
+    camera.position.set(0,0,portrait?5.7:4.4);
+    camera.lookAt(0,0,0);
+    camera.aspect=VW()/VH();
+    camera.updateProjectionMatrix();
+  }
+
+  var sp=0,tmx=0,tmy=0,mx=0,my=0,esp=0,inView=true;
+  var header=document.getElementById('header');
+  var fab=document.getElementById('fab');
+  function onScroll(){
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    sp=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
+    document.getElementById('sprog').style.width=(sp*100)+'%';
+    inView=!storyEl||storyEl.getBoundingClientRect().bottom>-140;
+    if(header) header.classList.toggle('scrolled', window.scrollY>20);
+    if(fab) fab.classList.toggle('show', window.scrollY>window.innerHeight*0.85);
+    updateBeats();
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('pointermove',function(e){ if(e.pointerType==='touch')return; tmx=(e.clientX/window.innerWidth-0.5); tmy=(e.clientY/window.innerHeight-0.5); });
+  function onOrient(e){ if(e.gamma==null)return; tmx=Math.max(-1,Math.min(1,e.gamma/40)); tmy=Math.max(-1,Math.min(1,(e.beta-40)/40)); }
+  if(isMobile){ window.addEventListener('touchstart',function once(){ try{ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){ DeviceOrientationEvent.requestPermission().then(function(s){if(s==='granted')window.addEventListener('deviceorientation',onOrient);}).catch(function(){}); } else { window.addEventListener('deviceorientation',onOrient); } }catch(e){} window.removeEventListener('touchstart',once); },{passive:true}); }
+
+  var beats=[].slice.call(document.querySelectorAll('.beat'));
+  var storyEl=document.getElementById('story');
+  function updateBeats(){ if(!beats.length||!storyEl)return; var r=storyEl.getBoundingClientRect(); var pinned=r.top<=0&&r.bottom>=window.innerHeight; var total=storyEl.offsetHeight-window.innerHeight; var p=total>0?Math.min(1,Math.max(0,(-r.top)/total)):0; var active=pinned?Math.min(beats.length-1,Math.floor(p*beats.length+0.0001)):-1; beats.forEach(function(b,i){ b.classList.toggle('on',i===active); }); }
+
+  var visible=true;
+  document.addEventListener('visibilitychange',function(){ visible=!document.hidden; if(visible&&clock)clock.getDelta(); });
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if(!visible||!renderer||!mark) return;
+    if(!inView && rendererReady) return;
+    var t=clock.getElapsedTime();
+    esp+=(sp-esp)*0.06;
+    mx+=(tmx-mx)*0.05; my+=(tmy-my)*0.05;
+    if(!reduced){ mark.rotation.y=t*0.18+mx*0.7; mark.position.y=Math.sin(t*0.9)*0.05 - esp*0.4; }
+    else { mark.rotation.y=mx*0.7; mark.position.y=-esp*0.4; }
+    mark.rotation.x=my*0.4 + (reduced?0:Math.sin(t*0.6)*0.05);
+    var breathe=reduced?1:(1+Math.sin(t*1.1)*0.02);
+    mark.scale.setScalar(BASE*breathe*(1-esp*0.06));
+    renderer.render(scene,camera);
+    if(!rendererReady) rendererReady=true;
+  }
+
+  var rt=null, lastW=VW();
+  function onResize(){ if(rt)return; rt=requestAnimationFrame(function(){ rt=null; var nw=VW(); if(isMobile && nw===lastW) return; lastW=nw; setVH(); if(renderer){ fitCamera(); renderer.setSize(VW(),VH()); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2)); } }); }
+  window.addEventListener('resize',onResize);
+  window.addEventListener('orientationchange',onResize);
+
+  /* Initial layout sync (loader is now handled by the standalone script near the top) */
+  function initLayout(){ try{ setVH(); onScroll(); }catch(e){} }
+  initLayout();
+  window.addEventListener('load', initLayout);
+
+  function applyTheme(){ var c=root.getAttribute('data-theme'),n=c==='dark'?'light':'dark'; root.setAttribute('data-theme',n); try{localStorage.setItem('fxd-theme',n);}catch(e){} if(renderer)renderer.setClearColor(bgHex(),1); document.querySelector('meta[name=theme-color]').setAttribute('content',n==='dark'?'#070d20':'#eaf0fb'); }
+  var tt=document.getElementById('theme-toggle'); if(tt)tt.addEventListener('click',applyTheme);
+
+  var mb=document.getElementById('menu-toggle'),mm=document.getElementById('mobile-menu');
+  if(mb&&mm){ mb.addEventListener('click',function(){mm.classList.toggle('open');}); mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mm.classList.remove('open');});}); }
+
+  var ch=document.getElementById('cta-header'); if(ch)ch.addEventListener('click',function(){document.getElementById('course').scrollIntoView({behavior:'smooth'});});
+
+  var rm=document.getElementById('rev-more'),rs=document.getElementById('rev-shell');
+  if(rm&&rs) rm.addEventListener('click',function(){
+    var collapsed=rs.classList.toggle('collapsed');
+    rm.innerHTML = collapsed ? 'Show more reviews <span>+</span>' : 'Show less <span>&minus;</span>';
+    if(collapsed){ var rv=document.getElementById('reviews'); if(rv) rv.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+
+  /* REVEAL + COUNT-UP */
+  var revEls=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
+    revEls.forEach(function(el){io.observe(el);});
+    /* safety: if anything is still hidden shortly after load, force-reveal so content is never lost */
+    window.addEventListener('load',function(){ setTimeout(function(){ revEls.forEach(function(el){ if(!el.classList.contains('in')){ var r=el.getBoundingClientRect(); if(r.top < window.innerHeight){ el.classList.add('in'); } } }); },400); });
+  } else {
+    revEls.forEach(function(el){el.classList.add('in');});
+  }
+
+  if('IntersectionObserver' in window){
+    var cio=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); cio.unobserve(e.target); } });},{threshold:0.5});
+    document.querySelectorAll('.countup').forEach(function(el){cio.observe(el);});
+  } else {
+    document.querySelectorAll('.countup').forEach(function(el){ countUp(el); });
+  }
+  function countUp(el){
+    var to=parseFloat(el.getAttribute('data-to'))||0;
+    var dec=parseInt(el.getAttribute('data-dec')||'0',10);
+    var suffix=el.getAttribute('data-suffix')||'';
+    if(reduced){ el.textContent=to.toFixed(dec)+suffix; return; }
+    var start=performance.now(),dur=1300;
+    function step(now){
+      var p=Math.min(1,(now-start)/dur);
+      var eased=1-Math.pow(1-p,3);
+      el.textContent=(to*eased).toFixed(dec)+suffix;
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* VIDEOS — tap to load & play (nothing loads until clicked) */
+  document.querySelectorAll('.vid').forEach(function(card){
+    var frame=card.querySelector('.vframe'), id=card.getAttribute('data-id'), played=false;
+    function play(){
+      if(played||!id) return; played=true;
+      var ifr=document.createElement('iframe');
+      ifr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1&modestbranding=1';
+      ifr.title='Trade breakdown';
+      ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      ifr.setAttribute('allowfullscreen','');
+      frame.appendChild(ifr);
+      card.classList.add('playing');
+    }
+    if(frame){
+      frame.addEventListener('click',play);
+      frame.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); play(); } });
+    }
+  });
+
+  /* CARD SPOTLIGHT (curriculum) */
+  if(!isMobile){
+    document.querySelectorAll('.mod').forEach(function(card){
+      card.addEventListener('pointermove',function(e){
+        var r=card.getBoundingClientRect();
+        card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+        card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+      });
+    });
+  }
+
+  /* MAGNETIC BUTTONS */
+  if(!isMobile && !reduced){
+    document.querySelectorAll('.btn-primary, .cmail, .hcta').forEach(function(b){
+      b.addEventListener('pointermove',function(e){
+        var r=b.getBoundingClientRect();
+        var dx=(e.clientX-(r.left+r.width/2))/r.width;
+        var dy=(e.clientY-(r.top+r.height/2))/r.height;
+        b.style.transform='translate('+(dx*8)+'px,'+(dy*8-2)+'px)';
+      });
+      b.addEventListener('pointerleave',function(){ b.style.transform=''; });
+    });
+  }
+})();
+</script>
+</body>
+</html>
