@@ -189,7 +189,24 @@ body.ready .h1 .ln:nth-child(2) span{transition-delay:.12s}
 
 /* ── SOLID CONTENT ──────────────────────────── */
 .solid{position:relative;z-index:3;background:transparent}
-.solid::before{content:"";position:absolute;top:0;left:0;right:0;height:200px;background:linear-gradient(to bottom,transparent,var(--panel));pointer-events:none;z-index:-1}
+.solid::before{
+  content:"";position:absolute;top:0;left:0;right:0;
+  height:280px;
+  background:linear-gradient(to bottom,transparent 0%,var(--panel) 80%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 62%);
+          mask-image:linear-gradient(to bottom,transparent,#000 62%);
+  pointer-events:none;z-index:-1;
+}
+  /* feather the top edge of the first content panel into the 3D scene */
+#services{border-top:0;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+#services::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(to bottom,transparent 0,var(--panel) 230px);
+  -webkit-backdrop-filter:blur(16px) saturate(1.2);
+          backdrop-filter:blur(16px) saturate(1.2);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 230px);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 230px);
+}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
 .sec{padding:clamp(74px,9vw,128px) 0;border-top:1px solid var(--hair);background:var(--panel);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);position:relative}
 .lab{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:34px;display:flex;align-items:center;gap:12px}
