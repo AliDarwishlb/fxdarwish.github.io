@@ -159,9 +159,6 @@ nav.main a:hover::after,nav.main a.active::after{right:0}
 .state .st{font-family:'Montserrat',sans-serif;font-weight:700;font-size:18px;color:var(--ink)}
 .state .btn{font-size:13px;font-weight:700;color:#fff;background:var(--blue);border:0;padding:12px 24px;border-radius:100px;cursor:pointer;transition:transform .2s var(--ease)}
 .state .btn:hover{transform:translateY(-2px)}
-.state .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--hair-2)}
-.state .btn.ghost:hover{border-color:var(--ink)}
-.state-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .skel{padding:6px}
 .skel .sk{height:48px;border-radius:10px;background:linear-gradient(90deg,var(--card-2),var(--hair),var(--card-2));background-size:200% 100%;animation:shim 1.3s linear infinite;margin-top:10px}
 @keyframes shim{to{background-position:-200% 0}}
@@ -462,27 +459,11 @@ nav.main a:hover::after,nav.main a.active::after{right:0}
   }
 
   function showError(kind){
-    /* Forex Factory publishes next week's file late in the week (≈Friday),
-       so a failure on the "next" tab is almost always "not posted yet". */
-    if(state.week==='next'){
-      panel.innerHTML='<div class="state"><div class="st">Next week not posted yet</div>'+
-        '<p>Forex Factory usually publishes next week\u2019s calendar later in the current week (around Friday). It isn\u2019t available yet - check back then, or view this week.</p>'+
-        '<div class="state-btns"><button class="btn" id="goThis">Show this week</button><button class="btn ghost" id="retry">Try again</button></div></div>';
-      var gt=document.getElementById('goThis');
-      if(gt) gt.addEventListener('click',function(){
-        state.week='this'; LS.set('fxd-cal-week','this');
-        var seg=document.getElementById('week-seg');
-        if(seg) seg.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x.getAttribute('data-week')==='this'); });
-        load();
-      });
-      var rb0=document.getElementById('retry'); if(rb0) rb0.addEventListener('click',function(){ delete cache[state.week]; load(true); });
-      return;
-    }
     var usingWorker=!!WORKER_URL;
     var msg = kind==='rate_limited'
       ? 'The data source is temporarily rate-limited. This usually clears in a few minutes.'
       : (usingWorker
-          ? 'Could not reach the calendar feed. Check your connection and try again.'
+          ? 'Could not reach the calendar feed. Check the Worker URL and your connection, then try again.'
           : 'Could not load through the public preview proxies right now. They are unreliable by nature - deploying the caching proxy (worker.js) makes this load consistently. You can also just try again.');
     panel.innerHTML='<div class="state"><div class="st">Calendar unavailable</div><p>'+msg+'</p><button class="btn" id="retry">Try again</button></div>';
     var rb=document.getElementById('retry'); if(rb) rb.addEventListener('click',function(){ delete cache[state.week]; load(true); });
