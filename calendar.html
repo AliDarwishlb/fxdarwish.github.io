@@ -339,18 +339,19 @@ nav.main a:hover::after,nav.main a.active::after{right:0}
      Leave WORKER_URL empty to use the public preview proxy below
      (fine for testing, NOT reliable for production traffic).
      ───────────────────────────────────────────────────────────── */
-  var WORKER_URL = '';
-  var PREVIEW_PROXY = 'https://api.allorigins.win/raw?url=';
+  var WORKER_URL = 'https://fxd-calendar.ali-darwish-lb.workers.dev';
   var FF = {
     this: 'https://nfs.faireconomy.media/ff_calendar_thisweek.json',
     next: 'https://nfs.faireconomy.media/ff_calendar_nextweek.json'
   };
-  function feedURL(week){
-    if(WORKER_URL){
-      return WORKER_URL + (WORKER_URL.indexOf('?')>-1?'&':'?') + 'range=' + (week==='next'?'nextweek':'thisweek');
-    }
-    return PREVIEW_PROXY + encodeURIComponent(FF[week==='next'?'next':'this']);
-  }
+  /* Public preview proxies, tried in order until one works. These are
+     for TESTING only - deploy worker.js and set WORKER_URL for real use. */
+  var PREVIEW_PROXIES = [
+    function(u){ return 'https://corsproxy.io/?url=' + encodeURIComponent(u); },
+    function(u){ return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); },
+    function(u){ return 'https://api.allorigins.win/get?url=' + encodeURIComponent(u); },
+    function(u){ return 'https://thingproxy.freeboard.io/fetch/' + u; }
+  ];
 
   /* header + theme + menu */
   var header=document.getElementById('header');
@@ -410,17 +411,43 @@ nav.main a:hover::after,nav.main a.active::after{right:0}
   refreshBtn.addEventListener('click',function(){ delete cache[state.week]; load(true); });
 
   /* ── FETCH ── */
+  function parseFeed(txt){
+    var t=(txt||'').trim();
+    /* allorigins /get wraps the payload as {"contents":"...","status":{...}} */
+    if(t.charAt(0)==='{'){
+      try{ var o=JSON.parse(t); if(o && typeof o.contents==='string'){ t=o.contents.trim(); } }catch(e){}
+    }
+    if(t.charAt(0)==='<') throw new Error('rate_limited'); /* FF "Request Denied" HTML */
+    var data=JSON.parse(t);
+    if(!Array.isArray(data)) throw new Error('bad_data');
+    return data;
+  }
+  function fetchOnce(url){
+    return fetch(url,{cache:'no-store'}).then(function(r){ return r.text(); }).then(parseFeed);
+  }
+  function fetchFeed(week){
+    var ff = FF[week==='next'?'next':'this'];
+    if(WORKER_URL){
+      var wu = WORKER_URL + (WORKER_URL.indexOf('?')>-1?'&':'?') + 'range=' + (week==='next'?'nextweek':'thisweek');
+      return fetchOnce(wu);
+    }
+    /* no worker set: try each preview proxy until one succeeds */
+    var i=0, lastErr=new Error('load_failed');
+    return new Promise(function(resolve,reject){
+      (function next(){
+        if(i>=PREVIEW_PROXIES.length){ reject(lastErr); return; }
+        var url=PREVIEW_PROXIES[i++](ff);
+        fetchOnce(url).then(resolve).catch(function(err){ lastErr=err; next(); });
+      })();
+    });
+  }
+
   function load(force){
     if(!force && cache[state.week]){ render(); return; }
     panel.innerHTML='<div class="skel"><div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>';
     refreshBtn.classList.add('spin');
-    fetch(feedURL(state.week),{cache:'no-store'})
-      .then(function(r){ return r.text(); })
-      .then(function(txt){
-        var t=txt.trim();
-        if(t.charAt(0)==='<') throw new Error('rate_limited');
-        var data=JSON.parse(t);
-        if(!Array.isArray(data)) throw new Error('bad_data');
+    fetchFeed(state.week)
+      .then(function(data){
         cache[state.week]=data;
         refreshBtn.classList.remove('spin');
         render();
@@ -432,9 +459,12 @@ nav.main a:hover::after,nav.main a.active::after{right:0}
   }
 
   function showError(kind){
+    var usingWorker=!!WORKER_URL;
     var msg = kind==='rate_limited'
-      ? 'The data source is temporarily rate-limited. This usually clears in a few minutes - or set up the caching proxy for reliable access.'
-      : 'Could not load the calendar right now. Check your connection and try again.';
+      ? 'The data source is temporarily rate-limited. This usually clears in a few minutes.'
+      : (usingWorker
+          ? 'Could not reach the calendar feed. Check the Worker URL and your connection, then try again.'
+          : 'Could not load through the public preview proxies right now. They are unreliable by nature - deploying the caching proxy (worker.js) makes this load consistently. You can also just try again.');
     panel.innerHTML='<div class="state"><div class="st">Calendar unavailable</div><p>'+msg+'</p><button class="btn" id="retry">Try again</button></div>';
     var rb=document.getElementById('retry'); if(rb) rb.addEventListener('click',function(){ delete cache[state.week]; load(true); });
   }
