@@ -2,6 +2,7 @@
 import * as store from '../core/store.js';
 import { quotes, searchSymbols, profile } from '../services/market.js';
 import { fmt, fmtPct, fmtSigned, fmtCompact, cls, esc, logoUrl, positionStats, isNum } from '../core/format.js';
+import { REFRESH_MS } from '../config.js';
 import { skeleton, errorState, emptyState, sourceTag, wireRetry, sortableTable, toast, h } from '../ui/components.js';
 
 const ALERT_TYPES = {
@@ -87,7 +88,7 @@ export default {
 
       const alertsCard = h(`<section class="card"><h2>Price alerts</h2>
         <div class="form"><label>Symbol<input id="alSym" placeholder="NVDA" maxlength="12"></label><label>Condition<select id="alType">${Object.entries(ALERT_TYPES).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select></label><label>Value<input id="alVal" inputmode="decimal" placeholder="150"></label><button class="btn" id="alAdd">Add alert</button></div>
-        <div class="note">Alerts are checked while this page is open (every 30 s). Browser notifications need permission. <button class="btn ghost sm" id="notifBtn">Enable notifications</button></div></section>`);
+        <div class="note">Alerts are checked each time prices refresh while this page is open (every ${Math.round(REFRESH_MS / 60000) || 0.5} min on this data plan). Browser notifications need permission. <button class="btn ghost sm" id="notifBtn">Enable notifications</button></div></section>`);
       if (s.alerts.length) alertsCard.appendChild(sortableTable([
         { key: 'sym', label: 'Symbol', val: (a) => a.symbol, html: (a) => `<span class="sym">${esc(a.symbol)}</span>` },
         { key: 'cond', label: 'Condition', val: (a) => a.type, html: (a) => `${ALERT_TYPES[a.type]} ${esc(a.value)}` },
@@ -187,7 +188,7 @@ export default {
     }
 
     refresh();
-    timer = setInterval(() => { if (!document.hidden) refresh(); }, 30000);
+    timer = setInterval(() => { if (!document.hidden) refresh(); }, REFRESH_MS);
     return () => { alive = false; clearInterval(timer); };
   },
 };
