@@ -1,6 +1,7 @@
 // App shell: routing, sidebar, search, timezone clock, API status.
 import overview from './pages/overview.js';
 import watchlist from './pages/watchlist.js';
+import news from './pages/news.js';
 import { PLANNED } from './pages/planned.js';
 import { health, onApiState, explain } from './services/api.js';
 import { searchSymbols } from './services/market.js';
@@ -16,7 +17,7 @@ const ROUTES = [
   { id: 'deepdive', n: '05', label: 'Stock Deep Dive', mod: PLANNED.deepdive, soon: true },
   { id: 'technical', n: '06', label: 'Technical Analysis', mod: PLANNED.technical, soon: true },
   { id: 'forecast', n: '07', label: 'Quant Forecast', mod: PLANNED.forecast, soon: true },
-  { id: 'news', n: '08', label: 'Live News', mod: PLANNED.news, soon: true },
+  { id: 'news', n: '08', label: 'Live News', mod: news },
   { id: 'calendar', n: '09', label: 'Economic Calendar', href: '/calendar.html' },
   { id: 'sectors', n: '10', label: 'Sector Analysis', mod: PLANNED.sectors, soon: true },
   { id: 'watchlist', n: '11', label: 'Watchlist & Portfolio', mod: watchlist },

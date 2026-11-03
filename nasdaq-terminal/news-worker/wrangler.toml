@@ -1,0 +1,4 @@
+name = "fxd-news"
+main = "news-proxy.js"
+compatibility_date = "2026-11-01"
+# No secrets needed: only public RSS feeds are read.
