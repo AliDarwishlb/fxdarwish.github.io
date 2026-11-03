@@ -17,7 +17,7 @@ const BASE = 'https://financialmodelingprep.com/stable/';
 const ALLOW = {
   'batch-quote': 15,
   'batch-index-quotes': 15,
-  'quote': 15,
+  'quote': 900,          // free plan: 15 min (protects the 250 calls/day limit). Use 15 on a paid plan.
   'nasdaq-constituent': 6 * 3600,
   'sector-performance-snapshot': 120,
   'search-symbol': 600,
