@@ -83,7 +83,7 @@ export default {
         { key: 'rng', label: '52W Range', val: (r) => (r.q && r.q.yearHigh && r.q.yearLow ? (r.q.price - r.q.yearLow) / (r.q.yearHigh - r.q.yearLow) : null), html: (r) => (r.q && r.q.yearHigh ? `<span class="num mut">${fmt(r.q.yearLow)} – ${fmt(r.q.yearHigh)}</span>` : '—') },
         { key: 'x', label: '', val: () => 0, html: (r) => `<button class="btn ghost sm" data-drop="${esc(r.symbol)}">Remove</button>` },
       ], rows, { sortKey: 'pct' }));
-      card.insertAdjacentHTML('beforeend', '<div class="note">Earnings dates/reminders and unusual-volume alerts arrive with the Earnings module (Phase 2); they need the earnings-calendar and average-volume feeds.</div>');
+      card.insertAdjacentHTML('beforeend', '<div class="note">Symbols the free data plan doesn't cover show “—” for price. Earnings dates/reminders and unusual-volume alerts arrive with the Earnings module (Phase 2); they need the earnings-calendar and average-volume feeds.</div>');
       root.appendChild(card);
 
       const alertsCard = h(`<section class="card"><h2>Price alerts</h2>

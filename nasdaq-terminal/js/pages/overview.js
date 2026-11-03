@@ -31,7 +31,7 @@ export default {
   id: 'overview',
   mount(el, ctx) {
     el.innerHTML = `
-      <div class="page-head"><h1>Market Overview</h1><p>${FREE ? 'Free data plan: ETF stand-ins for indices and a fixed sample of 8 large NASDAQ stocks; refreshes every 15 min.' : 'Indices, NASDAQ-100 breadth, sectors and movers.'}</p><div class="right" id="ovStamp"></div></div>
+      <div class="page-head"><h1>Market Overview</h1><p>${FREE ? 'Free data plan: five major indices and a fixed sample of 10 large NASDAQ stocks; refreshes every 15 min.' : 'Indices, NASDAQ-100 breadth, sectors and movers.'}</p><div class="right" id="ovStamp"></div></div>
       <section class="grid g-idx" id="ovIdx">${Array.from({ length: 8 }, () => `<div class="card tile"><div class="skel" style="width:60%"></div><div class="skel" style="height:22px"></div><div class="skel" style="width:40%"></div></div>`).join('')}</section>
       <section class="grid g-2">
         <div class="card" id="ovBreadth"><h2>Market breadth · NASDAQ-100</h2>${skeleton(3)}</div>

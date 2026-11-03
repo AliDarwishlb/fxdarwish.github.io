@@ -7,8 +7,10 @@ export const API_BASE = 'https://fxd-fmp.ali-darwish-lb.workers.dev';
 export const PLAN = 'free';
 
 // Free plan: fixed sample of large NASDAQ-100 names (a static list, NOT the live index membership).
+// Only symbols the provider's free plan actually serves (verified against the live Worker).
 export const FREE_UNIVERSE = [
   ['AAPL', 'Apple'], ['MSFT', 'Microsoft'], ['NVDA', 'NVIDIA'], ['AMZN', 'Amazon'],
-  ['META', 'Meta Platforms'], ['GOOGL', 'Alphabet'], ['AVGO', 'Broadcom'], ['TSLA', 'Tesla'],
+  ['META', 'Meta Platforms'], ['GOOGL', 'Alphabet'], ['TSLA', 'Tesla'], ['COST', 'Costco'],
+  ['AMD', 'AMD'], ['NFLX', 'Netflix'],
 ];
 export const REFRESH_MS = PLAN === 'free' ? 15 * 60 * 1000 : 30 * 1000;

@@ -55,11 +55,13 @@ export async function quotes(symbols) {
   return { map, meta: res.meta };
 }
 
+// Real index quotes the free plan serves. NASDAQ-100 (^NDX), QQQ, 10Y yield and USD index are refused by the plan.
 export const FREE_INDEX_DEFS = [
-  { key: 'QQQ', label: 'NASDAQ-100 (QQQ ETF)', symbols: ['QQQ'] },
-  { key: 'SPY', label: 'S&P 500 (SPY ETF)', symbols: ['SPY'] },
-  { key: 'DIA', label: 'Dow Jones (DIA ETF)', symbols: ['DIA'] },
-  { key: 'IWM', label: 'Russell 2000 (IWM ETF)', symbols: ['IWM'] },
+  { key: 'COMP', label: 'NASDAQ Composite', symbols: ['^IXIC'] },
+  { key: 'SPX', label: 'S&P 500', symbols: ['^GSPC'] },
+  { key: 'DJI', label: 'Dow Jones', symbols: ['^DJI'] },
+  { key: 'VIX', label: 'VIX', symbols: ['^VIX'] },
+  { key: 'RUT', label: 'Russell 2000', symbols: ['^RUT'] },
 ];
 
 export async function indexSnapshot() {
