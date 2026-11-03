@@ -1,5 +1,6 @@
 // Market-data service: normalizes provider payloads. Missing values stay null (never invented).
 import { call } from './api.js';
+import { PLAN, FREE_UNIVERSE } from '../config.js';
 
 export const INDEX_DEFS = [
   { key: 'COMP', label: 'NASDAQ Composite', symbols: ['^IXIC'], src: 'index' },
@@ -34,13 +35,38 @@ export function normQuote(r) {
 export async function quotes(symbols) {
   const list = [...new Set(symbols)].filter(Boolean);
   if (!list.length) return { map: new Map(), meta: null };
+  if (PLAN === 'free') {
+    // Free plan: one call per symbol (each is edge-cached by the Worker).
+    const res = await Promise.allSettled(list.map((s) => call('quote', { symbol: s })));
+    const map = new Map();
+    let meta = null, firstErr = null;
+    res.forEach((r) => {
+      if (r.status === 'fulfilled') {
+        meta = meta || r.value.meta;
+        (Array.isArray(r.value.data) ? r.value.data : []).forEach((x) => { const q = normQuote(x); if (q) map.set(q.symbol, q); });
+      } else firstErr = firstErr || r.reason;
+    });
+    if (!map.size && firstErr) throw firstErr;
+    return { map, meta };
+  }
   const res = await call('batch-quote', { symbols: list.join(',') });
   const map = new Map();
   (Array.isArray(res.data) ? res.data : []).forEach((r) => { const q = normQuote(r); if (q) map.set(q.symbol, q); });
   return { map, meta: res.meta };
 }
 
+export const FREE_INDEX_DEFS = [
+  { key: 'QQQ', label: 'NASDAQ-100 (QQQ ETF)', symbols: ['QQQ'] },
+  { key: 'SPY', label: 'S&P 500 (SPY ETF)', symbols: ['SPY'] },
+  { key: 'DIA', label: 'Dow Jones (DIA ETF)', symbols: ['DIA'] },
+  { key: 'IWM', label: 'Russell 2000 (IWM ETF)', symbols: ['IWM'] },
+];
+
 export async function indexSnapshot() {
+  if (PLAN === 'free') {
+    const { map, meta } = await quotes(FREE_INDEX_DEFS.map((d) => d.symbols[0]));
+    return { meta, items: FREE_INDEX_DEFS.map((d) => ({ def: d, quote: map.get(d.symbols[0]) || null })) };
+  }
   const [idx, etf] = await Promise.allSettled([call('batch-index-quotes'), call('batch-quote', { symbols: 'QQQ' })]);
   const pool = new Map();
   const errors = [];
@@ -60,6 +86,10 @@ export async function indexSnapshot() {
 let constituentCache = null;
 export async function nasdaq100() {
   if (constituentCache) return constituentCache;
+  if (PLAN === 'free') {
+    constituentCache = { rows: FREE_UNIVERSE.map(([symbol, name]) => ({ symbol, name, sector: null, subSector: null })), meta: null };
+    return constituentCache;
+  }
   const res = await call('nasdaq-constituent');
   const rows = (Array.isArray(res.data) ? res.data : []).filter((r) => r.symbol);
   if (!rows.length) throw Object.assign(new Error('empty'), { code: 'empty' });

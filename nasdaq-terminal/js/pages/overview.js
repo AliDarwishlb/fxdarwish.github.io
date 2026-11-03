@@ -3,8 +3,9 @@ import { indexSnapshot, universeQuotes, breadth, sectorPerformance } from '../se
 import { fmt, fmtPct, fmtSigned, fmtCompact, cls, esc, logoUrl, heatColor, isNum } from '../core/format.js';
 import { skeleton, errorState, emptyState, sourceTag, wireRetry, sortableTable, toast, h } from '../ui/components.js';
 import { watchlists } from '../core/store.js';
+import { PLAN, REFRESH_MS } from '../config.js';
 
-const REFRESH_MS = 30000;
+const FREE = PLAN === 'free';
 
 function indexTile({ def, quote: q }) {
   if (!q) return `<div class="card tile na"><div class="l"><span>${esc(def.label)}</span></div><div class="p">Unavailable</div><div class="r">Symbol not returned by provider</div></div>`;
@@ -30,7 +31,7 @@ export default {
   id: 'overview',
   mount(el, ctx) {
     el.innerHTML = `
-      <div class="page-head"><h1>Market Overview</h1><p>Indices, NASDAQ-100 breadth, sectors and movers.</p><div class="right" id="ovStamp"></div></div>
+      <div class="page-head"><h1>Market Overview</h1><p>${FREE ? 'Free data plan: ETF stand-ins for indices and a fixed sample of 8 large NASDAQ stocks; refreshes every 15 min.' : 'Indices, NASDAQ-100 breadth, sectors and movers.'}</p><div class="right" id="ovStamp"></div></div>
       <section class="grid g-idx" id="ovIdx">${Array.from({ length: 8 }, () => `<div class="card tile"><div class="skel" style="width:60%"></div><div class="skel" style="height:22px"></div><div class="skel" style="width:40%"></div></div>`).join('')}</section>
       <section class="grid g-2">
         <div class="card" id="ovBreadth"><h2>Market breadth · NASDAQ-100</h2>${skeleton(3)}</div>
@@ -62,17 +63,17 @@ export default {
         if (!u.rows.length) throw Object.assign(new Error('empty'), { code: 'empty' });
         const b = breadth(u.rows);
         const pa = (b.adv / b.total) * 100, pd = (b.dec / b.total) * 100;
-        $('ovBreadth').innerHTML = `<h2>Market breadth · NASDAQ-100<span class="src">${sourceTag(u.meta, ctx.tz())}</span></h2>
+        $('ovBreadth').innerHTML = `<h2>${FREE ? 'Market breadth · large-cap sample' : 'Market breadth · NASDAQ-100'}<span class="src">${sourceTag(u.meta, ctx.tz())}</span></h2>
           <div class="breadth">
             <div class="bar"><i class="a" style="width:${pa}%"></i><i class="u" style="width:${100 - pa - pd}%"></i><i class="d" style="width:${pd}%"></i></div>
             <div class="bar-row"><span class="pos num">${b.adv} advancing</span><span class="mut num">${b.unch} unch.</span><span class="neg num">${b.dec} declining</span></div>
-            <div class="mut" style="font-size:11px">Computed from ${b.total} of ${u.universeSize} NASDAQ-100 constituents with a quote. Not exchange-wide breadth.</div>
+            <div class="mut" style="font-size:11px">${FREE ? `Computed from a fixed sample of ${b.total} large NASDAQ-100 stocks, not the full index. Upgrade the data plan for full NASDAQ-100 breadth.` : `Computed from ${b.total} of ${u.universeSize} NASDAQ-100 constituents with a quote. Not exchange-wide breadth.`}</div>
           </div>`;
         const sorted = [...u.rows].sort((a, c) => c.q.pct - a.q.pct);
         $('ovMovers').innerHTML = '';
-        $('ovMovers').append(moversTable(sorted.slice(0, 8), 'Top Gainers', ctx.tz(), u.meta), moversTable(sorted.slice(-8).reverse(), 'Top Losers', ctx.tz(), u.meta));
+        $('ovMovers').append(moversTable(sorted.slice(0, FREE ? 4 : 8), 'Top Gainers', ctx.tz(), u.meta), moversTable(sorted.slice(FREE ? -4 : -8).reverse(), 'Top Losers', ctx.tz(), u.meta));
         const heatRows = [...u.rows].sort((a, c) => (c.q.marketCap || 0) - (a.q.marketCap || 0));
-        $('ovHeat').innerHTML = `<h2>NASDAQ-100 heatmap<span class="src">ordered by market cap · ${sourceTag(u.meta, ctx.tz())}</span></h2><div class="heat">${heatRows.map((r) => `<div class="hm" data-s="${esc(r.symbol)}" style="background:${heatColor(r.q.pct)}" title="${esc(r.name)} · ${fmt(r.q.price)}"><img src="${logoUrl(r.symbol)}" alt="" loading="lazy" onerror="this.style.display='none'"><b>${esc(r.symbol)}</b><span class="num">${fmtPct(r.q.pct)}</span></div>`).join('')}</div>`;
+        $('ovHeat').innerHTML = `<h2>${FREE ? 'Large-cap sample heatmap' : 'NASDAQ-100 heatmap'}<span class="src">ordered by market cap · ${sourceTag(u.meta, ctx.tz())}</span></h2><div class="heat">${heatRows.map((r) => `<div class="hm" data-s="${esc(r.symbol)}" style="background:${heatColor(r.q.pct)}" title="${esc(r.name)} · ${fmt(r.q.price)}"><img src="${logoUrl(r.symbol)}" alt="" loading="lazy" onerror="this.style.display='none'"><b>${esc(r.symbol)}</b><span class="num">${fmtPct(r.q.pct)}</span></div>`).join('')}</div>`;
         $('ovHeat').querySelectorAll('.hm').forEach((t) => t.addEventListener('click', () => {
           const s = t.dataset.s; const row = u.rows.find((r) => r.symbol === s);
           toast(`<b>${esc(s)}</b> ${esc(row.name)}<br><span class="num">${fmt(row.q.price)} · ${fmtPct(row.q.pct)}</span>`, { action: watchlists.has(s) ? undefined : { label: 'Add to watchlist', run: () => watchlists.add(s) } });
