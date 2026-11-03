@@ -1,0 +1,4 @@
+name = "fxd-fmp"
+main = "fmp-proxy.js"
+compatibility_date = "2026-11-01"
+# Secret (not stored here):  wrangler secret put FMP_API_KEY
