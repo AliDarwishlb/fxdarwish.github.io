@@ -14,3 +14,6 @@ export const FREE_UNIVERSE = [
   ['AMD', 'AMD'], ['NFLX', 'Netflix'],
 ];
 export const REFRESH_MS = PLAN === 'free' ? 15 * 60 * 1000 : 30 * 1000;
+
+// Live News Worker (public RSS feeds, no key). Deploy from nasdaq-terminal/news-worker.
+export const NEWS_BASE = 'https://fxd-news.ali-darwish-lb.workers.dev';
