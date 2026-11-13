@@ -100,9 +100,15 @@
   body.ready .wrap > *:nth-child(11){transition-delay:.75s}
   body.ready .wrap > *:nth-child(12){transition-delay:.82s}
   @media (prefers-reduced-motion:reduce){.wrap > *{opacity:1;transform:none;transition:none}}
+
+  /* floating 3D hero mark behind the links */
+  #bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;pointer-events:none;opacity:0;transition:opacity 1.4s ease .4s}
+  body.ready #bg{opacity:.6}
+  .wrap{position:relative;z-index:1}
 </style>
 </head>
 <body>
+  <canvas id="bg"></canvas>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
     <linearGradient id="lkg" x1="0" y1="1" x2="1" y2="0">
       <stop offset="0" stop-color="#0a2c4d"/><stop offset=".55" stop-color="#2d6be4"/><stop offset="1" stop-color="#5b8def"/>
@@ -199,5 +205,116 @@
 
     <div class="footer">© FXDARWISH · <a href="https://fxdarwish.com">fxdarwish.com</a></div>
   </div>
+
+<script defer src="../three.min.js"></script>
+<script>
+(function(){
+  var reduced=false;try{reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+  var canvas=document.getElementById('bg');
+  var VW=function(){return document.documentElement.clientWidth||window.innerWidth;};
+  var VH=function(){return window.innerHeight;};
+  var scene,camera,renderer,mark,clock,BASE=0.0108,visible=true,tmx=0,tmy=0,mx=0,my=0;
+
+  function degrade(){ if(canvas) canvas.style.display='none'; }
+
+  (function waitForThree(){
+    var waited=0;
+    (function tick(){
+      if(typeof THREE!=='undefined'){ boot(); return; }
+      waited+=60; if(waited>=4500){ degrade(); return; }
+      setTimeout(tick,60);
+    })();
+  })();
+
+  function boot(){
+    try{
+      renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+      if(THREE.ACESFilmicToneMapping){renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0;}
+      if('outputEncoding' in renderer && THREE.sRGBEncoding){renderer.outputEncoding=THREE.sRGBEncoding;}
+      init(); animate();
+    }catch(e){ renderer=null; degrade(); }
+  }
+
+  function fitCamera(){
+    var portrait=VH()>VW();
+    camera.position.set(0,0,portrait?5.7:4.4);
+    camera.lookAt(0,0,0);
+    camera.aspect=VW()/VH();
+    camera.updateProjectionMatrix();
+  }
+
+  function init(){
+    scene=new THREE.Scene();
+    renderer.setClearColor(0x000000,0);
+    camera=new THREE.PerspectiveCamera(42,VW()/VH(),0.1,100);
+    fitCamera();
+    renderer.setSize(VW(),VH());
+
+    var envTex=null;
+    try{
+      var pmrem=new THREE.PMREMGenerator(renderer);
+      var envScene=new THREE.Scene();
+      envScene.background=new THREE.Color(0x0a1226);
+      var light=function(col,mul,x,y,z,sx,sy){
+        var m=new THREE.Mesh(new THREE.PlaneGeometry(sx,sy),new THREE.MeshBasicMaterial({color:new THREE.Color(col).multiplyScalar(mul),side:THREE.DoubleSide}));
+        m.position.set(x,y,z); m.lookAt(0,0,0); envScene.add(m);
+      };
+      light(0xeaf1ff,3.0,-7,5,7,9,16);
+      light(0xbcd2ff,1.6,8,3,6,7,12);
+      light(0xffffff,2.4,0,9,-4,12,5);
+      light(0x2d6be4,1.3,-2,-7,-6,14,6);
+      light(0x7f9dff,0.9,6,-4,8,6,8);
+      envTex=pmrem.fromScene(envScene,0.04).texture;
+      scene.environment=envTex;
+      pmrem.dispose();
+    }catch(e){ envTex=null; }
+
+    scene.add(new THREE.AmbientLight(0x334766,0.3));
+    var key=new THREE.DirectionalLight(0xe6eeff,0.9); key.position.set(5,7,8); scene.add(key);
+    var rim=new THREE.DirectionalLight(0x3a6bd0,0.55); rim.position.set(-6,-2,-5); scene.add(rim);
+
+    var CX=204.875,CY=540;
+    function shape(a){
+      var sh=new THREE.Shape(); sh.moveTo(a[0]-CX,CY-a[1]);
+      for(var i=2;i<a.length;i+=2) sh.lineTo(a[i]-CX,CY-a[i+1]);
+      sh.closePath(); return sh;
+    }
+    var P1=[242.84,489.4,165.74,489.4,165.74,564.42,115.73,514.41,115.73,439.39,192.83,439.39];
+    var P2=[294.02,540.58,294.02,640.61,193.93,640.61,143.92,590.6,244.04,590.6,244.04,490.59];
+    var ext={depth:44,bevelEnabled:true,bevelThickness:7,bevelSize:5,bevelSegments:6,curveSegments:6,steps:1};
+    var mat=new THREE.MeshPhysicalMaterial({color:0x16294c,metalness:1.0,roughness:0.19,clearcoat:1.0,clearcoatRoughness:0.22,envMap:envTex,envMapIntensity:1.3,side:THREE.FrontSide});
+    var g1=new THREE.ExtrudeGeometry(shape(P1),ext); g1.translate(0,0,-22); g1.computeVertexNormals();
+    var g2=new THREE.ExtrudeGeometry(shape(P2),ext); g2.translate(0,0,-22); g2.computeVertexNormals();
+    mark=new THREE.Group();
+    mark.add(new THREE.Mesh(g1,mat),new THREE.Mesh(g2,mat));
+    mark.scale.setScalar(BASE);
+    scene.add(mark);
+    clock=new THREE.Clock();
+  }
+
+  window.addEventListener('pointermove',function(e){ if(e.pointerType==='touch')return; tmx=(e.clientX/window.innerWidth-0.5); tmy=(e.clientY/window.innerHeight-0.5); });
+  document.addEventListener('visibilitychange',function(){ visible=!document.hidden; if(visible&&clock)clock.getDelta(); });
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if(!visible||!renderer||!mark) return;
+    var t=clock.getElapsedTime();
+    mx+=(tmx-mx)*0.05; my+=(tmy-my)*0.05;
+    if(!reduced){ mark.rotation.y=t*0.18+mx*0.7; mark.position.y=Math.sin(t*0.9)*0.05; }
+    else { mark.rotation.y=mx*0.7; }
+    mark.rotation.x=my*0.4+(reduced?0:Math.sin(t*0.6)*0.05);
+    mark.scale.setScalar(BASE*(reduced?1:(1+Math.sin(t*1.1)*0.02)));
+    renderer.render(scene,camera);
+  }
+
+  var lastW=VW();
+  window.addEventListener('resize',function(){
+    var nw=VW(); if(nw===lastW && VH()<lastW) { /* mobile URL-bar resize */ }
+    lastW=nw;
+    if(renderer){ fitCamera(); renderer.setSize(VW(),VH()); }
+  });
+})();
+</script>
 </body>
 </html>
