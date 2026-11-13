@@ -8,6 +8,8 @@
 <meta property="og:site_name" content="FXDARWISH">
 <meta property="og:title" content="FXDARWISH · Links">
 <link rel="icon" type="image/png" href="../favicon1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=JetBrains+Mono:wght@500;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   :root{
@@ -62,9 +64,87 @@
 
   .footer{ text-align:center; margin-top:26px; font-size:11px; color:var(--muted); letter-spacing:.5px; }
   .footer a{ color:var(--blue-soft); text-decoration:none; font-weight:600; }
+
+  /* ── LOADER (same intro as fxdarwish.com) ── */
+  #loader{position:fixed;inset:0;z-index:200;background:#070d20;display:flex;align-items:center;justify-content:center;transition:opacity .9s ease,visibility .9s}
+  #loader.done{opacity:0;visibility:hidden}
+  .ld-inner{width:min(80vw,400px);text-align:center}
+  .ld-mark{width:74px;height:auto;display:block;margin:0 auto 26px;overflow:visible;animation:ldbreath 3s ease-in-out 2.4s infinite}
+  .ld-mark polygon{stroke-width:2.5;stroke-linejoin:round;stroke-dasharray:560;stroke-dashoffset:560;fill-opacity:0;animation:lddraw 1.5s ease .2s forwards, ldfill 1s ease 1.4s forwards}
+  .ld-mark .ldm1{fill:url(#lkg);stroke:#5b8def}
+  .ld-mark .ldm2{fill:#6f9bff;stroke:#9fc0ff}
+  @keyframes lddraw{to{stroke-dashoffset:0}}
+  @keyframes ldfill{from{fill-opacity:0}to{fill-opacity:1;stroke-opacity:0}}
+  @keyframes ldbreath{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+  @keyframes ldup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .ld-logo{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.44em;text-transform:uppercase;color:#f4f6fc;margin-bottom:9px;padding-left:.44em;opacity:0;animation:ldup .6s ease .5s forwards}
+  .ld-tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:#646c8a;margin-bottom:34px;opacity:0;animation:ldup .6s ease 1.3s forwards}
+  .ld-row{display:flex;align-items:baseline;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#646c8a;font-weight:600;margin-bottom:13px}
+  .ld-pct{font-size:12px;color:#f4f6fc}
+  .ld-bar{height:2px;background:rgba(255,255,255,.10);position:relative;overflow:hidden;border-radius:2px}
+  .ld-bar span{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#2d6be4,#46d3a1);transition:width .2s ease}
+
+  /* page reveal after loader */
+  .wrap > *{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  body.ready .wrap > *{opacity:1;transform:none}
+  body.ready .wrap > *:nth-child(1){transition-delay:.05s}
+  body.ready .wrap > *:nth-child(2){transition-delay:.12s}
+  body.ready .wrap > *:nth-child(3){transition-delay:.19s}
+  body.ready .wrap > *:nth-child(4){transition-delay:.26s}
+  body.ready .wrap > *:nth-child(5){transition-delay:.33s}
+  body.ready .wrap > *:nth-child(6){transition-delay:.40s}
+  body.ready .wrap > *:nth-child(7){transition-delay:.47s}
+  body.ready .wrap > *:nth-child(8){transition-delay:.54s}
+  body.ready .wrap > *:nth-child(9){transition-delay:.61s}
+  body.ready .wrap > *:nth-child(10){transition-delay:.68s}
+  body.ready .wrap > *:nth-child(11){transition-delay:.75s}
+  body.ready .wrap > *:nth-child(12){transition-delay:.82s}
+  @media (prefers-reduced-motion:reduce){.wrap > *{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <linearGradient id="lkg" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#0a2c4d"/><stop offset=".55" stop-color="#2d6be4"/><stop offset="1" stop-color="#5b8def"/>
+    </linearGradient>
+  </defs></svg>
+  <div id="loader">
+    <div class="ld-inner">
+      <svg class="ld-mark" viewBox="110 435 188 211" aria-hidden="true">
+        <polygon class="ldm1" points="242.84 489.4 165.74 489.4 165.74 564.42 115.73 514.41 115.73 439.39 192.83 439.39 242.84 489.4"/>
+        <polygon class="ldm2" points="294.02 540.58 294.02 640.61 193.93 640.61 143.92 590.6 244.04 590.6 244.04 490.59 294.02 540.58"/>
+      </svg>
+      <div class="ld-logo">FXDARWISH</div>
+      <div class="ld-tag">Trading with Precision</div>
+      <div class="ld-row"><span id="ld-status">Loading assets</span><span class="ld-pct" id="ld-pct">0%</span></div>
+      <div class="ld-bar"><span id="ld-fill"></span></div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var fill=document.getElementById('ld-fill'),pctEl=document.getElementById('ld-pct'),
+        statusEl=document.getElementById('ld-status'),loader=document.getElementById('loader');
+    if(!loader){document.body.classList.add('ready');return;}
+    var reduced=false;try{reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+    var pct=0,done=false;
+    function finish(){
+      if(done)return;done=true;
+      if(fill)fill.style.width='100%';if(pctEl)pctEl.textContent='100%';
+      loader.classList.add('done');document.body.classList.add('ready');
+    }
+    if(reduced){setTimeout(finish,300);return;}
+    var iv=setInterval(function(){
+      pct+=Math.random()*11+6;
+      if(pct>=100){pct=100;clearInterval(iv);}
+      if(fill)fill.style.width=pct+'%';
+      if(pctEl)pctEl.textContent=Math.floor(pct)+'%';
+      if(statusEl)statusEl.textContent=pct<45?'Loading assets':(pct<80?'Preparing':'Ready');
+      if(pct>=100)setTimeout(finish,180);
+    },90);
+    setTimeout(finish,3000);
+  })();
+  </script>
+
   <div class="wrap">
     <div class="logo"><img src="fxdarwish-logo.png" alt="FXDARWISH"></div>
     <div class="tag">@fxdarwish</div>
