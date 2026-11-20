@@ -271,6 +271,11 @@ function select(a){
 /* ---------- LIVE TASKS (Kareem, Baha) ---------- */
 var WORKER_URL='https://fxd-office.ali-darwish-lb.workers.dev';
 var LIVE={
+ laila:{en:['Outline module 3 for the 9-seat cohort','Launch checklist for registration opening','Draft an FAQ for prospects'],ar:['مخطط المحور 3 لدفعة الـ 9 مقاعد','قائمة تجهيز لفتح التسجيل','صياغة أسئلة شائعة للمهتمين']},
+ noor:{en:['Template: pre-NY-session brief','10 topic ideas my audience will care about','Questions traders ask about liquidity'],ar:['قالب: ملخص ما قبل جلسة نيويورك','10 أفكار مواضيع تهم جمهوري','أسئلة يسألها المتداولون عن السيولة']},
+ ramy:{en:['Organise my task list (paste it here)','Weekly review template','What should I prioritise this week?'],ar:['رتّب قائمة مهامي (الصقها هنا)','قالب مراجعة أسبوعية','ما الأولويات هذا الأسبوع؟']},
+ sara:{en:['Edit plan for a 30s Reel (paste transcript)','Caption timing for an Arabic and English Reel','Export checklist for Instagram Reels'],ar:['خطة مونتاج لريل 30 ثانية (الصق النص)','توقيت كابشن عربي وإنجليزي','قائمة تصدير لريلز انستغرام']},
+
  kareem:{en:['Reel script: liquidity sweep in 30s','Carousel: 3 mistakes after a CHoCH','Captions for last live session'],ar:['سكريبت ريل: الـ liquidity sweep في 30 ثانية','كاروسيل: 3 أخطاء بعد الـ CHoCH','كابشن لآخر جلسة لايف']},
  baha:{en:['Reply: price of the course?','Reply: when does registration open?','Reply: can I join the free community?'],ar:['رد: كم سعر الكورس؟','رد: متى يفتح التسجيل؟','رد: هل أقدر أنضم للمجتمع المجاني؟']}
 };
@@ -304,7 +309,7 @@ function mountTasks(a){
   .then(function(o){
    if(o.ok&&o.j.result){var h=hist(a.id);h.unshift({t:task,r:o.j.result,ts:new Date().toLocaleString()});lsSet('fxd_hist_'+a.id,JSON.stringify(h.slice(0,10)));draw();a.bub.textContent=ar?'خلصت. النتيجة في اللوحة.':'Done. Result is in the panel.';}
    else{if(o.s===401){try{localStorage.removeItem('fxd_pin');}catch(e){}err.textContent=ar?'الرمز السري غير صحيح.':'Wrong PIN. Try again.';}
-    else err.textContent=(ar?'تعذر التنفيذ: ':'Could not run the task: ')+(o.j&&o.j.error||o.s);a.bub.classList.remove('on');}
+    else err.textContent=(ar?'تعذر التنفيذ: ':'Could not run the task: ')+(o.j&&(o.j.detail||o.j.error)||o.s);a.bub.classList.remove('on');}
   }).catch(function(){err.textContent=ar?'تعذر الوصول للخادم. هل تم نشر الـ Worker؟':'Could not reach the server. Is the Worker deployed?';a.bub.classList.remove('on');})
   .then(function(){go.disabled=false;go.textContent=ar?'أرسل للوكيل':'Send to '+a.en.n;setTimeout(function(){a.bub.classList.remove('on');},4000);});
  };
