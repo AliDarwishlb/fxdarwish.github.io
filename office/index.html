@@ -38,6 +38,17 @@ button.on{background:var(--blue);border-color:var(--blue2)}
 .x{position:absolute;top:12px;inset-inline-end:14px;padding:6px 10px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chips span{font:500 10px 'JetBrains Mono',monospace;background:#2d6be41f;border:1px solid #2d6be455;padding:4px 8px;border-radius:99px}
+
+.tk{margin-top:14px;border-top:1px solid #2d6be433;padding-top:12px}
+.tk textarea,.tk input{width:100%;background:#0a1128;color:var(--ink);border:1px solid #2d6be455;border-radius:10px;padding:10px;font:inherit;font-size:13px;resize:vertical;min-height:44px}
+.tk textarea{min-height:84px}
+.tk .row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.tk .go{background:var(--blue);border-color:var(--blue2);flex:1}
+.tk .q{font-size:11px;padding:6px 9px}
+.res{background:#0a1128;border:1px solid #2d6be433;border-radius:10px;padding:10px;margin-top:8px}
+.res pre{white-space:pre-wrap;word-break:break-word;font:inherit;font-size:13px;line-height:1.55;color:#dbe4fb}
+.res small{display:block;color:var(--mut);font:500 10px 'JetBrains Mono',monospace;margin-bottom:6px}
+.err{color:#ff8a9b;font-size:12px;margin-top:6px}
 #hint{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 70px);transform:translateX(-50%);font-size:11px;color:var(--mut);background:#091124cc;padding:6px 12px;border-radius:99px;pointer-events:none;transition:opacity .6s}
 #note{position:fixed;top:48px;left:0;right:0;text-align:center;font-size:10px;color:var(--mut);pointer-events:none}
 </style>
@@ -252,9 +263,51 @@ function select(a){
  selected=a;var U=UI[lang];var h='';
  if(a.id==='ali'){h='<h2>'+(lang==='en'?'Ali':'علي')+'</h2><div class="role">'+U.ali+'</div><p>'+U.alid+'</p>';}
  else{var L=a[lang];h='<h2>'+L.n+'</h2><div class="role">'+L.r+'</div><p>'+L.d+'</p><h3>'+U.now+'</h3><ul>'+L.t.map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul><h3>'+U.skills+'</h3><div class="chips">'+L.sk.map(function(s){return '<span>'+s+'</span>';}).join('')+'</div>';}
- document.getElementById('pc').innerHTML=h;document.getElementById('panel').classList.add('open');
+ document.getElementById('pc').innerHTML=h;if(LIVE[a.id])mountTasks(a);document.getElementById('panel').classList.add('open');
  if(mode!=='meet'&&mode!=='plan'){camT.tx=a.g.position.x;camT.tz=a.g.position.z+1;camT.dist=17;camT.pitch=.35;camT.yaw=0;}
  AGENTS.concat([ALI]).forEach(function(o){o.lab.classList.toggle('sel',o===a);});
+}
+
+/* ---------- LIVE TASKS (Kareem, Baha) ---------- */
+var WORKER_URL='https://fxd-office.ali-darwish-lb.workers.dev';
+var LIVE={
+ kareem:{en:['Reel script: liquidity sweep in 30s','Carousel: 3 mistakes after a CHoCH','Captions for last live session'],ar:['سكريبت ريل: الـ liquidity sweep في 30 ثانية','كاروسيل: 3 أخطاء بعد الـ CHoCH','كابشن لآخر جلسة لايف']},
+ baha:{en:['Reply: price of the course?','Reply: when does registration open?','Reply: can I join the free community?'],ar:['رد: كم سعر الكورس؟','رد: متى يفتح التسجيل؟','رد: هل أقدر أنضم للمجتمع المجاني؟']}
+};
+function esc(t){return String(t).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function hist(id){try{return JSON.parse(lsGet('fxd_hist_'+id)||'[]');}catch(e){return [];}}
+function mountTasks(a){
+ var ar=lang==='ar',pc=document.getElementById('pc');
+ var d=document.createElement('div');d.className='tk';
+ d.innerHTML='<h3 style="margin-top:0">'+(ar?'أعطِ مهمة':'Give a task')+'</h3>'+
+  '<div class="row">'+LIVE[a.id][lang].map(function(q,i){return '<button class="q" data-i="'+i+'">'+esc(q)+'</button>';}).join('')+'</div>'+
+  '<textarea id="tkIn" placeholder="'+(ar?'اكتب المهمة هنا…':'Type the task here…')+'"></textarea>'+
+  '<div class="row"><button class="go" id="tkGo">'+(ar?'أرسل للوكيل':'Send to '+a.en.n)+'</button></div>'+
+  '<div class="err" id="tkErr"></div><div id="tkRes"></div>';
+ pc.appendChild(d);
+ var inp=d.querySelector('#tkIn'),err=d.querySelector('#tkErr'),res=d.querySelector('#tkRes'),go=d.querySelector('#tkGo');
+ d.querySelectorAll('.q').forEach(function(b){b.onclick=function(){inp.value=LIVE[a.id][lang][+b.dataset.i];};});
+ function draw(){res.innerHTML='';hist(a.id).forEach(function(h,i){var r=document.createElement('div');r.className='res';r.innerHTML='<small>'+esc(h.ts)+' · '+esc(h.t.slice(0,60))+'</small><pre>'+esc(h.r)+'</pre><div class="row"><button class="q">'+(ar?'نسخ':'Copy')+'</button></div>';
+  r.querySelector('button').onclick=function(){try{navigator.clipboard.writeText(h.r);this.textContent=ar?'تم':'Copied';}catch(e){this.textContent='—';}};res.appendChild(r);});}
+ draw();
+ go.onclick=function(){
+  var task=inp.value.trim();if(!task)return;
+  var pin=lsGet('fxd_pin');
+  if(!pin){err.innerHTML='';var box=document.getElementById('pinBox');if(!box){box=document.createElement('input');box.id='pinBox';box.type='password';box.placeholder=ar?'أدخل الرمز السري':'Enter your office PIN';box.style.marginTop='8px';go.parentNode.parentNode.insertBefore(box,go.parentNode);box.focus();return;}
+   pin=box.value.trim();if(!pin)return;lsSet('fxd_pin',pin);}
+  go.disabled=true;go.textContent=ar?'يعمل…':'Working…';err.textContent='';
+  a.bub.textContent=ar?'أشتغل على المهمة…':'Working on it…';a.bub.classList.add('on');
+  fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','X-Office-Pin':pin},body:JSON.stringify({agent:a.id,task:task})})
+  .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j,s:r.status};});})
+  .then(function(o){
+   if(o.ok&&o.j.result){var h=hist(a.id);h.unshift({t:task,r:o.j.result,ts:new Date().toLocaleString()});lsSet('fxd_hist_'+a.id,JSON.stringify(h.slice(0,10)));draw();a.bub.textContent=ar?'خلصت. النتيجة في اللوحة.':'Done. Result is in the panel.';}
+   else{if(o.s===401){try{localStorage.removeItem('fxd_pin');}catch(e){}err.textContent=ar?'الرمز السري غير صحيح.':'Wrong PIN. Try again.';}
+    else err.textContent=(ar?'تعذر التنفيذ: ':'Could not run the task: ')+(o.j&&o.j.error||o.s);a.bub.classList.remove('on');}
+  }).catch(function(){err.textContent=ar?'تعذر الوصول للخادم. هل تم نشر الـ Worker؟':'Could not reach the server. Is the Worker deployed?';a.bub.classList.remove('on');})
+  .then(function(){go.disabled=false;go.textContent=ar?'أرسل للوكيل':'Send to '+a.en.n;setTimeout(function(){a.bub.classList.remove('on');},4000);});
+ };
 }
 function closePanel(){selected=null;document.getElementById('panel').classList.remove('open');AGENTS.concat([ALI]).forEach(function(o){o.lab.classList.remove('sel');});if(mode==='view')homeCam();}
 document.getElementById('px').onclick=closePanel;
